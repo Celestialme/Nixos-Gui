@@ -1,0 +1,1811 @@
+[
+    {
+        "boolean": 3100
+    },
+    {
+        "string": 2493
+    },
+    {
+        "null or string": 1341
+    },
+    {
+        "list of strings": 773
+    },
+    {
+        "signed integer": 576
+    },
+    {
+        "strings concatenated with \"\\n\"": 511
+    },
+    {
+        "path": 435
+    },
+    {
+        "null or path": 413
+    },
+    {
+        "package": 403
+    },
+    {
+        "16 bit unsigned integer; between 0 and 65535 (both inclusive)": 284
+    },
+    {
+        "attribute set of submodules": 206
+    },
+    {
+        "null or signed integer": 206
+    },
+    {
+        "list of string matching the pattern [a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)s": 177
+    },
+    {
+        "null or boolean": 164
+    },
+    {
+        "list of submodules": 106
+    },
+    {
+        "null or submodule": 101
+    },
+    {
+        "attribute set of strings": 97
+    },
+    {
+        "list of packages": 96
+    },
+    {
+        "list of paths": 81
+    },
+    {
+        "attribute set": 80
+    },
+    {
+        "null or list of strings": 72
+    },
+    {
+        "attribute set of systemd options": 62
+    },
+    {
+        "null or strings concatenated with \"\\n\"": 55
+    },
+    {
+        "JSON value": 50
+    },
+    {
+        "submodule": 41
+    },
+    {
+        "null or list of submodules": 33
+    },
+    {
+        "null or attribute set": 31
+    },
+    {
+        "strings concatenated with \" \"": 27
+    },
+    {
+        "list of attribute sets": 26
+    },
+    {
+        "YAML value": 26
+    },
+    {
+        "unsigned integer, meaning >=0": 24
+    },
+    {
+        "TOML value": 21
+    },
+    {
+        "null or 16 bit unsigned integer; between 0 and 65535 (both inclusive)": 20
+    },
+    {
+        "attribute set of attribute set of INI atom (null, bool, int, float or string)ss": 19
+    },
+    {
+        "positive integer, meaning >0": 18
+    },
+    {
+        "attribute set of string or signed integer or booleans": 16
+    },
+    {
+        "attribute set of anythings": 16
+    },
+    {
+        "null or attribute set of strings": 16
+    },
+    {
+        "list of unspecifieds": 15
+    },
+    {
+        "attribute set of paths": 14
+    },
+    {
+        "(optionally newline-terminated) single-line string": 14
+    },
+    {
+        "list of systemd options": 14
+    },
+    {
+        "attribute set of strings concatenated with \"\\n\"s": 11
+    },
+    {
+        "null or unsigned integer, meaning >=0": 11
+    },
+    {
+        "string or list of strings": 11
+    },
+    {
+        "list of 16 bit unsigned integer; between 0 and 65535 (both inclusive)s": 10
+    },
+    {
+        "function that evaluates to a(n) list of packages": 10
+    },
+    {
+        "null or positive integer, meaning >0": 10
+    },
+    {
+        "string or path": 9
+    },
+    {
+        "attribute set of attribute sets": 9
+    },
+    {
+        "null or YAML value": 9
+    },
+    {
+        "null or signed integer or string": 9
+    },
+    {
+        "attribute set of string or paths": 8
+    },
+    {
+        "null or one of \"debug\", \"info\", \"warn\", \"error\", \"fatal\"": 8
+    },
+    {
+        "strings concatenated with \"\\n\" or list of strings convertible to it": 7
+    },
+    {
+        "list of signed integers": 7
+    },
+    {
+        "non-empty list of strings": 7
+    },
+    {
+        "attribute set of packages": 7
+    },
+    {
+        "attribute set or strings concatenated with \"\\n\"": 6
+    },
+    {
+        "attribute set of null or strings": 6
+    },
+    {
+        "non-empty string": 6
+    },
+    {
+        "string or signed integer": 6
+    },
+    {
+        "strings concatenated with \",\"": 6
+    },
+    {
+        "null or one of \"yes\", \"no\"": 6
+    },
+    {
+        "string, not containing newlines or colons": 6
+    },
+    {
+        "null or string (with check: non-empty)": 5
+    },
+    {
+        "attribute set of list of stringss": 5
+    },
+    {
+        "null or package": 5
+    },
+    {
+        "list of string or signed integers": 5
+    },
+    {
+        "path or string": 5
+    },
+    {
+        "attribute set of attribute set of INI atom (null, bool, int, float or string) or a non-empty list of themss": 5
+    },
+    {
+        "null or non-empty string": 5
+    },
+    {
+        "attribute set of null or string or paths": 4
+    },
+    {
+        "list of attribute set of 16 bit unsigned integer; between 0 and 65535 (both inclusive)ss": 4
+    },
+    {
+        "attribute set of attribute set of stringss": 4
+    },
+    {
+        "null or strings concatenated with \",\"": 4
+    },
+    {
+        "one of \"http\", \"https\"": 4
+    },
+    {
+        "Concatenated string": 4
+    },
+    {
+        "attribute set of string, path, bool, or integers": 4
+    },
+    {
+        "16 bit unsigned integer; between 0 and 65535 (both inclusive) or value \"auto\" (singular enum) or submodule or list of 16 bit unsigned integer; between 0 and 65535 (both inclusive) or value \"auto\" (singular enum) or submodules": 4
+    },
+    {
+        "one of \"allow\", \"block\", \"reject\", \"keep\", \"apply-policy\"": 4
+    },
+    {
+        "null or string, not containing newlines or colons": 4
+    },
+    {
+        "attribute set of list of string or signed integer convertible to it or boolean convertible to its or string or signed integer convertible to it or boolean convertible to it convertible to its": 4
+    },
+    {
+        "list of string (with check: non-empty without trailing slash)s": 3
+    },
+    {
+        "string (with check: non-empty)": 3
+    },
+    {
+        "string (with check: non-empty without trailing slash)": 3
+    },
+    {
+        "list of string (with check: non-empty)s": 3
+    },
+    {
+        "attribute set of string or list of stringss": 3
+    },
+    {
+        "attribute set of unspecifieds": 3
+    },
+    {
+        "one of \"required\", \"requisite\", \"sufficient\", \"optional\"": 3
+    },
+    {
+        "attribute set of string or signed integer or boolean or list of stringss": 3
+    },
+    {
+        "settings option": 3
+    },
+    {
+        "integer between 0 and 3 (both inclusive)": 3
+    },
+    {
+        "one of \"cephx\", \"none\"": 3
+    },
+    {
+        "attribute set of boolean or signed integer or string or list of stringss": 3
+    },
+    {
+        "attribute set of JSON values": 3
+    },
+    {
+        "one of \"ignore\", \"poweroff\", \"reboot\", \"halt\", \"kexec\", \"suspend\", \"hibernate\", \"hybrid-sleep\", \"suspend-then-hibernate\", \"lock\"": 3
+    },
+    {
+        "one of \"debug\", \"info\", \"warn\", \"error\", \"fatal\"": 3
+    },
+    {
+        "attribute set of YAML values": 3
+    },
+    {
+        "attribute set of boolean or signed integer or strings": 3
+    },
+    {
+        "attribute set of Flat key-value files": 3
+    },
+    {
+        "list of single-line strings": 3
+    },
+    {
+        "null or single-line string": 3
+    },
+    {
+        "list of strings or string convertible to it": 3
+    },
+    {
+        "a floating point number in range [0, 1]": 3
+    },
+    {
+        "list of strings or string": 3
+    },
+    {
+        "one of \"default\", \"all\" or list of strings": 3
+    },
+    {
+        "null or one of \"replace\", \"keep\", \"drop\", \"hashmod\", \"labelmap\", \"labeldrop\", \"labelkeep\"": 3
+    },
+    {
+        "one of \"rocksdb\", \"nudb\"": 3
+    },
+    {
+        "attribute set of dataset/template optionss": 3
+    },
+    {
+        "16 bit unsigned integer; between 0 and 65535 (both inclusive) or value \"auto\" (singular enum) or list of 16 bit unsigned integer; between 0 and 65535 (both inclusive) or value \"auto\" (singular enum) or submodules": 3
+    },
+    {
+        "attribute set of signed integer or string or list of stringss": 3
+    },
+    {
+        "attribute set of null or string or path or packages": 3
+    },
+    {
+        "attribute set of string or list of strings or string convertible to its": 3
+    },
+    {
+        "attribute set of null or paths": 2
+    },
+    {
+        "signed integer or string": 2
+    },
+    {
+        "attribute set of path or strings": 2
+    },
+    {
+        "one of 0, 1, 2, 3, 4": 2
+    },
+    {
+        "list of package or paths": 2
+    },
+    {
+        "floating point number": 2
+    },
+    {
+        "null or submodule or string convertible to it": 2
+    },
+    {
+        "string matching the pattern ^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$": 2
+    },
+    {
+        "one of \"default\", \"disabled\", \"enabled\"": 2
+    },
+    {
+        "one of \"tun\", \"tap\"": 2
+    },
+    {
+        "attribute set of null or boolean or signed integer or strings": 2
+    },
+    {
+        "string or one of \"permanent\", \"preserve\", \"random\", \"stable\"": 2
+    },
+    {
+        "one of \"wpa_supplicant\", \"iwd\"": 2
+    },
+    {
+        "attribute set of string or signed integer or boolean or packages": 2
+    },
+    {
+        "attribute set of path or submodules": 2
+    },
+    {
+        "attribute set of string or signed integer or boolean or list of string or signed integer or booleanss": 2
+    },
+    {
+        "attribute set of string or signed integers": 2
+    },
+    {
+        "integer of at least 16 bits": 2
+    },
+    {
+        "one of \"core\", \"data\", \"fsize\", \"memlock\", \"nofile\", \"rss\", \"stack\", \"cpu\", \"nproc\", \"as\", \"maxlogins\", \"maxsyslogins\", \"priority\", \"locks\", \"sigpending\", \"msgqueue\", \"nice\", \"rtprio\"": 2
+    },
+    {
+        "one of \"-\", \"hard\", \"soft\"": 2
+    },
+    {
+        "list of string or submodules": 2
+    },
+    {
+        "file mode string": 2
+    },
+    {
+        "one of \"allow\", \"deny\"": 2
+    },
+    {
+        "null or attribute set of unspecifieds": 2
+    },
+    {
+        "attribute set of attribute set of unspecifiedss": 2
+    },
+    {
+        "one of \"no\", \"yes\"": 2
+    },
+    {
+        "integer between -20 and 19 (both inclusive)": 2
+    },
+    {
+        "integer between 1 and 100 (both inclusive)": 2
+    },
+    {
+        "one of \"sqlite3\", \"mysql\", \"postgres\"": 2
+    },
+    {
+        "null or list of paths": 2
+    },
+    {
+        "one of \"debug\", \"info\", \"warn\", \"error\"": 2
+    },
+    {
+        "null or attribute set of submodules": 2
+    },
+    {
+        "list of strings concatenated with \"\\n\"s": 2
+    },
+    {
+        "one of \"working\", \"standby\", \"maintenance\", \"poweroff\"": 2
+    },
+    {
+        "one of \"development\", \"production\"": 2
+    },
+    {
+        "one of \"info\", \"warning\", \"error\", \"debug\"": 2
+    },
+    {
+        "one of \"mysql\", \"pgsql\"": 2
+    },
+    {
+        "attribute set of boolean or signed integer or floating point number or strings": 2
+    },
+    {
+        "attribute set of signed integers": 2
+    },
+    {
+        "null or one of \"http\", \"https\"": 2
+    },
+    {
+        "list of attribute set of anythingss": 2
+    },
+    {
+        "one of \"hash\", \"regexp\", \"pcre\"": 2
+    },
+    {
+        "attribute set of boolean or string or list of stringss": 2
+    },
+    {
+        "one of \"logfmt\", \"json\"": 2
+    },
+    {
+        "null or path or string": 2
+    },
+    {
+        "null or attribute set of string or booleans": 2
+    },
+    {
+        "signed integer or value \"full\" (singular enum)": 2
+    },
+    {
+        "list of configured template names": 2
+    },
+    {
+        "Json value or lambda": 2
+    },
+    {
+        "null or one of \"none\", \"trap\", \"start\"": 2
+    },
+    {
+        "one of \"nginx\", \"none\"": 2
+    },
+    {
+        "8 bit unsigned integer; between 0 and 255 (both inclusive)": 2
+    },
+    {
+        "list of attribute set of YAML valuess": 2
+    },
+    {
+        "null or list of unsigned integer, meaning >=0s": 2
+    },
+    {
+        "one of \"hwmon\", \"atasmart\", \"tpacpi\", \"nvml\"": 2
+    },
+    {
+        "attribute set of boolean or string or signed integer or list of boolean or string or signed integerss": 2
+    },
+    {
+        "list of 16 bit unsigned integer; between 0 and 65535 (both inclusive) or submodules": 2
+    },
+    {
+        "null or floating point number or signed integer": 2
+    },
+    {
+        "null or list of packages": 2
+    },
+    {
+        "one of \"flat\", \"adaptive\"": 2
+    },
+    {
+        "null or one of \"none\", \"buttonareas\", \"clickfinger\"": 2
+    },
+    {
+        "one of \"twofinger\", \"edge\", \"button\", \"none\"": 2
+    },
+    {
+        "one of \"disabled\", \"enabled\", \"disabled-on-external-mouse\"": 2
+    },
+    {
+        "one of \"ASYNC\", \"SYNC_WRITE_METADATA\", \"SYNC_WRITE\", \"FDATASYNC\", \"FSYNC\"": 2
+    },
+    {
+        "attribute set of string or submodules": 2
+    },
+    {
+        "string matching the pattern [[:digit:]]{2}:[[:digit:]]{2}": 2
+    },
+    {
+        "list of package or strings": 2
+    },
+    {
+        "list of string, not containing newlines or colonss": 2
+    },
+    {
+        "path, not containing newlines or colons": 2
+    },
+    {
+        "list of (optionally newline-terminated) single-line strings": 2
+    },
+    {
+        "null or package or path, not containing newlines or colons": 2
+    },
+    {
+        "lazy attribute set of lazy attribute set of string or boolean or signed integer or list of string or boolean or signed integers or lazy attribute set of string or boolean or signed integer or list of string or boolean or signed integerssss": 2
+    },
+    {
+        "null or floating point number or string": 2
+    },
+    {
+        "submodule or path": 2
+    },
+    {
+        "one of \"magic\", \"extension\"": 1
+    },
+    {
+        "string or function that evaluates to a(n) string": 1
+    },
+    {
+        "list of string or paths": 1
+    },
+    {
+        "attribute set of sysctl option values": 1
+    },
+    {
+        "raw value": 1
+    },
+    {
+        "list of string, with spaces inside double quotess": 1
+    },
+    {
+        "one of \"uuid\", \"label\", \"provided\"": 1
+    },
+    {
+        "one of \"normal\", \"stretch\"": 1
+    },
+    {
+        "one of \"0\", \"1\", \"2\", \"auto\", \"max\", \"keep\"": 1
+    },
+    {
+        "string or positive integer, meaning >0": 1
+    },
+    {
+        "boolean or list of strings": 1
+    },
+    {
+        "Toplevel NixOS config": 1
+    },
+    {
+        "list of path or strings": 1
+    },
+    {
+        "null or Concatenated string": 1
+    },
+    {
+        "attribute set of Concatenated strings": 1
+    },
+    {
+        "one of \"libc\", \"graphene-hardened\", \"jemalloc\", \"mimalloc\", \"scudo\"": 1
+    },
+    {
+        "attribute set of non-empty list of pathss": 1
+    },
+    {
+        "one of \"none\", \"default\", \"light\", \"legacy\"": 1
+    },
+    {
+        "one of \"rgb\", \"bgr\", \"vrgb\", \"vbgr\", \"none\"": 1
+    },
+    {
+        "one of \"nvidia\", \"nouveau\"": 1
+    },
+    {
+        "one of \"auto\", \"bbswitch\", \"switcheroo\", \"none\"": 1
+    },
+    {
+        "list of submodule or path convertible to its": 1
+    },
+    {
+        "null or printable string without spaces, # and /": 1
+    },
+    {
+        "printable string without spaces, # and /": 1
+    },
+    {
+        "one of \"path\", \"wwn\"": 1
+    },
+    {
+        "one of \"C\", \"F\"": 1
+    },
+    {
+        "null or one of \"ibus\", \"fcitx\", \"fcitx5\", \"nabi\", \"uim\", \"hime\", \"kime\"": 1
+    },
+    {
+        "one of \"gtk\", \"gtk3\", \"gtk-systray\", \"gtk3-systray\", \"qt4\"": 1
+    },
+    {
+        "one of \"manual\", \"geoclue2\"": 1
+    },
+    {
+        "one of \"background\", \"any\", \"ipv4\", \"ipv6\", \"both\", \"if-carrier-up\"": 1
+    },
+    {
+        "boolean or one of \"strict\", \"loose\"": 1
+    },
+    {
+        "null or strings concatenated with \" \"": 1
+    },
+    {
+        "null or integer between 1 and 255 (both inclusive)": 1
+    },
+    {
+        "one of \"tun\", \"tap\", \"tun6\", \"tap6\"": 1
+    },
+    {
+        "signed integer or string matching the pattern [[:digit:]]+:[[:digit:]]+": 1
+    },
+    {
+        "one of \"dhclient\", \"dhcpcd\", \"internal\"": 1
+    },
+    {
+        "one of \"basic\", \"pre-down\", \"pre-up\"": 1
+    },
+    {
+        "one of \"default\", \"dnsmasq\", \"unbound\", \"systemd-resolved\", \"none\"": 1
+    },
+    {
+        "one of \"iptables\", \"nftables\", \"none\"": 1
+    },
+    {
+        "one of \"OFF\", \"ERR\", \"WARN\", \"INFO\", \"DEBUG\", \"TRACE\"": 1
+    },
+    {
+        "one of \"fou\", \"gue\"": 1
+    },
+    {
+        "integer between 1 and 255 (both inclusive)": 1
+    },
+    {
+        "list of one of \"WPA-PSK\", \"WPA-EAP\", \"IEEE8021X\", \"NONE\", \"WPA-NONE\", \"FT-PSK\", \"FT-EAP\", \"FT-EAP-SHA384\", \"WPA-PSK-SHA256\", \"WPA-EAP-SHA256\", \"SAE\", \"FT-SAE\", \"WPA-EAP-SUITE-B\", \"WPA-EAP-SUITE-B-192\", \"OSEN\", \"FILS-SHA256\", \"FILS-SHA384\", \"FT-FILS-SHA256\", \"FT-FILS-SHA384\", \"OWE\", \"DPP\"s": 1
+    },
+    {
+        "null or one of \"none\", \"fcsfail\", \"control\", \"otherbss\", \"cook\", \"active\"": 1
+    },
+    {
+        "one of \"managed\", \"ibss\", \"monitor\", \"mesh\", \"wds\"": 1
+    },
+    {
+        "one of \"other\", \"batch\", \"idle\"": 1
+    },
+    {
+        "one of \"best-effort\", \"idle\"": 1
+    },
+    {
+        "attribute set of Nix config atom (null, bool, int, float, str, path or package) or list of Nix config atom (null, bool, int, float, str, path or package)ss": 1
+    },
+    {
+        "signed integer or value \"auto\" (singular enum)": 1
+    },
+    {
+        "boolean or value \"relaxed\" (singular enum)": 1
+    },
+    {
+        "one of \"ssh\", \"ssh-ng\"": 1
+    },
+    {
+        "null or one of \"min_power\", \"max_performance\", \"medium_power\", \"med_power_with_dipm\"": 1
+    },
+    {
+        "integer between 0 and 32767 (both inclusive)": 1
+    },
+    {
+        "attribute set of attribute set of anythingss": 1
+    },
+    {
+        "strings concatenated with \"\\n\" or path or submodule": 1
+    },
+    {
+        "one of \"dynamic\", \"strict\", \"random\"": 1
+    },
+    {
+        "one of \"http\", \"socks4\", \"socks5\"": 1
+    },
+    {
+        "one of 10, 127, 224": 1
+    },
+    {
+        "one of \"emacs\", \"vi\"": 1
+    },
+    {
+        "null or string matching the pattern .{1,64}": 1
+    },
+    {
+        "string matching the pattern .{1,64}": 1
+    },
+    {
+        "one of \"left\", \"center\", \"right\"": 1
+    },
+    {
+        "one of \"top\", \"bottom\"": 1
+    },
+    {
+        "list of one of \"history\", \"completion\", \"match_prev_cmd\"s": 1
+    },
+    {
+        "list of one of \"main\", \"brackets\", \"pattern\", \"cursor\", \"root\", \"line\"s": 1
+    },
+    {
+        "one of \"gtk2\", \"gnome\"": 1
+    },
+    {
+        "one of \"adwaita\", \"adwaita-dark\", \"cleanlooks\", \"gtk2\", \"motif\", \"plastique\"": 1
+    },
+    {
+        "one of false, true, \"lock\"": 1
+    },
+    {
+        "one of \"silent\", \"printk\", \"panic\"": 1
+    },
+    {
+        "attribute set of submodule or signed integer convertible to its": 1
+    },
+    {
+        "one of \"safe\", \"secure\"": 1
+    },
+    {
+        "one of 1, 2, 3": 1
+    },
+    {
+        "one of 6, 7, 8": 1
+    },
+    {
+        "one of \"client\", \"challenge-response\"": 1
+    },
+    {
+        "one of \"tabrmd\", \"device\"": 1
+    },
+    {
+        "null or one of \"never\", \"cond\", \"always\"": 1
+    },
+    {
+        "list of one of \"none\", \"iponly\", \"strong\"s": 1
+    },
+    {
+        "one of \"proxy\", \"socks\", \"pop3p\", \"ftppr\", \"admin\", \"dnspr\", \"tcppm\", \"udppm\"": 1
+    },
+    {
+        "list of one of \"key\", \"rep\", \"rel\"s": 1
+    },
+    {
+        "null or one of \"ecdsa_256\", \"epid_linkable\", \"epid_unlinkable\"": 1
+    },
+    {
+        "null or one of \"default\", \"direct\", \"manual\"": 1
+    },
+    {
+        "attribute set of signed integer or boolean or strings": 1
+    },
+    {
+        "one of \"mail\", \"web\"": 1
+    },
+    {
+        "one of \"alert\", \"crit\", \"debug\", \"emerg\", \"err\", \"info\", \"notice\", \"warning\", 1, 2, 7, 0, 3, 6, 5, 4": 1
+    },
+    {
+        "one of \"first\", \"only\"": 1
+    },
+    {
+        "attribute set of submodules or list of attribute sets convertible to it": 1
+    },
+    {
+        "null or integer between 4 and 16384 (both inclusive)": 1
+    },
+    {
+        "null or unsigned integer, meaning >=0 or one of \"disable\", \"manual\" convertible to it": 1
+    },
+    {
+        "string matching the pattern [0-9a-f]+\\$[0-9a-f]{64}": 1
+    },
+    {
+        "one of \"storage\", \"pam\"": 1
+    },
+    {
+        "one of \"Open\", \"Closed\", \"Registered\"": 1
+    },
+    {
+        "attribute set of null or boolean or signed integer or 16 bit unsigned integer; between 0 and 65535 (both inclusive) or path or string or submodules": 1
+    },
+    {
+        "one of \"smtp\", \"sendmail\"": 1
+    },
+    {
+        "null or value \"tls\" (singular enum)": 1
+    },
+    {
+        "null or string matching the pattern [^/{}]+": 1
+    },
+    {
+        "string matching the pattern none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?": 1
+    },
+    {
+        "one of \"repokey\", \"keyfile\", \"repokey-blake2\", \"keyfile-blake2\", \"authenticated\", \"authenticated-blake2\", \"none\"": 1
+    },
+    {
+        "null or list of strings or string convertible to it": 1
+    },
+    {
+        "attribute set of signed integer or string matching the pattern [[:digit:]]+[Hdwmy]s": 1
+    },
+    {
+        "null or string matching the pattern [[:digit:].]+[KMGTP]?": 1
+    },
+    {
+        "attribute set of string or instances of this type recursivelys": 1
+    },
+    {
+        "one of \"idle\", \"best-effort\", \"realtime\"": 1
+    },
+    {
+        "list of one of \"info\", \"source\", \"target\", \"delete\", \"snapshot\", \"send\", \"receive\"s": 1
+    },
+    {
+        "one of \"circus\", \"command\", \"dummy\", \"openrc\", \"systemd\", \"sysv\"": 1
+    },
+    {
+        "one of 0, 1, 2, 3, 4, 5": 1
+    },
+    {
+        "attribute set of boolean or signed integers": 1
+    },
+    {
+        "list of attribute set of string or signed integerss": 1
+    },
+    {
+        "list of attribute set of stringss": 1
+    },
+    {
+        "floating point number or signed integer": 1
+    },
+    {
+        "one of \"iburst\", \"offline\"": 1
+    },
+    {
+        "one of \"bounce\", \"drop\", \"pass\"": 1
+    },
+    {
+        "attribute set of null or signed integer or string or boolean or floating point number or list of signed integer or string or boolean or floating point numbers or attribute set of signed integer or string or boolean or floating point number or list of signed integer or string or boolean or floating point numbersss": 1
+    },
+    {
+        "one of \"none\", \"password\"": 1
+    },
+    {
+        "one of \"etcd\", \"consul\", \"redis\", \"zookeeper\"": 1
+    },
+    {
+        "one of \"info\", \"debug\"": 1
+    },
+    {
+        "null or one of \"DEBUG\", \"INFO\", \"WARN\", \"ERROR\"": 1
+    },
+    {
+        "davmail config type (str, int, bool or attribute set thereof)": 1
+    },
+    {
+        "one of \"enabled\", \"disabled\", \"required\"": 1
+    },
+    {
+        "attribute set of null or string or signed integer or boolean or floating point numbers": 1
+    },
+    {
+        "null or one of \"plain\", \"login\", \"cram_md5\"": 1
+    },
+    {
+        "null or one of \"critical\", \"error\", \"warning\", \"notice\", \"info\", \"debug\"": 1
+    },
+    {
+        "one of \"mysql\", \"percona\", \"mariadb\", \"postgresql\", \"sqlserver\"": 1
+    },
+    {
+        "one of \"nginx\", \"caddy\"": 1
+    },
+    {
+        "attribute set of submodules or list of unspecifieds convertible to it": 1
+    },
+    {
+        "one of \"no\", \"create\", \"subscribe\"": 1
+    },
+    {
+        "string matching the pattern [^\"]+": 1
+    },
+    {
+        "null or one of \"All\", \"Archive\", \"Drafts\", \"Flagged\", \"Junk\", \"Sent\", \"Trash\"": 1
+    },
+    {
+        "list of one of \"audio\", \"backlight\", \"battery\", \"cpu_load\", \"network\", \"time\"s": 1
+    },
+    {
+        "one of \"new\", \"existing\"": 1
+    },
+    {
+        "one of \"django.db.backends.sqlite3\", \"django.db.backends.postgresql\"": 1
+    },
+    {
+        "one of 0, 1, 2, 3, 4, 5, 6, 7, 8, 9": 1
+    },
+    {
+        "one of \"cuda\", \"opencl\"": 1
+    },
+    {
+        "one of \"file\", \"s3\", \"zookeeper\", \"none\"": 1
+    },
+    {
+        "one of \"red\", \"black\", \"custom\"": 1
+    },
+    {
+        "one of \"unix\", \"tcp\", \"tcp6\"": 1
+    },
+    {
+        "one of \"etcd\", \"kubernetes\"": 1
+    },
+    {
+        "null or one of \"storage\", \"transaction\", \"stateless\"": 1
+    },
+    {
+        "one of \"xml\", \"json\"": 1
+    },
+    {
+        "freeciv-server params": 1
+    },
+    {
+        "one of \"IPv4\", \"IPv6\", \"none\"": 1
+    },
+    {
+        "one of \"null\", \"files\", \"sql\"": 1
+    },
+    {
+        "one of \"native_mysql\", \"native_pgsql\", \"odbc\", \"dbi\"": 1
+    },
+    {
+        "one of \"nothing\", \"text\", \"textall\", \"textalldate\", \"errors\", \"errorsdate\", \"binary\"": 1
+    },
+    {
+        "one of \"full\", \"archive\"": 1
+    },
+    {
+        "null or one of \"goerli\", \"rinkeby\", \"yolov2\", \"ropsten\"": 1
+    },
+    {
+        "one of \"snap\", \"fast\", \"full\", \"light\"": 1
+    },
+    {
+        "one of \"zip\", \"rar\", \"tar\", \"sz\", \"tar.gz\", \"tar.xz\", \"tar.bz2\", \"tar.br\", \"tar.lz4\"": 1
+    },
+    {
+        "one of \"Trace\", \"Debug\", \"Info\", \"Warn\", \"Error\", \"Critical\"": 1
+    },
+    {
+        "attribute set of attribute set of boolean or signed integer or stringss": 1
+    },
+    {
+        "one of \"db\", \"uploads\", \"builds\", \"artifacts\", \"lfs\", \"registry\", \"pages\", \"repositories\", \"tar\" or list of one of \"db\", \"uploads\", \"builds\", \"artifacts\", \"lfs\", \"registry\", \"pages\", \"repositories\", \"tar\"s": 1
+    },
+    {
+        "one of \"control-group\", \"process\", \"mixed\", \"none\"": 1
+    },
+    {
+        "one of \"DEBUG\", \"INFO\", \"WARNING\", \"ERROR\", \"CRITICAL\", \"TRACE\", \"NONE\"": 1
+    },
+    {
+        "null or one of \"dir\", \"page\"": 1
+    },
+    {
+        "one of \"default\", \"reusable\", \"clustered\"": 1
+    },
+    {
+        "one of \"error\", \"warning\", \"info\", \"debug\"": 1
+    },
+    {
+        "signed integer or value \"unlimited\" (singular enum)": 1
+    },
+    {
+        "one of \"mysql\", \"sqlite3\", \"postgres\"": 1
+    },
+    {
+        "one of \"http\", \"https\", \"socket\"": 1
+    },
+    {
+        "one of \"proxy\", \"direct\"": 1
+    },
+    {
+        "one of \"dingding\", \"discord\", \"email\", \"googlechat\", \"hipchat\", \"kafka\", \"line\", \"teams\", \"opsgenie\", \"pagerduty\", \"prometheus-alertmanager\", \"pushover\", \"sensu\", \"sensugo\", \"slack\", \"telegram\", \"threema\", \"victorops\", \"webhook\"": 1
+    },
+    {
+        "one of \"Viewer\", \"Editor\"": 1
+    },
+    {
+        "attribute set of signed integer or string or booleans": 1
+    },
+    {
+        "null or one of 0, 1, 2, 3, 4, 5, 6": 1
+    },
+    {
+        "one of \"de\", \"en\", \"da\", \"en_GB\", \"es\", \"fr\", \"hu\", \"it\", \"nl\", \"no\", \"pl\", \"pt_BR\", \"ru\", \"sk_SK\", \"sv_SE\", \"tr\"": 1
+    },
+    {
+        "one of \"SSD\", \"DISK\", \"ARCHIVE\", \"RAM_DISK\"": 1
+    },
+    {
+        "one of \"sqlite3\", \"postgres\"": 1
+    },
+    {
+        "one of \"TLS_ALPN-01\", \"HTTP-01\"": 1
+    },
+    {
+        "one of \"freely\", \"editable\", \"limited\", \"locked\", \"private\"": 1
+    },
+    {
+        "one of \"api\", \"read_user\"": 1
+    },
+    {
+        "one of \"imgur\", \"s3\", \"minio\", \"filesystem\"": 1
+    },
+    {
+        "one of \"a\", \"b\", \"g\"": 1
+    },
+    {
+        "one of \"event\", \"prefork\", \"worker\"": 1
+    },
+    {
+        "one of \"api\", \"local\", \"remote\"": 1
+    },
+    {
+        "one of \"sqlite\", \"postgresql\"": 1
+    },
+    {
+        "one of \"no-tls\", \"allow-tls\", \"require-tls\"": 1
+    },
+    {
+        "value \"caddy\" (singular enum)": 1
+    },
+    {
+        "one of \"online\", \"offline\", \"norouting\"": 1
+    },
+    {
+        "null or attribute set of packages": 1
+    },
+    {
+        "one of \"server\", \"agent\"": 1
+    },
+    {
+        "one of \"MASTER\", \"BACKUP\"": 1
+    },
+    {
+        "list of one of \"add\", \"cpw\", \"delete\", \"get\", \"list\", \"modify\"s or value \"all\" (singular enum)": 1
+    },
+    {
+        "one of \"mysql\", \"postgresql\"": 1
+    },
+    {
+        "one of \"easy\", \"medium\", \"hard\"": 1
+    },
+    {
+        "limesurvey config type (str, int, bool or attribute set thereof)": 1
+    },
+    {
+        "one of \"mysql\", \"pgsql\", \"odbc\", \"mssql\"": 1
+    },
+    {
+        "one of \"workstation\", \"server\", \"paranoid\"": 1
+    },
+    {
+        "one of \"hourly\", \"daily\", \"weekly\", \"monthly\", \"yearly\"": 1
+    },
+    {
+        "one of \"maildir\", \"memory\"": 1
+    },
+    {
+        "one of \"sqlite\", \"rocksdb\"": 1
+    },
+    {
+        "list of path or packages": 1
+    },
+    {
+        "one of \"mysql\", \"postgres\", \"sqlite\", \"mssql\", \"oracle\"": 1
+    },
+    {
+        "attribute set of Minecraft UUIDs": 1
+    },
+    {
+        "single-line string": 1
+    },
+    {
+        "list of path or one of \"stdout\", \"stderr\", \"syslog\", \"topic\", \"dlt\"s": 1
+    },
+    {
+        "list of one of \"debug\", \"error\", \"warning\", \"notice\", \"information\", \"subscribe\", \"unsubscribe\", \"websockets\", \"none\", \"all\"s": 1
+    },
+    {
+        "list of one of \"read\", \"add\", \"control\", \"admin\"s": 1
+    },
+    {
+        "path or string matching the pattern (http|https|nfs|smb)://.+": 1
+    },
+    {
+        "null or one of \"emc\", \"rdac\", \"hp_sw\", \"alua\", \"ana\"": 1
+    },
+    {
+        "one of \"readsector0\", \"tur\", \"emc_clariion\", \"hp_sw\", \"rdac\", \"directio\", \"cciss_tur\", \"none\"": 1
+    },
+    {
+        "null or one of \"failover\", \"multibus\", \"group_by_serial\", \"group_by_prio\", \"group_by_node_name\"": 1
+    },
+    {
+        "null or one of \"\"round-robin 0\"\", \"\"queue-length 0\"\", \"\"service-time 0\"\", \"\"historical-service-time 0\"\"": 1
+    },
+    {
+        "null or one of \"none\", \"const\", \"sysfs\", \"emc\", \"alua\", \"ontap\", \"rdac\", \"hp_sw\", \"hds\", \"random\", \"weightedpath\", \"path_latency\", \"ana\", \"datacore\", \"iet\"": 1
+    },
+    {
+        "null or one of \"priorities\", \"uniform\"": 1
+    },
+    {
+        "string (with check: hexadecimal string)": 1
+    },
+    {
+        "one of \"master\", \"slave\", \"none\"": 1
+    },
+    {
+        "attribute set of attribute set of INI atom (null, bool, int, float or string) or a list of them for duplicate keysss": 1
+    },
+    {
+        "ncdns.conf configuration type. The format consists of an\nattribute set of settings. Each setting can be either `null`,\na value or an attribute set. The allowed values are integers,\nstrings, booleans or paths.\n": 1
+    },
+    {
+        "one of \"static\", \"iface\", \"auto\"": 1
+    },
+    {
+        "one of \"REQUIRED\", \"OPTIONAL\", \"DISABLED\"": 1
+    },
+    {
+        "one of \"NONE\", \"OPTIONAL\", \"REQUIRE\"": 1
+    },
+    {
+        "integer between 0 and 44738 (both inclusive)": 1
+    },
+    {
+        "one of \"sqlite\", \"pgsql\", \"mysql\"": 1
+    },
+    {
+        "integer between 0 and 4 (both inclusive)": 1
+    },
+    {
+        "null or one of 32, 64, 128": 1
+    },
+    {
+        "one of \"error\", \"warning\", \"notice\", \"info\", \"debug\"": 1
+    },
+    {
+        "list of one of \"nxdomain\", \"error\", \"referral\", \"any\", \"rrsig\", \"wildcard\", \"nodata\", \"dnskey\", \"positive\", \"all\"s": 1
+    },
+    {
+        "one of \"force\", \"auto\"": 1
+    },
+    {
+        "one of \"adfs\", \"azure\", \"bitbucket\", \"digitalocean\", \"facebook\", \"github\", \"gitlab\", \"google\", \"keycloak\", \"keycloak-oidc\", \"linkedin\", \"login.gov\", \"nextcloud\", \"oidc\"": 1
+    },
+    {
+        "integer between 0 and 30 (both inclusive)": 1
+    },
+    {
+        "string matching the pattern compat|md5": 1
+    },
+    {
+        "attribute set of LDAP value or list of LDAP valuess": 1
+    },
+    {
+        "one of \"once\", \"always\", \"until restart\", \"30s\", \"5m\", \"15m\", \"30m\", \"1h\"": 1
+    },
+    {
+        "one of \"iptables\", \"nftables\"": 1
+    },
+    {
+        "one of \"ebpf\", \"proc\", \"ftrace\", \"audit\"": 1
+    },
+    {
+        "one of \"QUIET\", \"FATAL\", \"ERROR\", \"INFO\", \"VERBOSE\", \"DEBUG\", \"DEBUG1\", \"DEBUG2\", \"DEBUG3\"": 1
+    },
+    {
+        "one of \"yes\", \"without-password\", \"prohibit-password\", \"forced-commands-only\", \"no\"": 1
+    },
+    {
+        "one of \"file\", \"syslog\"": 1
+    },
+    {
+        "one of \"CH\", \"CoreCH\", \"MLD\"": 1
+    },
+    {
+        "one of \"High\", \"Low\"": 1
+    },
+    {
+        "list of string or attribute sets": 1
+    },
+    {
+        "one of \"off\", \"process-no-validate\", \"process\", \"log-fail\", \"validate\"": 1
+    },
+    {
+        "attribute set of null or signed integer or string or boolean or path or list of signed integer or string or boolean or pathss": 1
+    },
+    {
+        "attribute set of attribute set of list of signed integer or boolean or strings or attribute set of signed integer or boolean or strings or signed integer or boolean or strings or list of list of signed integer or boolean or strings or attribute set of signed integer or boolean or strings or signed integer or boolean or strings or list of signed integer or boolean or strings or attribute set of signed integer or boolean or strings or signed integer or boolean or strings": 1
+    },
+    {
+        "one of \"error\", \"warn\", \"notice\", \"info\"": 1
+    },
+    {
+        "one of \"glx\", \"xrender\", \"xr_glx_hybrid\"": 1
+    },
+    {
+        "pair of a floating point number in range [0.01, 1]": 1
+    },
+    {
+        "a floating point number in range [0.1, 1]": 1
+    },
+    {
+        "libconfig configuration. The format consists of an attributes\nset (called a group) of settings. Each setting can be a scalar type\n(boolean, integer, floating point number or string), a list of\nscalars or a group itself\n": 1
+    },
+    {
+        "pair of signed integer": 1
+    },
+    {
+        "boolean or one of \"none\", \"drm\", \"opengl\", \"opengl-oml\", \"opengl-swc\", \"opengl-mswc\"": 1
+    },
+    {
+        "one of \"api\", \"boot\"": 1
+    },
+    {
+        "null or string or path": 1
+    },
+    {
+        "one of \"inet\", \"unix\", \"unix-dgram\", \"fifo\", \"pass\"": 1
+    },
+    {
+        "attribute set of boolean or floating point number or signed integer or strings": 1
+    },
+    {
+        "one of \"none\", \"gzip\", \"zstd\"": 1
+    },
+    {
+        "integer between 0 and 9 (both inclusive)": 1
+    },
+    {
+        "submodule or submodule": 1
+    },
+    {
+        "one of \"-\", \"=\", \"+\"": 1
+    },
+    {
+        "tmpfiles.d(5) age format": 1
+    },
+    {
+        "privoxy configuration type. The format consists of an attribute\nset of settings. Each setting can be either a value (integer, string,\nboolean or path) or a list of such values.\n": 1
+    },
+    {
+        "one of \"tcp\", \"tcp4\", \"tcp6\"": 1
+    },
+    {
+        "list of one of \"server\", \"view\", \"tasks\"s": 1
+    },
+    {
+        "one of \"xml.v2\", \"xml.v3\", \"auto\"": 1
+    },
+    {
+        "one of 1, 2": 1
+    },
+    {
+        "one of \"None\", \"Sign\", \"Encrypt\"": 1
+    },
+    {
+        "list of anythings": 1
+    },
+    {
+        "Go duration (https://golang.org/pkg/time/#ParseDuration)": 1
+    },
+    {
+        "one of \"tcp\", \"uds\"": 1
+    },
+    {
+        "null or one of \"OAuth\", \"ManagedIdentity\"": 1
+    },
+    {
+        "null or one of \"SRV\", \"A\", \"AAAA\"": 1
+    },
+    {
+        "one of \"services\", \"tasks\", \"nodes\"": 1
+    },
+    {
+        "one of \"robot\", \"hcloud\"": 1
+    },
+    {
+        "one of \"endpoints\", \"service\", \"pod\", \"node\", \"ingress\"": 1
+    },
+    {
+        "null or one of \"public\", \"admin\", \"internal\"": 1
+    },
+    {
+        "null or attribute set of list of stringss": 1
+    },
+    {
+        "one of \"instance\", \"baremetal\"": 1
+    },
+    {
+        "null or one of \"container\", \"cn\"": 1
+    },
+    {
+        "one of \"internal_plain\", \"internal_hashed\", \"cyrus\", \"anonymous\"": 1
+    },
+    {
+        "one of true, false, \"admin\", \"local\"": 1
+    },
+    {
+        "one of \"CRITICAL\", \"ERROR\", \"WARNING\", \"INFO\", \"DEBUG\", \"MININFO\"": 1
+    },
+    {
+        "package or path": 1
+    },
+    {
+        "one of \"fast\", \"full\", \"light\"": 1
+    },
+    {
+        "list of list of signed integerss": 1
+    },
+    {
+        "one of \"mysql2\", \"postgresql\"": 1
+    },
+    {
+        "one of \"false\", \"X-Forwarded-For\", \"Forwarded_ip\", \"Forwarded_ipport\"": 1
+    },
+    {
+        "boolean or string": 1
+    },
+    {
+        "one of \"socks4\", \"socks5\", \"http-connect\", \"http-relay\"": 1
+    },
+    {
+        "one of \"true\", \"allow-downgrade\", \"false\"": 1
+    },
+    {
+        "one of \"true\", \"resolve\", \"false\"": 1
+    },
+    {
+        "one of \"live\", \"liveOnly\"": 1
+    },
+    {
+        "one of \"debug\", \"error\", \"info\"": 1
+    },
+    {
+        "one of \"tiny\", \"small\", \"medium\", \"large\", \"huge\"": 1
+    },
+    {
+        "list of one of \"http\", \"https\", \"ws\", \"wss\", \"peer\"s": 1
+    },
+    {
+        "one of \"info\", \"debug\", \"warn\", \"error\"": 1
+    },
+    {
+        "null or one of \"normal\", \"controller\", \"fuzzy\", \"rspamd_proxy\", \"lua\", \"proxy\"": 1
+    },
+    {
+        "boolean or value \"zfs\" (singular enum)": 1
+    },
+    {
+        "attribute set of list of pathss": 1
+    },
+    {
+        "one of \"boot\", \"switch\", \"dry-activate\", \"test\"": 1
+    },
+    {
+        "one of \"pgsql\", \"mysql\", \"sqlite\"": 1
+    },
+    {
+        "one of \"tcp_only\", \"tcp_and_udp\", \"udp_only\"": 1
+    },
+    {
+        "attribute set of list of string or signed integer or booleans or string or signed integer or boolean convertible to its": 1
+    },
+    {
+        "one of \"original\", \"absolute\", \"relative\"": 1
+    },
+    {
+        "value \"btrfs\" (singular enum)": 1
+    },
+    {
+        "one of \"pipe\", \"librespot\", \"airplay\", \"file\", \"process\", \"tcp\", \"alsa\", \"spotify\", \"meta\"": 1
+    },
+    {
+        "attribute set of attribute set of attribute set of packagesss": 1
+    },
+    {
+        "list of one of \"builds\", \"dispatch\", \"git\", \"hg\", \"hub\", \"lists\", \"man\", \"meta\", \"pages\", \"paste\", \"todo\"s": 1
+    },
+    {
+        "one of \"/usr/bin/master-shell\", \"/usr/bin/runner-shell\"": 1
+    },
+    {
+        "one of \"info\", \"warn\", \"error\"": 1
+    },
+    {
+        "attribute set of boolean or strings": 1
+    },
+    {
+        "null or one of \"allow\", \"force\", \"never\"": 1
+    },
+    {
+        "null or one of \"out\", \"in\", \"yes\", \"no\"": 1
+    },
+    {
+        "null or one of \"clear\", \"trap\", \"restart\"": 1
+    },
+    {
+        "null or one of \"yes\", \"no\", \"auto\"": 1
+    },
+    {
+        "null or one of \"tunnel\", \"transport\", \"transport_proxy\", \"beet\", \"pass\", \"drop\"": 1
+    },
+    {
+        "null or signed integer or value \"mtu\" (singular enum)": 1
+    },
+    {
+        "null or one of \"yes\", \"accept\", \"force\", \"no\"": 1
+    },
+    {
+        "null or one of \"strict\", \"ifuri\", \"relaxed\"": 1
+    },
+    {
+        "null or one of \"always\", \"never\", \"ifasked\"": 1
+    },
+    {
+        "null or one of \"no\", \"never\", \"keep\", \"replace\"": 1
+    },
+    {
+        "one of \"emerg\", \"alert\", \"crit\", \"err\", \"warning\", \"notice\", \"info\", \"debug\"": 1
+    },
+    {
+        "one of \"SQLite\", \"PostgreSQL\", \"MySQL\"": 1
+    },
+    {
+        "one of \"postfix\", \"none\"": 1
+    },
+    {
+        "one of \"sendreceive\", \"sendonly\", \"receiveonly\"": 1
+    },
+    {
+        "one of \"external\", \"simple\", \"staggered\", \"trashcan\"": 1
+    },
+    {
+        "null or strings concatenated with \":\"": 1
+    },
+    {
+        "one of \"allow all\", \"strict\"": 1
+    },
+    {
+        "one of \"small\", \"medium\", \"large\"": 1
+    },
+    {
+        "list of tuple of (unsigned integer, meaning >=0 or one of \"level auto\", \"level full-speed\", \"level disengaged\") (unsigned integer, meaning >=0) (unsigned integer, meaning >=0)s": 1
+    },
+    {
+        "null or list of signed integers": 1
+    },
+    {
+        "attribute set of boolean or signed integer or floating point number or string or list of stringss": 1
+    },
+    {
+        "16 bit unsigned integer; between 0 and 65535 (both inclusive) or submodule": 1
+    },
+    {
+        "one of \"basic\", \"stealth\"": 1
+    },
+    {
+        "non-empty list of string matching the pattern [A-Za-z0-9+-_]+s": 1
+    },
+    {
+        "null or value \"haproxy\" (singular enum)": 1
+    },
+    {
+        "null or integer between 0 and 65535 (both inclusive)": 1
+    },
+    {
+        "null or integer between 0 and 20 (both inclusive)": 1
+    },
+    {
+        "null or one of 2, 3": 1
+    },
+    {
+        "one of \"exit\", \"relay\", \"bridge\", \"private-bridge\"": 1
+    },
+    {
+        "null or 16 bit unsigned integer; between 0 and 65535 (both inclusive) or value \"auto\" (singular enum) or submodule": 1
+    },
+    {
+        "string matching the pattern [A-Za-z0-9+/]{22}": 1
+    },
+    {
+        "string matching the pattern [a-z2-7]{16}\\.onion": 1
+    },
+    {
+        "null or one of false, true, 0, 1, \"0\", \"1\", \"v3\", \"bridge\"": 1
+    },
+    {
+        "null or one of \"default\", \"TPROXY\", \"ipfw\", \"pf-divert\"": 1
+    },
+    {
+        "one of \"Stderr\", \"Stdout\", \"Syslog\", \"None\"": 1
+    },
+    {
+        "Traffic Server records value": 1
+    },
+    {
+        "one of \"press\", \"hold\", \"release\"": 1
+    },
+    {
+        "one of \"pgsql\", \"mysql\"": 1
+    },
+    {
+        "one of \"\", \"ssl\", \"tls\"": 1
+    },
+    {
+        "one of \"\", \"sql\", \"syslog\"": 1
+    },
+    {
+        "unbound.conf configuration type. The format consist of an attribute\nset of settings. Each settings can be either one value, a list of\nvalues or an attribute set. The allowed values are integers,\nstrings, booleans or floats.\n": 1
+    },
+    {
+        "one of \"PowerOff\", \"Hibernate\", \"HybridSleep\"": 1
+    },
+    {
+        "one of \"inmem\", \"file\", \"consul\", \"zookeeper\", \"s3\", \"azure\", \"dynamodb\", \"etcd\", \"mssql\", \"mysql\", \"postgresql\", \"swift\", \"gcs\", \"raft\"": 1
+    },
+    {
+        "one of \"sqlite\", \"mysql\", \"postgres\"": 1
+    },
+    {
+        "one of \"mainnet\", \"testnet\", \"regtest\"": 1
+    },
+    {
+        "one of \"postgres\", \"mysql\", \"mariadb\", \"mssql\"": 1
+    },
+    {
+        "one of \"error\", \"warn\", \"info\", \"verbose\", \"debug\", \"silly\"": 1
+    },
+    {
+        "one of \"httpd\", \"nginx\", \"caddy\"": 1
+    },
+    {
+        "one of \"atlas\", \"banjo\", \"candy\", \"caroline\", \"cave\", \"celes\", \"clapper\", \"cyan\", \"daisy\", \"elan\", \"elm\", \"enguarde\", \"eve\", \"expresso\", \"falco\", \"gandof\", \"glimmer\", \"gnawty\", \"heli\", \"kevin\", \"kip\", \"leon\", \"lulu\", \"orco\", \"pbody\", \"peppy\", \"pi\", \"pit\", \"puppy\", \"quawks\", \"rambi\", \"samus\", \"snappy\", \"spring\", \"squawks\", \"swanky\", \"winky\", \"wolf\", \"auron_paine\", \"auron_yuna\", \"daisy_skate\", \"nyan_big\", \"nyan_blaze\", \"veyron_jaq\", \"veyron_jerry\", \"veyron_mighty\", \"veyron_minnie\", \"veyron_speedy\"": 1
+    },
+    {
+        "string matching the pattern [a-zA-Z0-9_-]+": 1
+    },
+    {
+        "one of \"gstreamer\", \"vlc\"": 1
+    },
+    {
+        "one of \"center\", \"fill\", \"max\", \"scale\", \"tile\"": 1
+    },
+    {
+        "session name": 1
+    },
+    {
+        "path or string matching the pattern ^#[0-9]{6}$": 1
+    },
+    {
+        "list of package with provided sessionss": 1
+    },
+    {
+        "string or 16 bit unsigned integer; between 0 and 65535 (both inclusive)": 1
+    },
+    {
+        "one of \"mysql\", \"pgsql\", \"sqlite\"": 1
+    },
+    {
+        "one of \"mysql\", \"pgsql\", \"oracle\"": 1
+    },
+    {
+        "one of \"PostgreSQL\", \"MySQL\"": 1
+    },
+    {
+        "one of \"disabled\", \"all\" or list of strings": 1
+    },
+    {
+        "one of \"debug\", \"info\", \"warning\", \"err\", \"alert\"": 1
+    },
+    {
+        "string of the form number{b|k|M|G}": 1
+    },
+    {
+        "string containing all of the characters %Y, %m, %d, %H, %M, %S": 1
+    },
+    {
+        "attribute set of znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)s": 1
+    },
+    {
+        "null or one of \"once\", \"pages\", \"both\"": 1
+    },
+    {
+        "list of non-empty strings": 1
+    },
+    {
+        "submodule or boolean convertible to it": 1
+    },
+    {
+        "one of \"full-apivfs\", \"chroot-only\"": 1
+    },
+    {
+        "list of string or packages": 1
+    },
+    {
+        "null or string without spaces": 1
+    },
+    {
+        "path or package": 1
+    },
+    {
+        "one of \"hard_open\", \"hard_init\", \"soft\"": 1
+    },
+    {
+        "one of \"trace\", \"debug\", \"info\", \"warn\", \"error\", \"fatal\"": 1
+    },
+    {
+        "one of \"btrfs\", \"overlay\", \"vfs\"": 1
+    },
+    {
+        "one of \"none\", \"json-file\", \"syslog\", \"journald\", \"gelf\", \"fluentd\", \"awslogs\", \"splunk\", \"etwlogs\", \"gcplogs\"": 1
+    },
+    {
+        "null or one of \"aufs\", \"btrfs\", \"devicemapper\", \"overlay\", \"overlay2\", \"zfs\"": 1
+    },
+    {
+        "one of \"start\", \"ignore\"": 1
+    },
+    {
+        "one of \"shutdown\", \"suspend\"": 1
+    },
+    {
+        "one of \"podman\", \"docker\"": 1
+    },
+    {
+        "list of JSON values": 1
+    },
+    {
+        "value \"ghostunnel\" (singular enum)": 1
+    },
+    {
+        "one of \"lzo\", \"lz4\", \"zstd\" or string": 1
+    },
+    {
+        "nixpkgs config": 1
+    },
+    {
+        "list of nixpkgs overlays": 1
+    },
+    {
+        "An evaluation of Nixpkgs; the top level attribute set of packages": 1
+    },
+    {
+        "null or one of \"curses\", \"tty\", \"gtk2\", \"emacs\", \"gnome3\", \"qt\"": 1
+    },
+    {
+        "list of one of \"codemirror-editor\", \"commit-message-length-validator\", \"delete-project\", \"download-commands\", \"gitiles\", \"hooks\", \"plugin-manager\", \"replication\", \"reviewnotes\", \"singleusergroup\", \"webhooks\"s": 1
+    },
+    {
+        "positive integer, meaning >0 or value \"auto\" (singular enum)": 1
+    },
+    {
+        "null or one of \"C\", \"F\"": 1
+    },
+    {
+        "null or one of \"metric\", \"imperial\"": 1
+    },
+    {
+        "one of \"yaml\", \"storage\"": 1
+    },
+    {
+        "list of one of \"abode\", \"accuweather\", \"acer_projector\", \"acmeda\", \"actiontec\", \"adax\", \"adguard\", \"ads\", \"advantage_air\", \"aemet\", \"aftership\", \"agent_dvr\", \"air_quality\", \"airly\", \"airnow\", \"airthings\", \"airtouch4\", \"airvisual\", \"aladdin_connect\", \"alarm_control_panel\", \"alarmdecoder\", \"alert\", \"alexa\", \"almond\", \"alpha_vantage\", \"amazon_polly\", \"ambee\", \"amberelectric\", \"ambiclimate\", \"ambient_station\", \"amcrest\", \"ampio\", \"analytics\", \"android_ip_webcam\", \"androidtv\", \"anel_pwrctrl\", \"anthemav\", \"apache_kafka\", \"apcupsd\", \"api\", \"apple_tv\", \"apprise\", \"aprs\", \"aqualogic\", \"aquostv\", \"arcam_fmj\", \"arest\", \"arlo\", \"arris_tg2492lg\", \"aruba\", \"arwn\", \"aseko_pool_live\", \"asterisk_cdr\", \"asterisk_mbox\", \"asuswrt\", \"atag\", \"aten_pe\", \"atome\", \"august\", \"aurora\", \"aurora_abb_powerone\", \"aussie_broadband\", \"auth\", \"automation\", \"avea\", \"avion\", \"awair\", \"aws\", \"axis\", \"azure_devops\", \"azure_event_hub\", \"azure_service_bus\", \"baidu\", \"balboa\", \"bayesian\", \"bbb_gpio\", \"bbox\", \"beewi_smartclim\", \"bh1750\", \"binary_sensor\", \"bitcoin\", \"bizkaibus\", \"blackbird\", \"blebox\", \"blink\", \"blinksticklight\", \"blinkt\", \"blockchain\", \"bloomsky\", \"blueprint\", \"bluesound\", \"bluetooth_le_tracker\", \"bluetooth_tracker\", \"bme280\", \"bme680\", \"bmp280\", \"bmw_connected_drive\", \"bond\", \"bosch_shc\", \"braviatv\", \"broadlink\", \"brother\", \"brottsplatskartan\", \"browser\", \"brunt\", \"bsblan\", \"bt_home_hub_5\", \"bt_smarthub\", \"buienradar\", \"button\", \"caldav\", \"calendar\", \"camera\", \"canary\", \"cast\", \"cert_expiry\", \"channels\", \"circuit\", \"cisco_ios\", \"cisco_mobility_express\", \"cisco_webex_teams\", \"citybikes\", \"clementine\", \"clickatell\", \"clicksend\", \"clicksend_tts\", \"climacell\", \"climate\", \"cloud\", \"cloudflare\", \"cmus\", \"co2signal\", \"coinbase\", \"color_extractor\", \"comed_hourly_pricing\", \"comfoconnect\", \"command_line\", \"compensation\", \"concord232\", \"config\", \"configurator\", \"control4\", \"conversation\", \"coolmaster\", \"coronavirus\", \"counter\", \"cover\", \"cppm_tracker\", \"cpuspeed\", \"crownstone\", \"cups\", \"currencylayer\", \"daikin\", \"danfoss_air\", \"darksky\", \"datadog\", \"ddwrt\", \"debugpy\", \"deconz\", \"decora\", \"decora_wifi\", \"default_config\", \"delijn\", \"deluge\", \"demo\", \"denon\", \"denonavr\", \"derivative\", \"deutsche_bahn\", \"device_automation\", \"device_sun_light_trigger\", \"device_tracker\", \"devolo_home_control\", \"devolo_home_network\", \"dexcom\", \"dhcp\", \"dht\", \"diagnostics\", \"dialogflow\", \"digital_ocean\", \"digitalloggers\", \"directv\", \"discogs\", \"discord\", \"discovery\", \"dlib_face_detect\", \"dlib_face_identify\", \"dlink\", \"dlna_dmr\", \"dlna_dms\", \"dnsip\", \"dominos\", \"doods\", \"doorbird\", \"dovado\", \"downloader\", \"dsmr\", \"dsmr_reader\", \"dte_energy_bridge\", \"dublin_bus_transport\", \"duckdns\", \"dunehd\", \"dwd_weather_warnings\", \"dweet\", \"dynalite\", \"eafm\", \"ebox\", \"ebusd\", \"ecoal_boiler\", \"ecobee\", \"econet\", \"ecovacs\", \"eddystone_temperature\", \"edimax\", \"edl21\", \"efergy\", \"egardia\", \"eight_sleep\", \"elgato\", \"eliqonline\", \"elkm1\", \"elmax\", \"elv\", \"emby\", \"emoncms\", \"emoncms_history\", \"emonitor\", \"emulated_hue\", \"emulated_kasa\", \"emulated_roku\", \"energy\", \"enigma2\", \"enocean\", \"enphase_envoy\", \"entur_public_transport\", \"environment_canada\", \"envirophat\", \"envisalink\", \"ephember\", \"epson\", \"epsonworkforce\", \"eq3btsmart\", \"esphome\", \"etherscan\", \"eufy\", \"everlights\", \"evil_genius_labs\", \"evohome\", \"ezviz\", \"faa_delays\", \"facebook\", \"facebox\", \"fail2ban\", \"familyhub\", \"fan\", \"fastdotcom\", \"feedreader\", \"ffmpeg\", \"ffmpeg_motion\", \"ffmpeg_noise\", \"fibaro\", \"fido\", \"file\", \"filesize\", \"filter\", \"fints\", \"fireservicerota\", \"firmata\", \"fitbit\", \"fivem\", \"fixer\", \"fjaraskupan\", \"fleetgo\", \"flexit\", \"flic\", \"flick_electric\", \"flipr\", \"flo\", \"flock\", \"flume\", \"flunearyou\", \"flux\", \"flux_led\", \"folder\", \"folder_watcher\", \"foobot\", \"forecast_solar\", \"forked_daapd\", \"fortios\", \"foscam\", \"foursquare\", \"free_mobile\", \"freebox\", \"freedns\", \"freedompro\", \"fritz\", \"fritzbox\", \"fritzbox_callmonitor\", \"fronius\", \"frontend\", \"frontier_silicon\", \"futurenow\", \"garadget\", \"garages_amsterdam\", \"gc100\", \"gdacs\", \"generic\", \"generic_hygrostat\", \"generic_thermostat\", \"geniushub\", \"geo_json_events\", \"geo_location\", \"geo_rss_events\", \"geofency\", \"geonetnz_quakes\", \"geonetnz_volcano\", \"gios\", \"github\", \"gitlab_ci\", \"gitter\", \"glances\", \"goalfeed\", \"goalzero\", \"gogogate2\", \"goodwe\", \"google\", \"google_assistant\", \"google_cloud\", \"google_domains\", \"google_maps\", \"google_pubsub\", \"google_translate\", \"google_travel_time\", \"google_wifi\", \"gpsd\", \"gpslogger\", \"graphite\", \"gree\", \"greeneye_monitor\", \"greenwave\", \"group\", \"growatt_server\", \"gstreamer\", \"gtfs\", \"guardian\", \"habitica\", \"hangouts\", \"harman_kardon_avr\", \"harmony\", \"hassio\", \"haveibeenpwned\", \"hddtemp\", \"hdmi_cec\", \"heatmiser\", \"heos\", \"here_travel_time\", \"hikvision\", \"hikvisioncam\", \"hisense_aehw4a1\", \"history\", \"history_stats\", \"hitron_coda\", \"hive\", \"hlk_sw16\", \"home_connect\", \"home_plus_control\", \"homeassistant\", \"homekit\", \"homekit_controller\", \"homematic\", \"homematicip_cloud\", \"homewizard\", \"homeworks\", \"honeywell\", \"horizon\", \"hp_ilo\", \"html5\", \"http\", \"htu21d\", \"huawei_lte\", \"hue\", \"huisbaasje\", \"humidifier\", \"hunterdouglas_powerview\", \"hvv_departures\", \"hydrawise\", \"hyperion\", \"ialarm\", \"iammeter\", \"iaqualink\", \"icloud\", \"idteck_prox\", \"ifttt\", \"iglo\", \"ign_sismologia\", \"ihc\", \"image\", \"image_processing\", \"imap\", \"imap_email_content\", \"incomfort\", \"influxdb\", \"input_boolean\", \"input_button\", \"input_datetime\", \"input_number\", \"input_select\", \"input_text\", \"insteon\", \"integration\", \"intellifire\", \"intent\", \"intent_script\", \"intesishome\", \"ios\", \"iotawatt\", \"iperf3\", \"ipma\", \"ipp\", \"iqvia\", \"irish_rail_transport\", \"islamic_prayer_times\", \"iss\", \"isy994\", \"itach\", \"itunes\", \"izone\", \"jellyfin\", \"jewish_calendar\", \"joaoapps_join\", \"juicenet\", \"kaiterra\", \"kankun\", \"keba\", \"keenetic_ndms2\", \"kef\", \"keyboard\", \"keyboard_remote\", \"kira\", \"kiwi\", \"kmtronic\", \"knx\", \"kodi\", \"konnected\", \"kostal_plenticore\", \"kraken\", \"kulersky\", \"kwb\", \"lacrosse\", \"lametric\", \"lannouncer\", \"lastfm\", \"launch_library\", \"lcn\", \"lg_netcast\", \"lg_soundbar\", \"life360\", \"lifx\", \"lifx_cloud\", \"light\", \"lightwave\", \"limitlessled\", \"linksys_smart\", \"linode\", \"linux_battery\", \"lirc\", \"litejet\", \"litterrobot\", \"llamalab_automate\", \"local_file\", \"local_ip\", \"locative\", \"lock\", \"logbook\", \"logentries\", \"logger\", \"logi_circle\", \"london_air\", \"london_underground\", \"lookin\", \"lovelace\", \"luci\", \"luftdaten\", \"lupusec\", \"lutron\", \"lutron_caseta\", \"lw12wifi\", \"lyric\", \"magicseaweed\", \"mailbox\", \"mailgun\", \"manual\", \"manual_mqtt\", \"map\", \"marytts\", \"mastodon\", \"matrix\", \"maxcube\", \"mazda\", \"mcp23017\", \"media_extractor\", \"media_player\", \"media_source\", \"mediaroom\", \"melcloud\", \"melissa\", \"meraki\", \"message_bird\", \"met\", \"met_eireann\", \"meteo_france\", \"meteoalarm\", \"meteoclimatic\", \"metoffice\", \"mfi\", \"mhz19\", \"microsoft\", \"microsoft_face\", \"microsoft_face_detect\", \"microsoft_face_identify\", \"miflora\", \"mikrotik\", \"mill\", \"min_max\", \"minecraft_server\", \"minio\", \"mitemp_bt\", \"mjpeg\", \"mobile_app\", \"mochad\", \"modbus\", \"modem_callerid\", \"modern_forms\", \"moehlenhoff_alpha2\", \"mold_indicator\", \"monoprice\", \"moon\", \"motion_blinds\", \"motioneye\", \"mpchc\", \"mpd\", \"mqtt\", \"mqtt_eventstream\", \"mqtt_json\", \"mqtt_room\", \"mqtt_statestream\", \"msteams\", \"mullvad\", \"mutesync\", \"mvglive\", \"my\", \"mycroft\", \"myq\", \"mysensors\", \"mystrom\", \"mythicbeastsdns\", \"nad\", \"nam\", \"namecheapdns\", \"nanoleaf\", \"neato\", \"nederlandse_spoorwegen\", \"ness_alarm\", \"nest\", \"netatmo\", \"netdata\", \"netgear\", \"netgear_lte\", \"netio\", \"network\", \"neurio_energy\", \"nexia\", \"nextbus\", \"nextcloud\", \"nfandroidtv\", \"nightscout\", \"niko_home_control\", \"nilu\", \"nina\", \"nissan_leaf\", \"nmap_tracker\", \"nmbs\", \"no_ip\", \"noaa_tides\", \"norway_air\", \"notify\", \"notify_events\", \"notion\", \"nsw_fuel_station\", \"nsw_rural_fire_service_feed\", \"nuheat\", \"nuki\", \"numato\", \"number\", \"nut\", \"nws\", \"nx584\", \"nzbget\", \"oasa_telematics\", \"obihai\", \"octoprint\", \"oem\", \"ohmconnect\", \"ombi\", \"omnilogic\", \"onboarding\", \"oncue\", \"ondilo_ico\", \"onewire\", \"onkyo\", \"onvif\", \"open_meteo\", \"openalpr_cloud\", \"openalpr_local\", \"opencv\", \"openerz\", \"openevse\", \"openexchangerates\", \"opengarage\", \"openhardwaremonitor\", \"openhome\", \"opensensemap\", \"opensky\", \"opentherm_gw\", \"openuv\", \"openweathermap\", \"opnsense\", \"opple\", \"orangepi_gpio\", \"oru\", \"orvibo\", \"osramlightify\", \"otp\", \"overkiz\", \"ovo_energy\", \"owntracks\", \"ozw\", \"p1_monitor\", \"panasonic_bluray\", \"panasonic_viera\", \"pandora\", \"panel_custom\", \"panel_iframe\", \"pcal9535a\", \"pencom\", \"persistent_notification\", \"person\", \"philips_js\", \"pi4ioe5v9xxxx\", \"pi_hole\", \"picnic\", \"picotts\", \"piglow\", \"pilight\", \"ping\", \"pioneer\", \"pjlink\", \"plaato\", \"plant\", \"plex\", \"plugwise\", \"plum_lightpad\", \"pocketcasts\", \"point\", \"poolsense\", \"powerwall\", \"profiler\", \"progettihwsw\", \"proliphix\", \"prometheus\", \"prosegur\", \"prowl\", \"proximity\", \"proxmoxve\", \"proxy\", \"ps4\", \"pulseaudio_loopback\", \"pure_energie\", \"push\", \"pushbullet\", \"pushover\", \"pushsafer\", \"pvoutput\", \"pvpc_hourly_pricing\", \"pyload\", \"python_script\", \"qbittorrent\", \"qld_bushfire\", \"qnap\", \"qrcode\", \"quantum_gateway\", \"qvr_pro\", \"qwikswitch\", \"rachio\", \"radarr\", \"radio_browser\", \"radiotherm\", \"rainbird\", \"raincloud\", \"rainforest_eagle\", \"rainmachine\", \"random\", \"raspihats\", \"raspyrfm\", \"rdw\", \"recollect_waste\", \"recorder\", \"recswitch\", \"reddit\", \"rejseplanen\", \"remember_the_milk\", \"remote\", \"remote_rpi_gpio\", \"renault\", \"repetier\", \"rest\", \"rest_command\", \"rflink\", \"rfxtrx\", \"ridwell\", \"ring\", \"ripple\", \"risco\", \"rituals_perfume_genie\", \"rmvtransport\", \"rocketchat\", \"roku\", \"roomba\", \"roon\", \"route53\", \"rova\", \"rpi_camera\", \"rpi_gpio\", \"rpi_gpio_pwm\", \"rpi_pfio\", \"rpi_power\", \"rpi_rf\", \"rss_feed_template\", \"rtorrent\", \"rtsp_to_webrtc\", \"ruckus_unleashed\", \"russound_rio\", \"russound_rnet\", \"sabnzbd\", \"safe_mode\", \"saj\", \"samsungtv\", \"satel_integra\", \"scene\", \"schluter\", \"scrape\", \"screenlogic\", \"script\", \"scsgate\", \"search\", \"season\", \"select\", \"sendgrid\", \"sense\", \"sensehat\", \"senseme\", \"sensibo\", \"sensor\", \"sentry\", \"serial\", \"serial_pm\", \"sesame\", \"seven_segments\", \"seventeentrack\", \"sharkiq\", \"shell_command\", \"shelly\", \"shiftr\", \"shodan\", \"shopping_list\", \"sht31\", \"sia\", \"sigfox\", \"sighthound\", \"signal_messenger\", \"simplepush\", \"simplisafe\", \"simulated\", \"sinch\", \"siren\", \"sisyphus\", \"sky_hub\", \"skybeacon\", \"skybell\", \"slack\", \"sleepiq\", \"slide\", \"sma\", \"smappee\", \"smart_meter_texas\", \"smarthab\", \"smartthings\", \"smarttub\", \"smarty\", \"smhi\", \"sms\", \"smtp\", \"snapcast\", \"snips\", \"snmp\", \"sochain\", \"solaredge\", \"solaredge_local\", \"solarlog\", \"solax\", \"soma\", \"somfy\", \"somfy_mylink\", \"sonarr\", \"songpal\", \"sonos\", \"sony_projector\", \"soundtouch\", \"spaceapi\", \"spc\", \"speedtestdotnet\", \"spider\", \"splunk\", \"spotify\", \"sql\", \"squeezebox\", \"srp_energy\", \"ssdp\", \"starline\", \"starlingbank\", \"startca\", \"statistics\", \"statsd\", \"steam_online\", \"steamist\", \"stiebel_eltron\", \"stookalert\", \"stream\", \"streamlabswater\", \"stt\", \"subaru\", \"suez_water\", \"sun\", \"supervisord\", \"supla\", \"surepetcare\", \"swiss_hydrological_data\", \"swiss_public_transport\", \"swisscom\", \"switch\", \"switchbot\", \"switcher_kis\", \"switchmate\", \"syncthing\", \"syncthru\", \"synology_chat\", \"synology_dsm\", \"synology_srm\", \"syslog\", \"system_bridge\", \"system_health\", \"system_log\", \"systemmonitor\", \"tado\", \"tag\", \"tailscale\", \"tank_utility\", \"tankerkoenig\", \"tapsaff\", \"tasmota\", \"tautulli\", \"tcp\", \"ted5000\", \"telegram\", \"telegram_bot\", \"tellduslive\", \"tellstick\", \"telnet\", \"temper\", \"template\", \"tensorflow\", \"tesla_wall_connector\", \"tfiac\", \"thermoworks_smoke\", \"thethingsnetwork\", \"thingspeak\", \"thinkingcleaner\", \"thomson\", \"threshold\", \"tibber\", \"tikteck\", \"tile\", \"time_date\", \"timer\", \"tmb\", \"tod\", \"todoist\", \"tof\", \"tolo\", \"tomato\", \"toon\", \"torque\", \"totalconnect\", \"touchline\", \"tplink\", \"tplink_lte\", \"traccar\", \"trace\", \"tractive\", \"tradfri\", \"trafikverket_train\", \"trafikverket_weatherstation\", \"transmission\", \"transport_nsw\", \"travisci\", \"trend\", \"tts\", \"tuya\", \"twentemilieu\", \"twilio\", \"twilio_call\", \"twilio_sms\", \"twinkly\", \"twitch\", \"twitter\", \"ubus\", \"ue_smart_radio\", \"uk_transport\", \"unifi\", \"unifi_direct\", \"unifiled\", \"unifiprotect\", \"universal\", \"upb\", \"upc_connect\", \"upcloud\", \"updater\", \"upnp\", \"uptime\", \"uptimerobot\", \"usb\", \"uscis\", \"usgs_earthquakes_feed\", \"utility_meter\", \"uvc\", \"vacuum\", \"vallox\", \"vasttrafik\", \"velbus\", \"velux\", \"venstar\", \"vera\", \"verisure\", \"versasense\", \"version\", \"vesync\", \"viaggiatreno\", \"vicare\", \"vilfo\", \"vivotek\", \"vizio\", \"vlc\", \"vlc_telnet\", \"voicerss\", \"volkszaehler\", \"volumio\", \"volvooncall\", \"vultr\", \"w800rf32\", \"wake_on_lan\", \"wallbox\", \"waqi\", \"water_heater\", \"waterfurnace\", \"watson_iot\", \"watson_tts\", \"watttime\", \"waze_travel_time\", \"weather\", \"webhook\", \"webostv\", \"websocket_api\", \"wemo\", \"whirlpool\", \"whois\", \"wiffi\", \"wilight\", \"wirelesstag\", \"withings\", \"wiz\", \"wled\", \"wolflink\", \"workday\", \"worldclock\", \"worldtidesinfo\", \"worxlandroid\", \"wsdot\", \"x10\", \"xbox\", \"xbox_live\", \"xeoma\", \"xiaomi\", \"xiaomi_aqara\", \"xiaomi_miio\", \"xiaomi_tv\", \"xmpp\", \"xs1\", \"yale_smart_alarm\", \"yamaha\", \"yamaha_musiccast\", \"yandex_transport\", \"yandextts\", \"yeelight\", \"yeelightsunflower\", \"yi\", \"youless\", \"zabbix\", \"zamg\", \"zengge\", \"zeroconf\", \"zerproc\", \"zestimate\", \"zha\", \"zhong_hong\", \"ziggo_mediabox_xl\", \"zodiac\", \"zone\", \"zoneminder\", \"zwave\", \"zwave_js\", \"zwave_me\"s": 1
+    },
+    {
+        "one of \"never\", \"as-flagged\", \"always\"": 1
+    },
+    {
+        "attribute set of attribute set or list of attribute setss": 1
+    },
+    {
+        "one of \"Reconcile\", \"EnsureExists\"": 1
+    },
+    {
+        "list of one of \"AlwaysAllow\", \"AlwaysDeny\", \"ABAC\", \"Webhook\", \"RBAC\", \"Node\"s": 1
+    },
+    {
+        "one of \"etcd2\", \"etcd3\"": 1
+    },
+    {
+        "one of \"docker\", \"remote\"": 1
+    },
+    {
+        "null or one of \"cni\", \"kubenet\"": 1
+    },
+    {
+        "one of \"NoSchedule\", \"PreferNoSchedule\", \"NoExecute\"": 1
+    },
+    {
+        "list of one of \"master\", \"node\"s": 1
+    },
+    {
+        "one of \"sqlite3\", \"psycopg2\"": 1
+    },
+    {
+        "list of one of \"client\", \"consent\", \"federation\", \"keys\", \"media\", \"metrics\", \"openid\", \"replication\", \"static\"s": 1
+    },
+    {
+        "one of \"http\", \"manhole\", \"metrics\", \"replication\"": 1
+    },
+    {
+        "one of \"auto\", \"IPv4\", \"IPv6\"": 1
+    },
+    {
+        "one of \"ip\", \"none\"": 1
+    },
+    {
+        "one of \"h2\", \"http/1.1\"": 1
+    },
+    {
+        "one of \"tls\", \"no-tls\"": 1
+    },
+    {
+        "one of \"sqlite\", \"mysql\", \"postgresql\"": 1
+    },
+    {
+        "list of submodule or string convertible to its": 1
+    },
+    {
+        "lazy attribute set of unspecifieds": 1
+    },
+    {
+        "list of positive integer, meaning >0s": 1
+    },
+    {
+        "one of \"host\", \"guest\"": 1
+    },
+    {
+        "one of \"tcp\", \"udp\"": 1
+    },
+    {
+        "one of \"virtio\", \"scsi\", \"ide\"": 1
+    },
+    {
+        "list of unsigned integer, meaning >=0s": 1
+    }
+]
