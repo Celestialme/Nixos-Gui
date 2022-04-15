@@ -1,9 +1,12 @@
 <div class="container">
-
+  
+    <CartIcon/>
+    <DownloadIcon/>
     <p class='name'>{name}</p>
     <p class='description'>{description}</p>
     <p class='version'>version: {version}</p>
 
+   
 
 
 
@@ -14,6 +17,10 @@
 
 
 <script>
+import CartIcon from "./icons/CartIcon.svelte";
+import DownloadIcon from "./icons/DownloadIcon.svelte";
+
+
 
     export let name;
     export let description;
@@ -23,6 +30,7 @@
 
 <style>
     .container{
+    position: relative;
     text-align: center;
     border-bottom: 1px solid;
     padding: 30px;
@@ -41,4 +49,5 @@
         width:60%;
         margin:auto
     }
+   
 </style>

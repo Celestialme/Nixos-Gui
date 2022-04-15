@@ -15,6 +15,9 @@ let choseType;
 
 
 switch (true) {
+    case type.includes(' or '):
+        choseType=OrType
+        break
     case type=='boolean':
         choseType=BooleanType
         break;
@@ -26,9 +29,6 @@ switch (true) {
         break;
     case type.startsWith('attribute'):
         choseType=AttributeSetType
-        break
-    case type.includes(' or '):
-        choseType=OrType
         break
     case type.startsWith('one of'):
         choseType=OneOfType

@@ -23,29 +23,32 @@
 
 
 <style>
-    input{
-        display:block;
-        width:50%;
-        margin:0 auto;
+   input{
+        display: block;
+        width: 50%;
+        margin: 0 auto;
         font-size: 30px;
         border-radius: 6px;
-        border:1px solid;
+        border: 1px solid;
         outline: none;
         text-align: center;
         margin-bottom: 20px;
-        margin-top: -30px;
+        margin-top: -60px;
+        padding: 10px;
     }
     .populated{
-    margin: 10px;
-    
-    border: 2px solid #0000003d;
+     margin: 10px;
+    margin-top: 60px !important;
+    border: 2px solid #00000073;
     border-radius: 12px;
-    padding: 10px;
+    
     }
     .container{
-        margin-top:10px;
-        min-height: 91%;
-        padding: 10px;
+    margin-top: 20px;
+    min-height: 91%;
+    padding: 30px 50px;
+    transition: 0.5s;
+    margin-top: 60px;
     }
 </style>
 

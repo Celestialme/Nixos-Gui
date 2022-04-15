@@ -5,7 +5,7 @@ let ListEntry=[]
 let inputValue=''
 let textAreaValue=''
 function add(){
-    if(!inputValue) return
+    if(!inputValue || !textAreaValue) return
     ListEntry.push({key:inputValue,value:textAreaValue})
     ListEntry=ListEntry
     
@@ -76,8 +76,12 @@ function remove(entry){
   input{
     text-align: center;
     width: 50%;
-    padding: 10px;
+    padding: 12px;
     transform: translateY(50%);
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+    border: 1px solid #0000005e;
+    border-left: none;
   }
   textarea{
       height: 100px;
