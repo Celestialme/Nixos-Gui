@@ -33,11 +33,17 @@ postMessage({type:'filterPackages',value:filteredKey.slice(0,50)})
 
 
 function filterOptions({packages,keys,value}){
-    value = value.replace(/\.$/, '');
+     value = value.replace(/\.$/, '')
+    
     let  filteredKey= keys.filter((key)=>{
-   
-   return key.includes(value)
+   return key.includes(value.replace(/<.*>/g,'<name>'))
 })
+let matches = value.match(/<.*>/)
+if(matches){
+filteredKey = filteredKey.map((key)=>{
+   return key.replace(/<.*>/g,matches[0])
+})
+}
 
 filteredKey = filteredKey.sort((a,b)=>{
  let temp = (a.startsWith(value)?0:1) - (b.startsWith(value)?0:1)
@@ -62,29 +68,36 @@ postMessage({type:'filterOptions',value:filteredKey.slice(0,50)})
     
         let temp={}
     for(let key in dict){
-     if(filterKey !='' && key.startsWith(filterKey))   {
-        let tempKey;
- 
-        if(key.split('.').indexOf(filterKey.match(/\.\w+$/g)?.[0])!=-1){
-             tempKey = key.replace(new RegExp(filterKey+'\\.?'),'')
+        if(filterKey !='' && key.startsWith(filterKey) && !key.includes('<name>'))   {
+            let tempKey;
+    
+            if(key.split('.').indexOf(filterKey.match(/\.\w+$/g)?.[0])!=-1){
+                tempKey = key.replace(new RegExp(filterKey+'\\.?'),'')
 
 
 
-        }else{
-            let tempFilterKey=filterKey.match(/^.*\./)?.[0]??''
-            tempKey = key.replace(new RegExp(tempFilterKey+'\\.?'),'')
+            }else{
+                let tempFilterKey=filterKey.match(/^.*\./)?.[0]??''
+                tempKey = key.replace(new RegExp(tempFilterKey+'\\.?'),'')
+            }
+
+            if(tempKey!=''){
+                temp[tempKey]=dict[key];
+            }
+
+        }else if(filterKey !='' && key.startsWith(filterKey) && key.replace(filterKey,'').startsWith('<name>')) {
+         
+            
+             temp['<celestialme>']=dict[key];
+             temp['<celestialme2>']=dict[key];
+             temp['<celestialme3>']=dict[key];
         }
-
-        if(tempKey!=''){
-            temp[tempKey]=dict[key];
+        
+        else if(filterKey==''){
+            temp[key] = dict[key]
         }
-
-     }else if(filterKey==''){
-         temp[key] = dict[key]
-     }
 
     }
-
 
 
 

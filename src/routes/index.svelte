@@ -11,6 +11,16 @@
         <button class:active={$currentScreen==0} on:click={()=>$currentScreen=0}>Packages</button>
         <button class:active={$currentScreen==1} on:click={()=>$currentScreen=1}>Options</button>
         <button class:active={$currentScreen==2} on:click={()=>$currentScreen=2}>Shortcuts</button>
+
+        {#if $needsSaving}
+        <div class='controlls'>
+           
+            <button on:click={apply}> APPLY </button>
+            <button on:click={discard}> DISCARD </button>
+        </div>
+        {/if}
+
+
         {/if}
     </div>
     <div class='right-panel'>
@@ -18,6 +28,10 @@
       <svelte:component this={getCurrentScreen()} />
     </div>
 
+
+    {#if compare}
+    <Compare bind:compare={compare}/>
+    {/if}
 
 </div>
 
@@ -29,8 +43,10 @@
    // @ts-ignore
 import OptionsScreen from "@src/screens/OptionsScreen.svelte";
    import SubMenus from "@src/components/SubMenus.svelte";
-import { currentScreen, OptionInputValue, optionList } from "@src/store/store";
-
+   import Compare from "@src/components/Compare.svelte";
+import { ast, changes, currentScreen, needsSaving } from "@src/store/store";
+import { findNode, setOption } from "@src/utils/globalFunctions";
+let compare = false;
    function getCurrentScreen(){
        switch ($currentScreen) {
            case 0:
@@ -40,7 +56,20 @@ import { currentScreen, OptionInputValue, optionList } from "@src/store/store";
          
        }
    }
-   
+
+   function apply(){
+    const NODE_ATTR_SET = findNode($ast,"NODE_LAMBDA").findNode('self',"NODE_ATTR_SET")
+    for(let key in $changes){
+    setOption(NODE_ATTR_SET,key,$changes[key])
+    }
+    $changes={}
+    $needsSaving=false
+    compare = true;
+   }
+   function discard(){
+    $changes={}
+    $needsSaving=false
+   }
 </script>
 
 
@@ -59,6 +88,7 @@ import { currentScreen, OptionInputValue, optionList } from "@src/store/store";
 
     }
     .left-panel{
+        position: relative;
         min-width:300px;
         background-color: #000000d1;
       
@@ -98,6 +128,22 @@ import { currentScreen, OptionInputValue, optionList } from "@src/store/store";
     padding: 15px;
     font-family: fantasy;
     padding-left: 15%;
+   }
+   .controlls{
+       position: absolute;
+       bottom:0;
+       text-align: center;
+       width:100%;
+   }
+   .controlls button{
+    display: inline-block;
+    width: calc(50% - 15px );
+    text-align: center;
+    background: #ff2d00;
+    border-radius: 6px;
+   }
+   .controlls button:nth-of-type(1){
+    background: #01cf0180;
    }
 </style>
 

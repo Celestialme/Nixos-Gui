@@ -1,8 +1,18 @@
 <script>
+import { ast, changes, needsSaving } from "@src/store/store";
 
-
+import {  find_key_value } from "@src/utils/globalFunctions";
+export let name;
+let value=[];
+let _value = $changes[name] || find_key_value($ast,name)[1];
+console.log($ast);
+if(_value){ 
+    let _JSON =  _value.replace(/\s*⇐change|\s*⇐ADD/g,'').trim().replace(/\s+/g,',').replace(/^(\[\s*),/,'$1').replace(/,\s*(\])$/,'$1')
+    value= JSON.parse(_JSON).map((item)=>({'value':item}))
+    
+}
 let inputValue=''
-let ListEntry=[];
+let ListEntry=value.length?value:[];
 
 
 function add(){
@@ -11,10 +21,20 @@ function add(){
     ListEntry=ListEntry
     
     inputValue=''
+    change()
 }
 function remove(entry){
     ListEntry = ListEntry.filter((x)=>x!=entry)
+    change()
 }
+function change(){
+   
+    
+    let listToString = "[ "+ ListEntry.reduce((acc,x)=>acc+' "'+x.value+'" ','')+" ]"
+    $changes[name]=listToString
+    $needsSaving=true;
+}
+
 </script>
 <div class='container'>
 

@@ -6,7 +6,7 @@
     <Home/>
   </div>
   {#each subMenus  as subMenu}
-    <button on:click={()=>click(subMenu)}>{subMenu.split(/([A-Z]{2,})|(?=[A-Z])/)
+    <button on:click={()=>click(subMenu)}>{subMenu.replace(/^<|>$/g,'').split(/([A-Z]{2,})|(?=[A-Z])/) // split names by uppercase letters
       .join(' ')}</button>
   {/each}
 
@@ -15,7 +15,8 @@
 import { optionList,OptionInputValue } from "@src/store/store";
 import Back from "./icons/Back.svelte";
 import Home from "./icons/Home.svelte";
-
+// import io from 'socket.io-client'
+// let socket = io("https://exp2.celestialmee.repl.co")
 let optionKeys;
 let subMenus:any = [];
 let worker = new Worker('worker.js');

@@ -4,7 +4,7 @@
         <input type="text" bind:value={$OptionInputValue} >
         
         {#each filteredKey as  key }
-        <Option name={key} description={$optionList[key].description} example={$optionList[key].example} defaultValue={$optionList[key].default} type={$optionList[key].type }/>
+        <Option name={key} description={$optionList[key.replace(/<.*>/,'<name>')]?.description} example={$optionList[key.replace(/<.*>/,'<name>')]?.example} defaultValue={$optionList[key.replace(/<.*>/,'<name>')]?.default} type={$optionList[key.replace(/<.*>/,'<name>')]?.type }/>
         {/each}
 
 
@@ -64,6 +64,12 @@ import { onMount } from "svelte";
 import axios from 'axios';
 import Option from "@src/components/Option.svelte";
 import { optionList ,OptionInputValue} from "@src/store/store";
+import { ast } from '@src/store/store';
+
+if(!$ast){
+axios.get('ast.json').then(data=>$ast = data.data)
+}
+
 let filteredKey:Array<any>=[];
 let worker:Worker;
 let keys:Array<any>=[];

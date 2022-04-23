@@ -1,21 +1,29 @@
 <script lang='ts'>
+import { ast, changes, needsSaving } from "@src/store/store";
 
-
-
+import { find_key_value} from "@src/utils/globalFunctions";
+export let name;
 let state=false;
-let switchElement:HTMLElement;
+let _value = $changes[name]?.toString() || find_key_value($ast,name)[1];
+if(_value){
+    state=JSON.parse(_value.replace(/⇐.*$/,''))
+   
+}
+
+
+
 function toggle(){
     state=!state
-    
-    switchElement.style.transform= state? "translate(calc(-100% - 5px))":"none"
+    $changes[name]=state
+    $needsSaving=true;
 }
 </script>
 <div class='container' style="text-align: center;">
     
     <div class='switch-container'>
-        <div class='switch' bind:this={switchElement}>
-            <button on:click={toggle}>Enable</button>
-            <button on:click={toggle}>Disable</button>
+        <div class='switch' class:enabled={state}>
+            <button on:click={toggle}>Enabled</button>
+            <button on:click={toggle}>Disabled</button>
         </div>
     </div>
 
@@ -35,12 +43,14 @@ function toggle(){
 .switch{
     transition: 0.5s transform;
     white-space: nowrap;
-    /* transform: translate(-100%); */
+   transform: translate(calc(-100% - 5px));;
 }
 button{
     padding: 10px;
     width:calc(100% + 5px);
     margin:-2px
 }
-
+.enabled{
+    transform: translate(0);
+}
 </style>

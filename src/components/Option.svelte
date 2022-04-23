@@ -5,8 +5,9 @@
     <p class='example'>Default: {JSON.stringify(defaultValue)}</p>
     <p class='example'>Example: {example}</p>
     <p class='type'>Type: {type}</p>
-
-
+    {#if name.includes('<name>')}
+    <p class='warning'> This is only template for option. you need to choose value for {name.split('<name>')[0].split('.').slice(-2)[0]} first OR create ONE</p>
+    {/if}
 
 
 
@@ -26,9 +27,10 @@ import { goto } from "$app/navigation";
     export let type ;
     $:example =example?JSON.stringify(example).replace(/,/g,', '):example
     function navigate(){
-    let params =  new URLSearchParams({name,example,type})
-    goto('/OptionEdit?'+params.toString())
-}
+        if(name.includes('<name>'))return
+        let params =  new URLSearchParams({name,example,type})
+        goto('/OptionEdit?'+params.toString())
+    }
 
 
 </script>
@@ -52,5 +54,9 @@ import { goto } from "$app/navigation";
     p{
         width:60%;
         margin:auto
+    }
+    .warning{
+        color:red;
+        font-size: 20px;
     }
 </style>

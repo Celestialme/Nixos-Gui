@@ -48,5 +48,6 @@ switch (true) {
 
 </script>
 <TopBar {name} {example} {type}/>
-<svelte:component this={choseType} {name} {type} />
+
+<svelte:component this={choseType} name={name.replace(/<(.*)>/,'$1')} {type}/>
 

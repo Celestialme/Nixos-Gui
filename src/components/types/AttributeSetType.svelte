@@ -1,7 +1,18 @@
 <script>
+import { ast, changes, needsSaving } from "@src/store/store";
 
+import {  find_key_value, removeLastChar } from "@src/utils/globalFunctions";
+export let name;
+let value=[];
+let _value =  $changes[name] || find_key_value($ast,name)[1];
+console.log($ast);
+if(_value){ 
+    let _JSON =  removeLastChar(',',_value.replace(/\s*⇐change|\s*⇐ADD/g,'').replace(/=/g,':').replace(/;/g,',').replace(/(.*:)/g,'"$1"').replace(/(:.*),/g,'"$1",'))
+    value= Object.entries(JSON.parse(_JSON)).map((item)=>({key:item[0],value:item[1]}))
+    
+}
 
-let ListEntry=[]
+let ListEntry=value.length?value:[];
 let inputValue=''
 let textAreaValue=''
 function add(){
@@ -11,10 +22,20 @@ function add(){
     
     inputValue=''
     textAreaValue=''
+    change()
 }
 function remove(entry){
     ListEntry = ListEntry.filter((x)=>x!=entry)
+    change()
 }
+function change(){
+  let attrToString = '{\n'+ ListEntry.reduce((acc,x)=>{
+    return acc + x.key+'  = '+x.value+';\n'
+  },'') + '\n}'
+$changes[name]=attrToString
+$needsSaving=true;
+}
+
 </script>
 
 <div class='container' style="text-align: center;">   

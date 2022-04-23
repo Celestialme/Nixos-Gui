@@ -2,13 +2,12 @@
  <div class='top-bar'>
     <div class="back-button" on:click={navigate}></div>
     <span>{name}</span>
-     <SaveSettingsIcon/>
+     
 </div>
 <p>Example: {example}</p>
 <p>Type: {type}</p>
 <script>
 import { goto } from "$app/navigation";
-import SaveSettingsIcon from "./icons/SaveSettingsIcon.svelte";
 export let name;
 export let example;
 export let type;

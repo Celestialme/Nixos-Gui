@@ -1,10 +1,24 @@
 <script>
+import { ast, changes, needsSaving } from "@src/store/store";
+
+import { find_key_value } from "@src/utils/globalFunctions";
 export let name;
+
+let value;
+let _value = $changes[name] || find_key_value($ast,name)[1];
+if(_value){
+    value=_value.replace(/⇐.*$/,'')
+}
+function change(){
+    $changes[name] = value;
+    $needsSaving=true;
+}
+
 </script>
 <div class='container'>
     
   
-    <textarea type="text" placeholder={'input value for: ' + name.split('.').slice(-1)[0]}/>
+    <textarea type="text" placeholder={'input value for: ' + name.split('.').slice(-1)[0]} bind:value={value}  on:change={change}/>
 </div>
 
 <style>
