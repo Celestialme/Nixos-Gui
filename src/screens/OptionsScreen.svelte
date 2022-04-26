@@ -64,11 +64,7 @@ import { onMount } from "svelte";
 import axios from 'axios';
 import Option from "@src/components/Option.svelte";
 import { optionList ,OptionInputValue} from "@src/store/store";
-import { ast } from '@src/store/store';
 
-if(!$ast){
-axios.get('ast.json').then(data=>$ast = data.data)
-}
 
 let filteredKey:Array<any>=[];
 let worker:Worker;

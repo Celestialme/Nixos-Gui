@@ -43,8 +43,10 @@ if(data.type!='filterDict')return
 
 
 function click(subMenu){
+  console.log($OptionInputValue)
   //@ts-ignore
   $OptionInputValue = $OptionInputValue.split('.').slice(0,-1).join('.')
+  console.log($OptionInputValue)
   $OptionInputValue+='.'+subMenu+'.'
   $OptionInputValue = $OptionInputValue.replace(/^\./,'')
 }

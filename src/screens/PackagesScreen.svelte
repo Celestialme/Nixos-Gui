@@ -4,14 +4,14 @@
         <input type="text" bind:value={inputValue} on:keyup={filter}>
         
         {#each filteredKey as  key }
-        <Package name={packages[key].pname} description={packages[key].description} version={packages[key].version}/>
+        <Package name={getKeyName(key,$overhead)} description={packages[key].description} version={packages[key].version}/>
         {/each}
 
 
 
 
 
-
+        <button on:click={()=>showDownloaded=true}>SHOW INSTALLED</button>
 
     </div>
 
@@ -62,14 +62,18 @@
 import Package from "@src/components/Package.svelte";
 import { onMount } from "svelte";
 import axios from 'axios';
+import {getKeyName, getOverhead} from '@src/utils/globalFunctions'
+import { installedPkgs, overhead } from "@src/store/store";
 let packages=[];
 let filteredKey:Array<any>=[];
 let inputValue:String='';
 let worker:Worker;
 let keys:Array<any>=[];
+let showDownloaded:boolean = false;
 onMount(async ()=>{
  packages  = await axios.get('packagesList.json').then(data=>data.data)
 keys= Object.keys(packages);
+$overhead = getOverhead(keys)
 worker = new Worker('/worker.js');
 worker.onmessage = function({data}){
 if(inputValue=='')return
@@ -77,7 +81,7 @@ filteredKey = data.value;
 }
 })
 
-
+$:filteredKey =filterDownloadedPackages(showDownloaded)
    
 function filter(){
 
@@ -89,6 +93,18 @@ function filter(){
 }
 
 
-
+function filterDownloadedPackages(showDownloaded){
+let result = []
+if(!showDownloaded || !keys.length)return[]
+let prefix = keys[0].split('.').slice(0,$overhead-1).join('.')+'.'
+for (let i = 0; i < $installedPkgs.length; i++) {
+        let pkg = prefix+$installedPkgs[i]
+        
+        if(!packages[pkg]) continue
+        result.push(pkg)
+}
+console.log(result)
+return result
+}
 
 </script>

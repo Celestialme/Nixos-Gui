@@ -1,24 +1,40 @@
+//@ts-check
+function getKeyName(key){
+ 
+    for(var i=key.length-1;i>=0;i--){
+        if(key[i]=='.'){
+            i++
+            break}
+    }
+    return key.slice(-(key.length - i))
+}
+
 function filterPackages({packages,keys,value}){
     let  filteredKey= keys.filter((key)=>{
    
-   return packages[key].pname.includes(value) || packages[key].description.includes(value)
+   return key.includes(value) || packages[key].pname.includes(value) || packages[key].description.includes(value)
 })
 
-
 filteredKey = filteredKey.sort((a,b)=>{
- let temp = (packages[a]['pname'].startsWith(value)?0:1) - (packages[b]['pname'].startsWith(value)?0:1)
-
- if(temp==0){
+ let byPname = (packages[a]['pname'].startsWith(value)?0:1) - (packages[b]['pname'].startsWith(value)?0:1) // sort  by pname
+ let keyA = getKeyName(a)
+ let keyB = getKeyName(b)
+ let byKeyName = (keyA.includes(value)?0:1) - (keyB.includes(value)?0:1)
+ if(byKeyName!=0){
+     return byKeyName
+ }else if(a.includes(value)){ // if both key includes value, place first the one which starts with value
+     return (keyA.startsWith(value)?0:1) - (keyB.startsWith(value)?0:1) || (keyA.length - keyB.length)
+ }
+ else if(byPname==0){
      return packages[a]['pname'].length-packages[b]['pname'].length
  }else{
-     return temp
+     return byPname
  }
 
 })
 
 postMessage({type:'filterPackages',value:filteredKey.slice(0,50)})
 }
-
 
 
 
@@ -71,7 +87,7 @@ postMessage({type:'filterOptions',value:filteredKey.slice(0,50)})
         if(filterKey !='' && key.startsWith(filterKey) && !key.includes('<name>'))   {
             let tempKey;
     
-            if(key.split('.').indexOf(filterKey.match(/\.\w+$/g)?.[0])!=-1){
+            if(key.split('.').indexOf(getKeyName(filterKey))!=-1){
                 tempKey = key.replace(new RegExp(filterKey+'\\.?'),'')
 
 

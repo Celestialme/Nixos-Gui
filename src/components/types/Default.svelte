@@ -1,7 +1,7 @@
 <script>
 import { ast, changes, needsSaving } from "@src/store/store";
 
-import { find_key_value } from "@src/utils/globalFunctions";
+import { find_key_value ,getKeyName} from "@src/utils/globalFunctions";
 export let name;
 
 let value;
@@ -18,7 +18,7 @@ function change(){
 <div class='container'>
     
   
-    <textarea type="text" placeholder={'input value for: ' + name.split('.').slice(-1)[0]} bind:value={value}  on:change={change}/>
+    <textarea type="text" placeholder={'input value for: ' + getKeyName(name)} bind:value={value}  on:change={change}/>
 </div>
 
 <style>

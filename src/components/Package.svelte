@@ -1,6 +1,7 @@
 <div class="container">
-  
-    <CartIcon/>
+{#key name}
+    <CartIcon {name}/>
+{/key}
     <DownloadIcon/>
     <p class='name'>{name}</p>
     <p class='description'>{description}</p>

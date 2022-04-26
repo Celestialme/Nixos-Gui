@@ -44,8 +44,15 @@
 import OptionsScreen from "@src/screens/OptionsScreen.svelte";
    import SubMenus from "@src/components/SubMenus.svelte";
    import Compare from "@src/components/Compare.svelte";
-import { ast, changes, currentScreen, needsSaving } from "@src/store/store";
-import { findNode, setOption } from "@src/utils/globalFunctions";
+import { ast, changes, currentScreen, installedPkgs, needsSaving } from "@src/store/store";
+import { findNode, getPkgs, setOption } from "@src/utils/globalFunctions";
+import axios from 'axios';
+if(!$ast){
+axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
+}else{
+    $installedPkgs=getPkgs($ast)
+}
+
 let compare = false;
    function getCurrentScreen(){
        switch ($currentScreen) {

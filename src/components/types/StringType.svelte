@@ -1,7 +1,7 @@
 <script>
 import { ast, changes, needsSaving } from "@src/store/store";
 
-import { find_key_value, getPkgs } from "@src/utils/globalFunctions";
+import { find_key_value, getPkgs ,getKeyName} from "@src/utils/globalFunctions";
 export let name;
 let value;
 let _value = $changes[name] || find_key_value($ast,name)[1];
@@ -23,7 +23,7 @@ function change(){
 <div class='container'>
     
   
-    <input type="text" placeholder={'input value for: ' + name.split('.').slice(-1)[0]} bind:value={value} on:change={change}>
+    <input type="text" placeholder={'input value for: ' + getKeyName(name)} bind:value={value} on:change={change}>
 </div>
 
 <style>
