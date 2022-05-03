@@ -152,5 +152,27 @@ self: super: {
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
 
-}
 
+
+
+
+
+
+#START OF NIX_GUI SECTION
+
+
+boot.vesa = false;  ⇐change
+appstream.enable = false;  ⇐change
+
+
+#END OF NIX_GUI SECTION
+
+
+
+
+
+
+
+
+
+}

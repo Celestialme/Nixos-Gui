@@ -38,15 +38,16 @@ impl Fairing for CORS {
 }
 
 
-#[options("/info")]
+
+#[options("/saveCfg")]
 fn options_info() -> String{
 
 "yees".into()
 }
-#[post("/info",format ="json",data = "<payload>")]
+#[post("/saveCfg",format ="json",data = "<payload>")]
 fn info(payload:Json<String>) -> String{
-
-    payload.to_string()
+    std::fs::write("./src/configuration.nix", payload.to_string()).expect("could not write to configuration");
+    "saved".into()
 }
 
 #[get("/")]
