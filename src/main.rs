@@ -37,15 +37,26 @@ impl Fairing for CORS {
     }
 }
 
+#[get("/getConfig")]
+fn get_config() -> String  {
 
+  let text =  std::fs::read_to_string("./src/configuration.nix").expect("configuration file not found");
 
-#[options("/saveCfg")]
-fn options_info() -> String{
+    let ast = rnix::parse(&text);
+    
+    let configuration =serde_json::to_string(&ast.node()).unwrap();
+    
+    configuration
+   
+  }
+
+#[options("/saveConfig")]
+fn config_option() -> String{
 
 "yees".into()
 }
-#[post("/saveCfg",format ="json",data = "<payload>")]
-fn info(payload:Json<String>) -> String{
+#[post("/saveConfig",format ="json",data = "<payload>")]
+fn save_config(payload:Json<String>) -> String{
     std::fs::write("./src/configuration.nix", payload.to_string()).expect("could not write to configuration");
     "saved".into()
 }
@@ -88,7 +99,7 @@ std::thread::spawn(move ||{
 });
 
 
-rocket::build().attach(CORS).mount("/", routes![index,info,options_info])
+rocket::build().attach(CORS).mount("/", routes![index,config_option,save_config,get_config])
 
 }
 

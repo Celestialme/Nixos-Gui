@@ -13,7 +13,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.useOSProber = true;
-  boot.cleanTmpDir = true;
+  boot.cleanTmpDir = false;  
  # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
@@ -82,7 +82,7 @@
      wget
      firefox
      nano
-     google-chrome
+     google-chrome 
   ];
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
@@ -161,10 +161,12 @@ self: super: {
 #START OF NIX_GUI SECTION
 
 
-boot.vesa = false;  ⇐change
-appstream.enable = false;  ⇐change
+boot.vesa = true; 
+boot.consoleLogLevel = 56; 
+environment.etc = {
+as  = asda;
 
-
+};     
 #END OF NIX_GUI SECTION
 
 
