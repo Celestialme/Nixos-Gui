@@ -8,6 +8,7 @@ edition = "2021"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "^1.0.59"
 rocket = {version = "0.5.0-rc.1",features = ["json"]}
+lazy_static = "1.4.0"
 
 [dependencies.rnix]
 git = "https://github.com/celestialme/rnix-parser"

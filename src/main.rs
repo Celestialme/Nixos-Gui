@@ -7,17 +7,31 @@
 
 
 // }
-use std::io::{BufRead, BufReader};
-use std::process::{Command, Stdio,ChildStdin};
+
+use std::io::{BufRead, BufReader, Read};
+use std::process::{Command, Stdio,Child,ChildStdin,ChildStdout};
+use std::sync::{Mutex};
 use std::io::Write;
+use std::{thread, vec};
 use rocket::serde::json::Json;
 use serde::{Serialize, Deserialize};
 use rocket::http::Header;
 use rocket::{Request, Response};
 use rocket::fairing::{Fairing, Info, Kind};
-#[macro_use] extern crate rocket;
-static mut STDIN:Vec<ChildStdin> = vec![];
 
+#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate lazy_static;
+lazy_static! {
+  static   ref   CHILD:Mutex<Child> = Mutex::new(Command::new("nix")
+ .arg("repl")
+ .stdin(Stdio::piped())
+ .stdout(Stdio::piped())
+ .spawn()
+ .expect("failed to execute child"));
+ static   ref   STDIN:Mutex<ChildStdin> = Mutex::new( CHILD.lock().unwrap().stdin.take().unwrap());
+//  static   ref   STDOUT:Mutex<ChildStdout> = Mutex::new( CHILD.lock().unwrap().stdout.take().unwrap());
+}
 pub struct CORS;
 
 #[rocket::async_trait]
@@ -61,13 +75,39 @@ fn save_config(payload:Json<String>) -> String{
     "saved".into()
 }
 
+
+#[get("/repl")]
+fn repl() -> String  {
+   
+    STDIN.lock().unwrap().write_all(b"builtins.toJSON (builtins.attrNames config.users.users)\n").unwrap();
+  
+
+ 
+    format!("wait for response")
+    
+    
+  }
+
+  #[get("/repl2")]
+fn repl2() -> String  {
+   
+    // let mut result=[0;10000];
+    // std::thread::sleep(std::time::Duration::from_millis(1000));
+    // let n =STDOUT.lock().unwrap().read(&mut result).unwrap();
+    // // println!("{:?}",std::str::from_utf8(&result[..n]).unwrap());
+    // println!("{}",n);
+
+  
+      format!("")
+  
+    
+    
+  }
+
 #[get("/")]
 fn index() -> String  {
 
-  unsafe{
 
-    STDIN[0].write_all(b":l <nixpkgs>\n").unwrap();
-  }
     
      format!("Hello, world! ")
    
@@ -75,31 +115,25 @@ fn index() -> String  {
 
 #[launch]
 fn rocket() -> _ {
+  println!("start");
+  STDIN.lock().unwrap().write_all(b":l <nixpkgs/nixos>\n").unwrap();
+  let mut out = BufReader::new(CHILD.lock().unwrap().stdout.take().unwrap());
+  
+  std::thread::spawn(move ||{
+
+
+      println!("looping ");
+      
+       out.lines().for_each(|line|{
+                if line.as_ref().unwrap()==""{return}
+          println!("out: {}", line.as_ref().unwrap());
+          std::fs::write("./src/bla.txt", line.unwrap()).expect("could not write to configuration");
+     }
+      );
  
-   let mut child = Command::new("cat")
-    .stdin(Stdio::piped())
-    .stdout(Stdio::piped())
-    .spawn()
-    .expect("failed to execute child");
 
- let  stdin = child.stdin.take().expect("failed to get stdin");
-unsafe{
-  STDIN.push(stdin);
-}
-let  stdout = child.stdout.take().unwrap();  
-let out = BufReader::new(stdout);
-  
-std::thread::spawn(move ||{
- out.lines().for_each(|line|{
-        if line.as_ref().unwrap()==""{return}
-        println!("out: {}", line.unwrap());
-   }
-    );
-  
-});
-
-
-rocket::build().attach(CORS).mount("/", routes![index,config_option,save_config,get_config])
+  });
+   rocket::build().attach(CORS).mount("/", routes![index,config_option,save_config,get_config,repl,repl2])
 
 }
 
