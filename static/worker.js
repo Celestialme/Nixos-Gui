@@ -102,11 +102,14 @@ postMessage({type:'filterOptions',value:filteredKey.slice(0,50)})
             }
 
         }else if(filterKey !='' && key.startsWith(filterKey) && key.replace(filterKey,'').startsWith('<name>')) {
-         
-            
-             temp['<celestialme>']=dict[key];
-             temp['<celestialme2>']=dict[key];
-             temp['<celestialme3>']=dict[key];
+            //todo: send request to repl to get "usernames"
+            // await fetch('http://localhost:8000/repl') > return instructions to send emit to tauri, and get the result
+            //  temp['<celestialme>']=dict[key];
+            //  temp['<celestialme2>']=dict[key];
+            //  temp['<celestialme3>']=dict[key];
+            postMessage({type:'filterDict-repl',value:dict[key]})
+             break
+             
         }
         
         else if(filterKey==''){

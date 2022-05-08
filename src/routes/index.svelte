@@ -11,7 +11,7 @@
         <button class:active={$currentScreen==0} on:click={()=>$currentScreen=0}>Packages</button>
         <button class:active={$currentScreen==1} on:click={()=>$currentScreen=1}>Options</button>
         <button class:active={$currentScreen==2} on:click={()=>$currentScreen=2}>Shortcuts</button>
-
+     
         {#if $needsSaving}
         <div class='controlls'>
            
@@ -48,7 +48,8 @@ import { ast, changes, currentScreen, installedPkgs, needsSaving } from "@src/st
 import { findNode, getPkgs, setOption } from "@src/utils/globalFunctions";
 import axios from 'axios';
 if(!$ast){
-axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
+// axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
+    axios.get('http://localhost:8000/getConfig').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
 }else{
     $installedPkgs=getPkgs($ast)
 }
@@ -77,6 +78,8 @@ let compare = false;
     $changes={}
     $needsSaving=false
    }
+
+  
 </script>
 
 
@@ -117,7 +120,7 @@ let compare = false;
         transform: scale(0.9);
     }
     .right-panel{
-        padding-top: 10px;
+        padding-top: 8px;
         overflow-y: auto;
         flex-grow: 1;
         overflow-x:hidden;

@@ -1,17 +1,22 @@
 <script>
-import { ast } from "@src/store/store";
+import { ast, installedPkgs } from "@src/store/store";
 
-import { Ast2Text } from "@src/utils/globalFunctions";
+import { Ast2Text, config, getPkgs } from "@src/utils/globalFunctions";
+import axios from "axios";
 export let compare;
 
 let conf = Ast2Text($ast).split(/\n/)
 
-function save(){
-    //TODO write to config file conf.join('\n').replace(/⇐change|⇐ADD/g,'')
+async  function save(){
+    //TODO write to config file 
+    let configuration = conf.join('\n').replace(/⇐change|⇐ADD/g,'')
+    let data = JSON.stringify(configuration)
+    await axios.post('http://localhost:8000/saveConfig',data,config).then(data=>console.log(data))
+    await axios.get('http://localhost:8000/getConfig').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
     compare = false;
 }
 function cancel(){
-    // TODO regenerate AST from RNIX
+    axios.get('http://localhost:8000/getConfig').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
 compare = false;
 }
 </script>

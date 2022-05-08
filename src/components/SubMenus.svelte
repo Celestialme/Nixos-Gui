@@ -21,24 +21,41 @@ let optionKeys;
 let subMenus:any = [];
 let worker = new Worker('worker.js');
 $:worker.postMessage({type:'filterDict',payload: {dict:$optionList,filterKey:$OptionInputValue}})
+{
+    let filter;
+    worker.onmessage=filter = async ({data})=>{
+        if(data.type=='filterDict'){
 
-worker.onmessage = ({data})=>{
-if(data.type!='filterDict')return
-  optionKeys =  Object.keys(data.value)
-  subMenus= new Set();
-  for (let subMenu of optionKeys) {
-      let submenuSplit = subMenu.split('.');
-      subMenus.add(submenuSplit[0]);
+          optionKeys =  Object.keys(data.value)
+          subMenus= new Set();
+          for (let subMenu of optionKeys) {
+              let submenuSplit = subMenu.split('.');
+              subMenus.add(submenuSplit[0]);
+            }
+
+
+            subMenus=[...subMenus]
+
+        }else if(data.type=='filterDict-repl'){
+          let res = await fetchData() as Array<string> //localhost:8000/repl<$OptionInputValue> 
+          let temp ={}
+          for(let item of res){
+            temp["<"+item+">"]=data.value
+          }
+          filter({data:{type:"filterDict",value:temp}})
+        }
     }
-
-
-    subMenus=[...subMenus]
-
 }
 
+//fake fetching data with promise
+function fetchData(){
+  return new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      resolve(['celestialme1','celestialme2','celestialme3'])
+    },1000)
+  })
 
-
-
+}
 
 
 

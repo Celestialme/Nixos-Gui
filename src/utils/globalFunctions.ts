@@ -136,7 +136,7 @@ for(let child of node.children){
 }
 if(!main || replaced.value)return
 
-let endOfSection = findLastIndex( node.children,child => child.kind=='TOKEN_COMMENT'&&child.text=='\n\n#END OF NIX_GUI SECTION')
+let endOfSection = findLastIndex( node.children,child => child.kind=='TOKEN_COMMENT'&&child.text=='#END OF NIX_GUI SECTION')
     if(endOfSection){ //section exists
      
         node.children.splice(endOfSection,0,{kind: 'NODE_KEY_VALUE',children:[{kind:'NODE_VALUE', text:key +' = '+value+'; ⇐ADD' }]})
@@ -145,7 +145,7 @@ let endOfSection = findLastIndex( node.children,child => child.kind=='TOKEN_COMM
     }else{
         let lastIndex =findLastIndex( node.children,child => child.kind=='NODE_KEY_VALUE')
        node.children.splice(lastIndex+3,0,{kind: 'TOKEN_WHITESPACE',text:"\n\n\n\n\n\n\n\n"})
-        node.children.splice(lastIndex+3,0,{kind: 'TOKEN_COMMENT',text:"\n\n#END OF NIX_GUI SECTION"})
+        node.children.splice(lastIndex+3,0,{kind: 'TOKEN_COMMENT',text:"#END OF NIX_GUI SECTION"})
          node.children.splice(lastIndex+3,0,{kind: 'TOKEN_WHITESPACE',text:"\n"})
         node.children.splice(lastIndex+3,0,{kind: 'NODE_KEY_VALUE',children:[{kind:'NODE_VALUE', text:key +' = '+value+'; ⇐ADD' }]})
          
@@ -226,4 +226,23 @@ for(let i=0;i<pkgList.length;i++){
     
         }
 return min
+}
+
+
+export     const config = {
+  headers: {
+    'Content-Type': 'application/json'
+  },
+//  transformRequest: [function (data) {
+// 	var temp=''
+//     Object.entries(data).forEach(function(key_value) {
+//              temp += key_value[0]+'='+key_value[1]+'&'
+//           });
+// 	data = temp
+//     return data;
+//   }],
+//   transformResponse: [function (data) {
+
+//     return JSON.parse(data).data;
+//   }],
 }
