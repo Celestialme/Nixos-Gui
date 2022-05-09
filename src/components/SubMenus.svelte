@@ -14,6 +14,7 @@
 <script lang='ts'>
 import { optionList,OptionInputValue } from "@src/store/store";
 import { listen } from "@tauri-apps/api/event";
+import { invoke } from "@tauri-apps/api/tauri";
 import { onDestroy } from "svelte";
 import Back from "./icons/Back.svelte";
 import Home from "./icons/Home.svelte";
@@ -22,10 +23,12 @@ import Home from "./icons/Home.svelte";
 let optionKeys;
 let subMenus:any = [];
 let worker = new Worker('worker.js');
+let response;
 $:worker.postMessage({type:'filterDict',payload: {dict:$optionList,filterKey:$OptionInputValue}})
-{
+
     let filter;
     worker.onmessage=filter = async ({data})=>{
+      response = data;
         if(data.type=='filterDict'){
 
           optionKeys =  Object.keys(data.value)
@@ -39,29 +42,23 @@ $:worker.postMessage({type:'filterDict',payload: {dict:$optionList,filterKey:$Op
             subMenus=[...subMenus]
 
         }else if(data.type=='filterDict-repl'){
-          let res = await fetchData() as Array<string> //localhost:8000/repl<$OptionInputValue> 
-          let temp ={}
-          for(let item of res){
-            temp["<"+item+">"]=data.value
-          }
-          filter({data:{type:"filterDict",value:temp}})
+            
+           invoke("repl",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`})
+         
         }
     }
-}
+
 
 //fake fetching data with promise
-function fetchData(){
-  return new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-      resolve(['celestialme1','celestialme2','celestialme3'])
-    },1000)
-  })
-
-}
 
 let unlisten;
-listen('repl', event => {
-  console.log(event.payload)
+listen('repl', (e:any) => {
+  let res = JSON.parse(JSON.parse(e.payload))
+  let temp ={}
+          for(let item of res){
+            temp["<"+item+">"]=response.value
+          }
+          filter({data:{type:"filterDict",value:temp}})
 }).then(_unlisten=>unlisten=_unlisten)
 onDestroy(()=>{
     unlisten()
