@@ -17,7 +17,7 @@ async  function save(){
     compare = false;
 }
 function cancel(){
-    axios.get('http://localhost:8000/getConfig').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
+    invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
 compare = false;
 }
 </script>
