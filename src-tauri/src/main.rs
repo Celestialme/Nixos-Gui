@@ -47,8 +47,9 @@ fn save_config(payload:String) -> String{
 
 #[tauri::command]
 fn repl(payload:String) -> String  {
-   
-    STDIN.lock().unwrap().write_all(b"builtins.toJSON (builtins.attrNames config.users.users)\n").unwrap();
+  //  builtins.toJSON (builtins.attrNames config.users.users)
+    let data = format!("{}\n",payload);
+    STDIN.lock().unwrap().write_all(data.as_bytes()).unwrap();
   
 
  
@@ -70,7 +71,7 @@ fn main() {
        out.lines().for_each(|line|{
                 if line.as_ref().unwrap()==""{return}
           println!("out: {}", line.as_ref().unwrap());
-          std::fs::write("./src/bla.txt", line.unwrap()).expect("could not write to configuration");
+          // std::fs::write("./src/bla.txt", line.unwrap()).expect("could not write to configuration");
      }
       );
  
