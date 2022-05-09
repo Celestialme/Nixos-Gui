@@ -13,6 +13,8 @@
 </div>
 <script lang='ts'>
 import { optionList,OptionInputValue } from "@src/store/store";
+import { listen } from "@tauri-apps/api/event";
+import { onDestroy } from "svelte";
 import Back from "./icons/Back.svelte";
 import Home from "./icons/Home.svelte";
 // import io from 'socket.io-client'
@@ -57,7 +59,13 @@ function fetchData(){
 
 }
 
-
+let unlisten;
+listen('repl', event => {
+  console.log(event.payload)
+}).then(_unlisten=>unlisten=_unlisten)
+onDestroy(()=>{
+    unlisten()
+})
 
 function click(subMenu){
   console.log($OptionInputValue)

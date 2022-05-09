@@ -9,6 +9,7 @@ use std::io::Write;
 use std::{thread, vec};
 use serde::{Serialize, Deserialize};
 use tauri::{Manager, Window};
+use strip_ansi_escapes;
 
 #[macro_use]
 extern crate lazy_static;
@@ -72,8 +73,9 @@ fn start_repl(window: Window){
     out.lines().for_each(|line|{
    if line.as_ref().unwrap()==""{return}
        println!("out: {}", line.as_ref().unwrap());
+       
        // std::fs::write("./src/bla.txt", line.unwrap()).expect("could not write to configuration");
-       window.emit("repl", line.as_ref().unwrap()).unwrap();
+       window.emit("repl", std::str::from_utf8(&strip_ansi_escapes::strip(line.as_ref().unwrap()).unwrap()).unwrap()).unwrap();
 
   }
    );

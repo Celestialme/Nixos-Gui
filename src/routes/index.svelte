@@ -48,6 +48,7 @@ import { ast, changes, currentScreen, installedPkgs, needsSaving } from "@src/st
 import { findNode, getPkgs, setOption } from "@src/utils/globalFunctions";
 import { invoke } from '@tauri-apps/api/tauri'
 import { listen } from '@tauri-apps/api/event'
+import { onDestroy } from "svelte";
 if(!$ast){
 // axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
     invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
@@ -55,9 +56,12 @@ if(!$ast){
 }else{
     $installedPkgs=getPkgs($ast)
 }
-
+let unlisten;
 listen('repl', event => {
-  console.log(event.payload)
+  console.log(JSON.parse(JSON.parse(event.payload)))
+}).then(_unlisten=>unlisten=_unlisten)
+onDestroy(()=>{
+    unlisten()
 })
 invoke("start_repl")
 let compare = false;
