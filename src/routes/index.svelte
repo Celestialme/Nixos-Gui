@@ -46,10 +46,11 @@ import OptionsScreen from "@src/screens/OptionsScreen.svelte";
    import Compare from "@src/components/Compare.svelte";
 import { ast, changes, currentScreen, installedPkgs, needsSaving } from "@src/store/store";
 import { findNode, getPkgs, setOption } from "@src/utils/globalFunctions";
-import axios from 'axios';
+import { invoke } from '@tauri-apps/api/tauri'
 if(!$ast){
 // axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
-    axios.get('http://localhost:8000/getConfig').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
+    invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
+    
 }else{
     $installedPkgs=getPkgs($ast)
 }

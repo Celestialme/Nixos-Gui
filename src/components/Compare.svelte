@@ -2,6 +2,7 @@
 import { ast, installedPkgs } from "@src/store/store";
 
 import { Ast2Text, config, getPkgs } from "@src/utils/globalFunctions";
+import { invoke } from "@tauri-apps/api/tauri";
 import axios from "axios";
 export let compare;
 
@@ -10,9 +11,9 @@ let conf = Ast2Text($ast).split(/\n/)
 async  function save(){
     //TODO write to config file 
     let configuration = conf.join('\n').replace(/⇐change|⇐ADD/g,'')
-    let data = JSON.stringify(configuration)
-    await axios.post('http://localhost:8000/saveConfig',data,config).then(data=>console.log(data))
-    await axios.get('http://localhost:8000/getConfig').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
+    // let data = JSON.stringify(configuration)
+    await invoke("save_config",{payload:configuration}).then(data=>console.log(data))
+    await invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
     compare = false;
 }
 function cancel(){
