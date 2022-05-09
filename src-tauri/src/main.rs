@@ -4,10 +4,11 @@
 )]
 use std::io::{BufRead, BufReader, Read};
 use std::process::{Command, Stdio,Child,ChildStdin,ChildStdout};
-use std::sync::{Mutex};
+use std::sync::{Arc,Mutex};
 use std::io::Write;
 use std::{thread, vec};
 use serde::{Serialize, Deserialize};
+use tauri::{Manager, Window};
 
 #[macro_use]
 extern crate lazy_static;
@@ -20,6 +21,7 @@ lazy_static! {
  .expect("failed to execute child"));
  static   ref   STDIN:Mutex<ChildStdin> = Mutex::new( CHILD.lock().unwrap().stdin.take().unwrap());
 //  static   ref   STDOUT:Mutex<ChildStdout> = Mutex::new( CHILD.lock().unwrap().stdout.take().unwrap());
+static ref IS_RUNING:Mutex<bool> = Mutex::new(false);
 }
 
 
@@ -57,29 +59,36 @@ fn repl(payload:String) -> String  {
     
     
   }
+#[tauri::command]
+fn start_repl(window: Window){
+  if *IS_RUNING.lock().unwrap(){
+    return
+  }
+  *IS_RUNING.lock().unwrap()=true;
+  let mut out = BufReader::new(CHILD.lock().unwrap().stdout.take().unwrap());
 
+  std::thread::spawn(move ||{
+     
+    out.lines().for_each(|line|{
+   if line.as_ref().unwrap()==""{return}
+       println!("out: {}", line.as_ref().unwrap());
+       // std::fs::write("./src/bla.txt", line.unwrap()).expect("could not write to configuration");
+       window.emit("repl", line.as_ref().unwrap()).unwrap();
+
+  }
+   );
+
+
+});
+}
 
 fn main() {
   STDIN.lock().unwrap().write_all(b":l <nixpkgs/nixos>\n").unwrap();
-  let mut out = BufReader::new(CHILD.lock().unwrap().stdout.take().unwrap());
   
-  std::thread::spawn(move ||{
 
-
-      println!("looping ");
-      
-       out.lines().for_each(|line|{
-                if line.as_ref().unwrap()==""{return}
-          println!("out: {}", line.as_ref().unwrap());
-          // std::fs::write("./src/bla.txt", line.unwrap()).expect("could not write to configuration");
-     }
-      );
- 
-
-  });
 
   tauri::Builder::default()
-  .invoke_handler(tauri::generate_handler![get_config,save_config,repl])
+  .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
