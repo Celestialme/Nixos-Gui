@@ -1,11 +1,16 @@
 
- <div class='top-bar'>
-    <div class="back-button" on:click={navigate}></div>
-    <span>{name}</span>
-     
+<div id="top-bar">
+
+    <div class='top-bar'>
+        <div class="back-button" on:click={navigate}></div>
+        <span>{name}</span>
+        
+    </div>
+    <div class="info">
+        <p>Example: {example}</p>
+        <p>Type: {type}</p>
+    </div>
 </div>
-<p>Example: {example}</p>
-<p>Type: {type}</p>
 <script>
 import { goto } from "$app/navigation";
 export let name;
@@ -19,7 +24,7 @@ export let type;
 <style>
 
 .top-bar{
-    background-color: #3e2e2e;
+    background: linear-gradient(90deg, #504d4d 0%, #504d4d 31.03%, #4f4c4c 98.21%);
     font-size: 30px;
     text-align: center;
     color: white;
@@ -27,13 +32,22 @@ export let type;
     margin-bottom: 20px;
     
 }
-
+.info{
+    width:90vw;
+    margin:auto;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    background:#F8F8F8;
+}
 p{
     font-size: 25px;
     text-align: center;
 }
+p:first-of-type{
+    padding-top: 20px;
+}
 p:last-of-type{
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 }
 .back-button{
     float: left;
@@ -49,4 +63,5 @@ p:last-of-type{
     .back-button:active{
       transform: scale(0.9) rotate(-45deg);
     }
+
 </style>

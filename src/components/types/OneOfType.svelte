@@ -1,7 +1,7 @@
 <script>
 import { ast, changes, needsSaving } from "@src/store/store";
 
-import {  find_key_value } from "@src/utils/globalFunctions";
+import {  find_key_value,setContainerHeight } from "@src/utils/globalFunctions";
 export let name;
 export let type
 
@@ -22,13 +22,15 @@ function change(){
    $needsSaving=true;
 }
 </script>
-
-<select bind:value={selectedType} on:change={change}>
-    <option value="none" disabled hidden >Choose Value</option>
-    {#each types as curType }
+<div class="container" use:setContainerHeight>
+    
+    <select bind:value={selectedType} on:change={change}>
+        <option value="none" disabled hidden >Choose Value</option>
+        {#each types as curType }
         <option value={curType}>{curType}</option>
-    {/each}
-</select>
+        {/each}
+    </select>
+</div>
 <style>
     select{
         font-size: 25px;
@@ -41,4 +43,15 @@ function change(){
     option{
         padding: 10px;
     }
+    .container{
+    width:90vw;
+    padding-top: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #F8F8F8;
+    border-radius: 13px;
+    margin:auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
 </style>

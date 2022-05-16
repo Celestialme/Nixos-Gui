@@ -1,7 +1,7 @@
 <script>
 import { ast, changes, needsSaving } from "@src/store/store";
 
-import { find_key_value ,getKeyName} from "@src/utils/globalFunctions";
+import { find_key_value ,getKeyName,setContainerHeight} from "@src/utils/globalFunctions";
 export let name;
 
 let value;
@@ -15,7 +15,7 @@ function change(){
 }
 
 </script>
-<div class='container'>
+<div class='container' use:setContainerHeight>
     
   
     <textarea type="text" placeholder={'input value for: ' + getKeyName(name)} bind:value={value}  on:change={change}/>
@@ -23,8 +23,16 @@ function change(){
 
 <style>
 .container{
+    position: relative;
     text-align: center;
-    height: 50vh;
+    width:90vw;
+    padding-top: 8px;
+    overflow:hidden;
+    background: #F8F8F8;
+    border-radius: 13px;
+    margin:auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 textarea{

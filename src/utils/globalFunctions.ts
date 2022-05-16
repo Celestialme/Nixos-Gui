@@ -246,3 +246,9 @@ export     const config = {
 //     return JSON.parse(data).data;
 //   }],
 }
+
+// get top bar height
+export function setContainerHeight(node){
+    let topBarHeight = document.getElementById('top-bar').offsetHeight+55
+    node.style.height = "calc(100vh - "+topBarHeight+"px)"
+}

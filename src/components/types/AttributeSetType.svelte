@@ -1,7 +1,7 @@
 <script>
 import { ast, changes, needsSaving } from "@src/store/store";
 
-import {  find_key_value, removeLastChar } from "@src/utils/globalFunctions";
+import {  find_key_value, removeLastChar ,setContainerHeight} from "@src/utils/globalFunctions";
 export let name;
 let value=[];
 let _value =  $changes[name] || find_key_value($ast,name)[1];
@@ -38,7 +38,7 @@ $needsSaving=true;
 
 </script>
 
-<div class='container' style="text-align: center;">   
+<div class='container' style="text-align: center;" use:setContainerHeight>   
     <div class='attr-container'>
         <div class='row'>
             <p>Key</p>
@@ -84,6 +84,17 @@ $needsSaving=true;
 
 </div>
 <style>
+  .container{
+    width:90vw;
+    padding-top: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #F8F8F8;
+    border-radius: 13px;
+    margin:auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
   .attr-container{
       display:flex;
       justify-content: center;

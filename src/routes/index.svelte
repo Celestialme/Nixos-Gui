@@ -1,6 +1,11 @@
-<p>Gui Package Manager</p>
-<div class="body">
+
+    <div class='top-panel'>
     
+        <Search bind:inputValue={inputValue} {keyUpFn}/>
+        
+    </div>
+<div class="body">
+
     <div class='left-panel'>
         {#if $currentScreen==1}
      
@@ -25,7 +30,7 @@
     </div>
     <div class='right-panel'>
         
-      <svelte:component this={getCurrentScreen()} />
+      <svelte:component inputValue={inputValue} bind:keyUpFn={keyUpFn} this={getCurrentScreen()} />
     </div>
 
 
@@ -36,9 +41,7 @@
 </div>
 
 
-
-
-<script>
+<script lang='ts'>
    import PackagesScreen from "@src/screens/PackagesScreen.svelte";
    // @ts-ignore
 import OptionsScreen from "@src/screens/OptionsScreen.svelte";
@@ -49,16 +52,22 @@ import { findNode, getPkgs, setOption } from "@src/utils/globalFunctions";
 import { invoke } from '@tauri-apps/api/tauri'
 import { listen } from '@tauri-apps/api/event'
 import { onDestroy } from "svelte";
+import axios from 'axios';
+import Search from "@src/components/Search.svelte";
+let inputValue:string = '';
+let keyUpFn:Function=()=>{};
+
+
 if(!$ast){
-// axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
-    invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
+axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
+    // invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
     
 }else{
     $installedPkgs=getPkgs($ast)
 }
 let unlisten;
 listen('repl', event => {
-  console.log(JSON.parse(JSON.parse(event.payload)))
+//   console.log(JSON.parse(JSON.parse(event.payload)))
 }).then(_unlisten=>unlisten=_unlisten)
 onDestroy(()=>{
     unlisten()
@@ -96,21 +105,39 @@ let compare = false;
 
 
 <style>
+ 
+    .top-panel{
+    width: calc(100% - 300px);
+    left: 300px;
+    height: 60px;
+    background: #524F4F;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(90deg, #504d4d 0%, #504d4d 31.03%, #4f4c4c 98.21%);
+
+    }
      :global(*){
         margin:0;
         padding: 0;
         box-sizing: border-box;
     }
+    :global(body){
+        background: linear-gradient(180deg, #504c4c 0%, #504d4d 31.03%, #403F3F 98.21%);
+        height: 100vh;
+    }
     .body{
         width: 100%;
         height: calc(100vh - 70px );
         display: flex;
-
+        
     }
     .left-panel{
         position: relative;
         min-width:300px;
         background-color: #000000d1;
+        background: linear-gradient(180deg, #4f4c4c 0%, #403F3F 31.03%, #403F3F 98.21%);
+
       
     }
     .left-panel button{
@@ -130,25 +157,19 @@ let compare = false;
         transform: scale(0.9);
     }
     .right-panel{
-        padding-top: 8px;
-        overflow-y: auto;
-        flex-grow: 1;
-        overflow-x:hidden;
+    padding-top: 8px;
+    overflow-y: auto;
+    flex-grow: 1;
+    overflow-x: hidden;
+    background: #F8F8F8;
+    border-radius: 13px;
+    margin-right: 15px;
+    
     }
 
     .active{
         background: #8e8e8e4d !important;
     }
-   p{
-    background: #3e2e2e;
-    text-align: center;
-    font-size: 30px;
-    color: white;
-    border-bottom: 1px solid white;
-    padding: 15px;
-    font-family: fantasy;
-    padding-left: 15%;
-   }
    .controlls{
        position: absolute;
        bottom:0;

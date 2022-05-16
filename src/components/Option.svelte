@@ -37,23 +37,25 @@ import { goto } from "$app/navigation";
 
 <style>
    .container{
+    position: relative;
     text-align: center;
+    margin: 10px auto;
     border-bottom: 1px solid;
     padding: 30px;
-    margin: 10px;
     border-radius: 12px;
     box-shadow: 3px 2px 10px 1px #00000066;
     cursor: default;
+    width: 720px;
     }
     .name{
-        font-size: 30px;
+        font-size: 37px;
     }
     .description,.example,.type{
         font-size: 20px;
     }
     p{
-        width:60%;
-        margin:auto
+        margin: 20px 0px;
+     text-align: center;
     }
     .warning{
         color:red;

@@ -30,13 +30,17 @@ compare = false;
         <button class='save' on:click={save}>SAVE</button>
         <button class='cancel' on:click={cancel}>Cancel</button>
     </div>
-{#each conf as line }
+
+<div class='content'>
+
+    {#each conf as line }
     <p 
     class:change={line.includes('⇐change')}
     class:add={line.includes('⇐ADD')}
     >{line}</p>
-{/each}
-
+    {/each}
+    
+</div>
 
 
 </div>
@@ -44,18 +48,22 @@ compare = false;
 <style>
     .container{
     position: absolute;
-    width: calc(90% - 330px);
-    height: 80%;
-    left: 400px;
-    top: 10%;
+    width: 99vw;
+    height: 98vh;
+    left: 10px;
+    top: 1vh;
     color: black;
     font-size: 25px;
-    padding: 20px 30px;
-    overflow: auto;
+    padding: 0px 30px;
     background: #322f2f;
     box-shadow: 3px 4px 20px 3px black;
     color: #45ffe5;
     border-radius: 12px;
+    overflow: hidden;
+    }
+    .content{
+        height: calc(98vh - 78px);
+        overflow: auto;
     }
     p{ margin: 6px 0;min-height: 20px; white-space: pre;}
     .add{

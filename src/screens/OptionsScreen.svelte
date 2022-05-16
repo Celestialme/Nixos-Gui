@@ -1,7 +1,7 @@
 
 
     <div class='container' class:populated={filteredKey.length}>
-        <input type="text" bind:value={$OptionInputValue} >
+        
         
         {#each filteredKey as  key }
         <Option name={key} description={$optionList[key.replace(/<.*>/,'<name>')]?.description} example={$optionList[key.replace(/<.*>/,'<name>')]?.example} defaultValue={$optionList[key.replace(/<.*>/,'<name>')]?.default} type={$optionList[key.replace(/<.*>/,'<name>')]?.type }/>
@@ -23,34 +23,9 @@
 
 
 <style>
-   input{
-        display: block;
-        width: 50%;
-        margin: 0 auto;
-        font-size: 30px;
-        border-radius: 6px;
-        border: 1px solid;
-        outline: none;
-        text-align: center;
-        margin-bottom: 20px;
-        margin-top: -60px;
-        padding: 10px;
-    }
-    .populated{
-     margin: 10px;
-    margin-top: 60px !important;
-    border: 2px solid #00000073;
-    border-radius: 12px;
-    
-    }
-    .container{
-    margin-top: 20px;
-    min-height: 91%;
-    padding: 30px 50px;
-    transition: 0.5s;
-    margin-top: 60px;
-    
-    }
+  
+   
+   
 </style>
 
 
@@ -69,6 +44,8 @@ import { optionList ,OptionInputValue} from "@src/store/store";
 let filteredKey:Array<any>=[];
 let worker:Worker;
 let keys:Array<any>=[];
+export let inputValue;
+$:$OptionInputValue = inputValue;
 onMount(async ()=>{
  $optionList  = await axios.get('options.json').then(data=>data.data)
 keys= Object.keys($optionList);

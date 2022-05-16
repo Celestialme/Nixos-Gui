@@ -1,7 +1,7 @@
 <script>
 import { ast, changes, needsSaving } from "@src/store/store";
 
-import {  find_key_value } from "@src/utils/globalFunctions";
+import {  find_key_value,setContainerHeight } from "@src/utils/globalFunctions";
 export let name;
 let value=[];
 let _value = $changes[name] || find_key_value($ast,name)[1];
@@ -36,7 +36,7 @@ function change(){
 }
 
 </script>
-<div class='container'>
+<div class='container' use:setContainerHeight>
 
     <div>
         <input type="text" placeholder={'ADD Entry'} bind:value={inputValue}>
@@ -68,6 +68,15 @@ function change(){
 <style>
 .container{
     text-align: center;
+    width:90vw;
+    padding-top: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #F8F8F8;
+    border-radius: 13px;
+    margin:auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 input{
