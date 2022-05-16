@@ -3,7 +3,7 @@
         {#key name}
             <CheckIcon {name}/>
         {/key}
-            <DownloadIcon on:click={()=>showProgress=true}/>
+            <DownloadIcon on:click={()=>startDownload()}/>
     </div>
     <div class='right-panel'>
         <p class='name'>{@html name.replace(/\./g,".<wbr>")}</p>
@@ -20,6 +20,8 @@
 
 
 <script>
+import { invoke } from "@tauri-apps/api/tauri";
+
 import CheckIcon from "./icons/CheckIcon.svelte";
 import DownloadIcon from "./icons/DownloadIcon.svelte";
 import ProgressBar from "./ProgressBar.svelte";
@@ -31,6 +33,12 @@ import ProgressBar from "./ProgressBar.svelte";
     export let version ;
     let showProgress=false;
     let value = 100
+
+
+function startDownload() {
+    showProgress=true;
+    invoke('start_download',{payload:name})
+}
 </script>
 
 <style>

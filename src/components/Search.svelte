@@ -30,7 +30,7 @@ export let keyUpFn:Function;
     height: 40px;
     background-color: transparent;
     border: none;
-    font-size: 35px;
+    font-size: 15px;
     color: white;
     width: 100%;
     margin-left: 20px;

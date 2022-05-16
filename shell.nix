@@ -2,6 +2,12 @@
   pkgs.mkShell {
     
     nativeBuildInputs = [ 
+      pkgs.gcc
+      pkgs.rustc
+      pkgs.rustfmt
+      pkgs.cargo
+      pkgs.cargo-edit
+      pkgs.rust-analyzer
       pkgs.dbus
       pkgs.pkgconfig
       pkgs.openssl
@@ -20,6 +26,6 @@
      ];
      buildInputs = [ 
       pkgs.nodejs
-
+      pkgs.cargo
      ];
 }
