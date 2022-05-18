@@ -2,6 +2,7 @@
   all(not(debug_assertions), target_os = "windows"),
   windows_subsystem = "windows"
 )]
+mod nix_env;
 use std::io::{BufRead, BufReader, Read};
 use std::process::{Command, Stdio,Child,ChildStdin,ChildStdout};
 use std::sync::{Arc,Mutex};
@@ -41,46 +42,8 @@ fn get_config() -> String  {
 
   #[tauri::command]
   fn start_download(payload:String,window:Window) -> String{
-      println!("downloading... {}",payload.to_string());
-      let mut child = Command::new("nix")
-      .arg("build")
-      .arg("--no-link")
-      .arg("-f")
-      .arg("<nixpkgs>")
-      .arg(payload.to_string())
-      .stdin(Stdio::piped())
-      .stdout(Stdio::piped())
-      .stderr(Stdio::piped())
-      .spawn()
-      .expect("failed to execute child");
-
-
-      let mut out = BufReader::new(child.stderr.take().unwrap());
-      std::thread::spawn(move ||{
      
-        out.lines().for_each(|line|{
-          println!("out::");
-       if line.as_ref().unwrap()==""{return}
-           println!("out: {}", line.as_ref().unwrap());
-
-          //  window.emit("repl", std::str::from_utf8(&strip_ansi_escapes::strip(line.as_ref().unwrap()).unwrap()).unwrap()).unwrap();
-    
-      }
-       );
-    
-    
-    });
-
-
-
-
-
-
-
-
-
-
-
+    nix_env::download(payload,window);
 
 
       "started download".into()

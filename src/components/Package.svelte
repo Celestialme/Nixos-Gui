@@ -10,21 +10,20 @@
         <p class='description'>{description}</p>
         <p class='version'>version: {version}</p>
         {#if showProgress}
-        <ProgressBar title="building..." value=50 max_value=450/>
-        <ProgressBar title="copying..." value={value} max_value=450/>
-        <ProgressBar title="Downloading..." value=50 max_value=450/>
+        <ProgressBar title="building..." value={value} max_value={max_value}/>
         {/if}
     </div>
 
 </div>
 
 
-<script>
+<script lang="ts">
 import { invoke } from "@tauri-apps/api/tauri";
-
+import { listen } from "@tauri-apps/api/event";
 import CheckIcon from "./icons/CheckIcon.svelte";
 import DownloadIcon from "./icons/DownloadIcon.svelte";
 import ProgressBar from "./ProgressBar.svelte";
+import { onDestroy } from "svelte";
 
 
 
@@ -32,13 +31,26 @@ import ProgressBar from "./ProgressBar.svelte";
     export let description;
     export let version ;
     let showProgress=false;
-    let value = 100
+    let value = 0
+    let max_value =1
 
-
+let unlisten;
 function startDownload() {
+    if(showProgress)return
     showProgress=true;
-    invoke('start_download',{payload:name})
+listen('progress-'+name.replace(/\./g,''), (e:any) => {
+  [value,max_value] = JSON.parse(e.payload)
+
+ 
+}).then(_unlisten=>unlisten=_unlisten)
+
+
+invoke('start_download',{payload:name})
 }
+onDestroy(()=>{
+  unlisten && unlisten()
+})
+
 </script>
 
 <style>
