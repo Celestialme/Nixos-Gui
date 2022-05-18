@@ -10,7 +10,7 @@
         <p class='description'>{description}</p>
         <p class='version'>version: {version}</p>
         {#if showProgress}
-        <ProgressBar title="building..." value={value} max_value={max_value}/>
+        <ProgressBar title="building..." value={value} max_value={max_value} {success}/>
         {/if}
     </div>
 
@@ -33,7 +33,7 @@ import { onDestroy } from "svelte";
     let showProgress=false;
     let value = 0
     let max_value =1
-
+    let success;
 let unlisten;
 function startDownload() {
     if(showProgress)return
@@ -43,7 +43,11 @@ listen('progress-'+name.replace(/\./g,''), (e:any) => {
 
  
 }).then(_unlisten=>unlisten=_unlisten)
-
+listen('finish-'+name.replace(/\./g,''), (e:any) => {
+    success=e.payload;
+    console.log(success)
+ 
+}).then(_unlisten=>unlisten=_unlisten)
 
 invoke('start_download',{payload:name})
 }

@@ -2,12 +2,13 @@
 export let title;
 export let value;
 export let max_value;
+export let success;
 </script>
 
 <div style='text-align:left;padding:3px 0'>
     <span class='title'>{title}</span>
     <div class='progress-track' >
-        <div class='progress-bar' style='width:{value/max_value * 100}%'></div>
+        <div class='progress-bar' class:success={success=="true"} class:error={success=="false"} style='width:{value/max_value * 100}%'></div>
     </div>
 </div>
 
@@ -28,5 +29,11 @@ export let max_value;
     }
     .title{
         font-size: 20px;
+    }
+    .success{
+        background: green;
+    }
+    .error{
+        background: red;
     }
 </style>
