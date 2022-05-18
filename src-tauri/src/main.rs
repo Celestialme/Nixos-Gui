@@ -43,8 +43,8 @@ fn get_config() -> String  {
   #[tauri::command]
   fn start_download(payload:String,window:Window) -> String{
      
-    
-    nix_env::download("steam".to_string(),window);
+    nix_env::download(payload,window);
+
 
 
       "started download".into()
