@@ -30,7 +30,7 @@ let mut todo:Vec<String> = Vec::new();
 let mut todo_max_length = 0;
 let mut success = "true";
 let mut error_msg = String::new();
-window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("[{},{}]",0,1)).unwrap();
+window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",0,1,"")).unwrap();
 out.lines().for_each(|line|{
   let mut line = line.unwrap();  
  line = line.trim().to_string();
@@ -42,29 +42,42 @@ out.lines().for_each(|line|{
           
           return
       };
-      if line.trim().starts_with("/nix/store"){
-        todo.push(line);
-        todo_max_length+=1;
+      if line.starts_with("/nix/store"){
+          todo.push(line);
+          todo_max_length+=1;
       } else{
-        match todo.iter().position(|r| line.contains(r)) {
-          None => "None",
-          Some(val) => {
-            todo.remove(val);
-           println!("{}/{}",todo_max_length-todo.len(),todo_max_length);
-           window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("[{},{}]",todo_max_length-todo.len(),todo_max_length)).unwrap();
-           "Removed"
-          },
-      };
+          match todo.iter().position(|r| line.contains(r)) {
+            None => "None",
+            Some(val) => {
+              todo.remove(val);
+            "Removed"
+            },
+        };
+        
+        window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",todo_max_length-todo.len(),todo_max_length,
+        line
+        .replace(".",".<wbr>")
+        .replace("_","_<wbr>")
+        .replace("-","_<wbr>")
+        .replace("/","/<wbr>")
+      )).unwrap();
       }
-     
  // println!("{}/{}",build_length-build_list.len(),build_length)
  });
 if success=="false" {
  println!("{:?}",error_msg); 
 }
-window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("[{},{}]",1,1)).unwrap();
+window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",1,1,"")).unwrap();
 window.emit(&format!("{}-{}","finish",app.replace(".","")), success).unwrap();
-
+if success == "false"{
+window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",todo_max_length-todo.len(),todo_max_length,
+        error_msg
+        .replace(".",".<wbr>")
+        .replace("_","_<wbr>")
+        .replace("-","_<wbr>")
+        .replace("/","/<wbr>")
+      )).unwrap();
+    };
  println!("finished");
 });
 
