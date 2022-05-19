@@ -38,7 +38,7 @@ out.lines().for_each(|line|{
       if line==""{return}
       if line.contains("error") || success =="false"{
           success = "false";    
-          error_msg+=&line;
+          error_msg+=&(r"<br>".to_owned()+&line);
           
           return
       };
@@ -56,6 +56,8 @@ out.lines().for_each(|line|{
         
         window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",todo_max_length-todo.len(),todo_max_length,
         line
+        .replace("\"","'")
+        .replace(r"`","'")
         .replace(".",".<wbr>")
         .replace("_","_<wbr>")
         .replace("-","_<wbr>")
@@ -64,14 +66,15 @@ out.lines().for_each(|line|{
       }
  // println!("{}/{}",build_length-build_list.len(),build_length)
  });
-if success=="false" {
- println!("{:?}",error_msg); 
-}
+
 window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",1,1,"")).unwrap();
 window.emit(&format!("{}-{}","finish",app.replace(".","")), success).unwrap();
 if success == "false"{
+  println!("eroooooooooooooooooooooooor {}",error_msg);
 window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",todo_max_length-todo.len(),todo_max_length,
         error_msg
+        .replace("\"","'")
+        .replace(r"`","'")
         .replace(".",".<wbr>")
         .replace("_","_<wbr>")
         .replace("-","_<wbr>")
