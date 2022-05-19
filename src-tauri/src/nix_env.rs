@@ -13,71 +13,60 @@ use tauri::{Manager, Window};
   
 
 pub fn download(app:String,window:Window){
-  let mut success = "true";
- let  child = Command::new("nix-env").arg("-iA").arg("nixos.".to_owned()+&app).arg("--dry-run")
-    .stdin(Stdio::piped())
-    .stdout(Stdio::piped())
-   .stderr(Stdio::piped())
-    .output()
-    .expect("failed to execute child");
 
 
- let mut child2 = Command::new("nix-env").arg("-iA").arg("nixos.".to_owned()+&app).args(["--option", "sandbox", "false"])
-    .stdin(Stdio::piped())
-    .stdout(Stdio::piped())
-    .stderr(Stdio::piped())
-    .spawn()
-    .expect("failed to execute child");
+  // let mut child = Command::new("nix-env").arg("-iA").arg("nixpkgs.".to_owned()+&app)
+  let mut child = Command::new("nix-env").arg("-iA").arg("-f").arg("/nixos-unstable").arg(&app).args(["--option","sandbox","false"])
+  .stdin(Stdio::piped())
+  .stdout(Stdio::piped())
+  .stderr(Stdio::piped())
+  .spawn()
+  .expect("failed to execute child");
 // let mut stdin = child.stdin.take().expect("failed to get stdin");
- println!("{:?}",child);
-let  stdout = child2.stderr.take().unwrap();  
-let out = BufReader::new(stdout);
+let  output = child.stderr.take().unwrap();  
+let out = BufReader::new(output);
 std::thread::spawn(move ||{
-  let output = std::str::from_utf8(&child.stderr).unwrap();
-  let list: Vec<&str> = output.split('\n').collect();
-  let mut start = match list.iter().position(|&r| r == "these derivations will be built:"){
-           None =>  Some(0),
-            Some(val) => Some(val),
-  };
-
-  let end = match list.iter().position(|&r| r.starts_with("these paths will be fetched")) {
-            None => Some(if start.unwrap() >0 {start=Some(start.unwrap()+1);list.len()-1} else {0}), // if we dont have anything to build make start and end 0
-            Some(val) => Some(if start.unwrap() >0 {val} else {0}),
-        };
-
-  let  build_list = list[start.unwrap()..end.unwrap()].to_vec();
-  let mut build_list = build_list.iter().map(|&x| x.trim()).collect::<Vec<_>>();
-  let build_length = build_list.len();
-  // println!("{:?}",build_list);
-  window.emit(&format!("{}-{}","progress",app.replace(".","")), std::str::from_utf8(&strip_ansi_escapes::strip(format!("[{},{}]",0,1)).unwrap()).unwrap()).unwrap();
-
- out.lines().for_each(|line|{
-        if line.as_ref().unwrap()==""{return}
-        if line.as_ref().unwrap().contains("error") || success =="false"{
-            success = "false";    
-            println!("success is {} for this line {}",success,line.as_ref().unwrap());
-            
-            return
-        };
-      println!("out2:      {}",line.as_ref().unwrap());
-   if line.as_ref().unwrap().starts_with("building"){
-        match build_list.iter().position(|&x| line.as_ref().unwrap().contains(x)) {
+let mut todo:Vec<String> = Vec::new();
+let mut todo_max_length = 0;
+let mut success = "true";
+let mut error_msg = String::new();
+window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("[{},{}]",0,1)).unwrap();
+out.lines().for_each(|line|{
+  let mut line = line.unwrap();  
+ line = line.trim().to_string();
+ println!("{}",line);
+      if line==""{return}
+      if line.contains("error") || success =="false"{
+          success = "false";    
+          error_msg+=&line;
+          
+          return
+      };
+      if line.trim().starts_with("/nix/store"){
+        todo.push(line);
+        todo_max_length+=1;
+      } else{
+        match todo.iter().position(|r| line.contains(r)) {
           None => "None",
-          Some(val) =>  {build_list.remove(val);
-            window.emit(&format!("{}-{}","progress",app.replace(".","")), std::str::from_utf8(&strip_ansi_escapes::strip(format!("[{},{}]",build_length-build_list.len(),build_length)).unwrap()).unwrap()).unwrap();
-            "DONE"
-        },
-        };
-   };
-       
-   println!("{}/{}",build_length-build_list.len(),build_length)
-   }
-    );
-    window.emit(&format!("{}-{}","progress",app.replace(".","")), std::str::from_utf8(&strip_ansi_escapes::strip(format!("[{},{}]",1,1)).unwrap()).unwrap()).unwrap();
-    window.emit(&format!("{}-{}","finish",app.replace(".","")), success).unwrap();
+          Some(val) => {
+            todo.remove(val);
+           println!("{}/{}",todo_max_length-todo.len(),todo_max_length);
+           window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("[{},{}]",todo_max_length-todo.len(),todo_max_length)).unwrap();
+           "Removed"
+          },
+      };
+      }
+     
+ // println!("{}/{}",build_length-build_list.len(),build_length)
+ });
+if success=="false" {
+ println!("{:?}",error_msg); 
+}
+window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("[{},{}]",1,1)).unwrap();
+window.emit(&format!("{}-{}","finish",app.replace(".","")), success).unwrap();
 
+ println!("finished");
 });
-
 
 
 }

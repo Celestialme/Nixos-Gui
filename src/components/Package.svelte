@@ -2,16 +2,18 @@
     <div class='left-panel'>
         {#key name}
             <CheckIcon {name}/>
-        {/key}
             <DownloadIcon on:click={()=>startDownload()}/>
+        {/key}
     </div>
     <div class='right-panel'>
         <p class='name'>{@html name.replace(/\./g,".<wbr>")}</p>
         <p class='description'>{description}</p>
         <p class='version'>version: {version}</p>
+        {#key name}
         {#if showProgress}
         <ProgressBar title="building..." value={value} max_value={max_value} {success}/>
         {/if}
+        {/key}
     </div>
 
 </div>
@@ -35,6 +37,13 @@ import { onDestroy } from "svelte";
     let max_value =1
     let success;
 let unlisten;
+$:{showProgress=false;
+     value = 0
+     max_value =1
+     success=undefined;
+
+    name //dependency
+}
 function startDownload() {
     if(showProgress)return
     showProgress=true;
