@@ -5,7 +5,7 @@ export let success;
 export let msg;
 </script>
 
-<div style='text-align:left;padding:3px 0'>
+<div style='text-align:left;padding:20px 0px'>
     <span class='title'>{success==undefined?"Downloading...":success=="true"?"Finished Successfully":"Build Failed!"}</span>
     <div class='progress-track' >
         <div class='progress-bar' class:success={success=="true"} class:error={success=="false"} style='width:{value/max_value * 100}%'></div>
@@ -19,7 +19,7 @@ export let msg;
         width: 100%;
         background: #e0e0e0;
         border-radius: 10px;
-        margin-top: 10px;
+        margin-top: 15px;
     }
     .progress-bar{
         width:0;

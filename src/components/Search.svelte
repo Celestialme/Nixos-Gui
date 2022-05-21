@@ -8,8 +8,13 @@
 </div>
 
 <script lang='ts'>
+import { OptionInputValue } from "@src/store/store";
+
+
 export let inputValue:string = '';
 export let keyUpFn:Function;
+
+$:inputValue = $OptionInputValue;
 </script>
 
 <style>
@@ -30,10 +35,11 @@ export let keyUpFn:Function;
     height: 40px;
     background-color: transparent;
     border: none;
-    font-size: 15px;
+    font-size: 30px;
     color: white;
     width: 100%;
     margin-left: 20px;
+    margin-right: 50px;
     text-align: center;
     outline: none;
     }

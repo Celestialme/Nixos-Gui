@@ -215,7 +215,7 @@ return index==-1 ? false : index
 }
 
 
-export function getOverhead(pkgList){
+export function getOverhead(pkgList){ // submodules before actual name
 
 let min = Infinity
 for(let i=0;i<pkgList.length;i++){

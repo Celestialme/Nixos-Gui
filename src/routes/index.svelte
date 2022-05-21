@@ -182,6 +182,7 @@ let compare = false;
     text-align: center;
     background: #ff2d00;
     border-radius: 6px;
+
    }
    .controlls button:nth-of-type(1){
     background: #01cf0180;

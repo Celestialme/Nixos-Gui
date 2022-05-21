@@ -64,6 +64,7 @@ let keys:Array<any>=[];
 let showInstalled:boolean = false;
 
 onMount(async ()=>{
+    // $nixEnvPkgs=await invoke("get_nix_env_packages")
  packages  = await axios.get('packagesList.json').then(data=>data.data)
 keys= Object.keys(packages);
 $overhead = getOverhead(keys)

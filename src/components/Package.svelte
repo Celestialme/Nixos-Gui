@@ -2,7 +2,7 @@
     <div class='left-panel'>
         {#key name}
             <CheckIcon {name}/>
-            <DownloadIcon on:click={()=>startDownload()}/>
+            <DownloadIcon  {marked} on:click={()=>startDownload()}/>
         {/key}
     </div>
     <div class='right-panel'>
@@ -26,6 +26,7 @@ import CheckIcon from "./icons/CheckIcon.svelte";
 import DownloadIcon from "./icons/DownloadIcon.svelte";
 import ProgressBar from "./ProgressBar.svelte";
 import { onDestroy } from "svelte";
+import { nixEnvPkgs } from "@src/store/store";
 
 
 
@@ -37,14 +38,17 @@ import { onDestroy } from "svelte";
     let max_value =1
     let success;
     let msg = ''
-let unlisten;
+    let unlisten;
+    let marked
 $:{showProgress=false;
      value = 0
      max_value =1
      success=undefined;
      msg = '';
+     marked=$nixEnvPkgs.includes(name);
     name //dependency
 }
+
 function startDownload() {
     if(showProgress)return
     showProgress=true;
@@ -58,7 +62,7 @@ listen('progress-'+name.replace(/\./g,''), (e:any) => {
 }).then(_unlisten=>unlisten=_unlisten)
 listen('finish-'+name.replace(/\./g,''), (e:any) => {
     success=e.payload;
-    console.log(success)
+   // $nixEnvPkgs=await invoke("get_nix_env_packages")
  
 }).then(_unlisten=>unlisten=_unlisten)
 
@@ -96,7 +100,7 @@ onDestroy(()=>{
     border-radius: 12px;
     box-shadow: 3px 2px 10px 1px #00000066;
     cursor: default;
-    width: 720px;
+    width: 800px;
        
     }
     .name{
