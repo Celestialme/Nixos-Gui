@@ -7,10 +7,17 @@
 
 // }
 use std::io::{BufRead, BufReader};
-use std::process::{Command, Stdio,ChildStdout};
+use std::process::{Command, Stdio,ChildStdout,ChildStdin};
 use std::io::{Read,Write};
 use tauri::{Manager, Window};
-  
+use std::fs::File;  
+use std::{thread, time};
+use std::sync::{Arc,Mutex};
+struct Value{
+  status:String,
+  value:String
+}
+
 
 pub fn download(app:String,window:Window){
 
@@ -85,4 +92,119 @@ window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"prog
 });
 
 
+}
+
+
+
+pub fn update_packages(){
+  let  RESPONSE:Arc<Mutex<Value>> = Arc::new(Mutex::new(
+    {Value{
+          status:"out".to_string(),
+          value:"".to_string(),
+      }}
+  ));
+
+let mut child = Command::new("nix").arg("repl")
+    .stdin(Stdio::piped())
+    .stdout(Stdio::piped())
+    .stderr(Stdio::piped())
+    .spawn()
+    .expect("failed to execute child");
+let  stdin = child.stdin.take().expect("failed to get stdin");
+let  stdout = child.stdout.take().unwrap();  
+let  stderr = child.stderr.take().unwrap();
+let err = BufReader::new(stderr);
+let out = BufReader::new(stdout);
+println!("{:?}",std::env::current_dir());
+File::create("file.json");
+let mut file = std::fs::OpenOptions::new()
+      .write(true)
+      .append(true)
+      .open("file.json")
+      .expect("file.json not found");  
+
+let response = Arc::clone(&RESPONSE);
+std::thread::spawn(move ||{
+  err.lines().for_each(|line|{
+    if line.as_ref().unwrap()=="" || line.as_ref().unwrap().starts_with("warning: Nix"){return}
+     (*response.lock().unwrap()).value =line.as_ref().unwrap().to_string();
+     (*response.lock().unwrap()).status = "ERROR".to_string();
+    println!("{}",line.as_ref().unwrap());
+    
+  }
+);
+
+});
+
+
+  
+let response = Arc::clone(&RESPONSE);
+std::thread::spawn(move ||{
+  out.lines().for_each(|line|{
+    if line.as_ref().unwrap()==""  {return}
+    
+    (*response.lock().unwrap()).value =line.as_ref().unwrap().to_string();
+    (*response.lock().unwrap()).status = "OUT".to_string();
+    
+  }
+);
+
+});
+
+
+
+
+repl_command(Arc::clone(&RESPONSE),"pkgs = import /nixos-unstable {}",&stdin);
+thread::sleep(time::Duration::from_millis(1000));
+
+
+
+// let p = Command::new("nix-env").args(["-f","/nixos-unstable","-qaP","*","--no-name"])
+
+//     .output()
+//     .expect("failed to execute child");
+
+
+// let pkgs:Vec<String> = std::str::from_utf8(&p.stdout).unwrap().split("\n").map(|s| s.to_string()).collect();
+let pkgs = ["dart","firefox","wget","fish"];
+
+let mut i = 0;
+let length = pkgs.len();
+for pkg in pkgs{
+  i+=1;
+ println!("{}/{}",i,length);
+ let out =  repl_command(Arc::clone(&RESPONSE),&format!("let \
+  try = builtins.tryEval; \
+  pkg = pkgs.{}; \
+  in builtins.toJSON (pkgs.lib.attrsets.setAttrByPath [\"{}\"] \
+  {{ description=(try pkg.description or pkg.meta.description or \"\").value; \
+  version=(try pkg.version or pkg.meta.version or \"\").value; \
+  homepage = (try pkg.meta.homepage or \"\").value; }})",pkg,pkg),&stdin);
+  let temp;
+  if i==1{
+    temp = format!("\n {{ {},",out.replace("\\","").replace("\"{","").replace("}\"",""));
+  }else   if i==length{
+     temp = format!("\n{} }}",out.replace("\\","").replace("\"{","").replace("}\"",""));
+  }else{
+     temp = format!("\n{},",out.replace("\\","").replace("\"{","").replace("}\"",""));
+  }
+ file.write_all(temp.as_bytes()).unwrap();
+
+}
+}
+
+
+fn repl_command(value:Arc<Mutex<Value>>,command:&str,mut stdin:&ChildStdin)->String{
+  (*value.lock().unwrap()).value = "NONE".to_string();
+  let _command = format!("{}\n",command);
+  stdin.write_all(_command.as_bytes()).unwrap();
+loop{
+  if value.lock().unwrap().value.to_string() != "NONE"   {
+   
+    break
+  }
+ 
+}
+
+std::str::from_utf8(&strip_ansi_escapes::strip( value.lock().unwrap().value.to_string() ).unwrap()).unwrap().to_string()
 }

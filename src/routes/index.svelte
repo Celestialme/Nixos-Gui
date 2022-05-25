@@ -16,7 +16,7 @@
         <button class:active={$currentScreen==0} on:click={()=>$currentScreen=0}>Packages</button>
         <button class:active={$currentScreen==1} on:click={()=>$currentScreen=1}>Options</button>
         <button class:active={$currentScreen==2} on:click={()=>$currentScreen=2}>Shortcuts</button>
-        <button class:active={$currentScreen==2} on:click={()=>invoke("repl",{payload:"builtins.toJSON (builtins.attrNames config.users.users)"})}>Shortcuts</button>
+        <button class:active={$currentScreen==2} on:click={()=>invoke("update_packages")}>Update</button>
         {#if $needsSaving}
         <div class='controlls'>
            

@@ -50,6 +50,17 @@ fn get_config() -> String  {
       "started download".into()
   }
 
+  #[tauri::command]
+  fn update_packages() -> String{
+     
+    nix_env::update_packages();
+
+
+
+      "started update".into()
+  }
+
+
 #[tauri::command]
 fn save_config(payload:String) -> String{
     std::fs::write("/etc/nixos/configuration.nix", payload.to_string()).expect("could not write to configuration");
@@ -99,7 +110,7 @@ fn main() {
 
 
   tauri::Builder::default()
-  .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download])
+  .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download,update_packages])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

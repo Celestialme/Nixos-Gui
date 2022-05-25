@@ -52,7 +52,7 @@ $:{showProgress=false;
 function startDownload() {
     if(showProgress)return
     showProgress=true;
-    let name ="steam";
+    
 listen('progress-'+name.replace(/\./g,''), (e:any) => {
   console.log(e.payload)
   let data = JSON.parse(e.payload)
