@@ -54,7 +54,7 @@ import Package from "@src/components/Package.svelte";
 import { onMount } from "svelte";
 import axios from 'axios';
 import {getKeyName, getOverhead} from '@src/utils/globalFunctions'
-import { installedPkgs, overhead } from "@src/store/store";
+import { installedPkgs, nixEnvPkgs, overhead } from "@src/store/store";
 export let inputValue:String='';
 export const keyUpFn:Function=filter;
 let packages=[];
@@ -97,7 +97,8 @@ function filter(){
 
 
 function filterInstalledPackages(showInstalled){
-let result = []
+let result = [...$nixEnvPkgs.map((pkg)=>keys[0] && keys[0].split('.').slice(0,$overhead-1).join(".")+"."+pkg)]
+
 if(!showInstalled || !keys.length)return[]
 let prefix = keys[0].split('.').slice(0,$overhead-1).join('.')+'.'
 for (let i = 0; i < $installedPkgs.length; i++) {
@@ -108,7 +109,7 @@ for (let i = 0; i < $installedPkgs.length; i++) {
 }
 console.log(result)
 
-return result
+return Array.from(new Set(result)) 
 }
 
 </script>

@@ -13,10 +13,10 @@
         <SubMenus/>
     
         {:else}
-        <button class:active={$currentScreen==0} on:click={()=>$currentScreen=0}>Packages</button>
-        <button class:active={$currentScreen==1} on:click={()=>$currentScreen=1}>Options</button>
-        <button class:active={$currentScreen==2} on:click={()=>$currentScreen=2}>Shortcuts</button>
-        <button class:active={$currentScreen==2} on:click={()=>invoke("update_packages")}>Update</button>
+        <button class:active={$currentScreen==0} on:click={()=>$currentScreen=0}>PACKAGES</button>
+        <button class:active={$currentScreen==1} on:click={()=>$currentScreen=1}>OPTIONS</button>
+        <button class:active={$currentScreen==2} on:click={()=>$currentScreen=2}>SYSTEM</button>
+        <!-- <button class:active={$currentScreen==2} on:click={()=>invoke("update_packages")}>Update</button> -->
         {#if $needsSaving}
         <div class='controlls'>
            
@@ -45,6 +45,7 @@
    import PackagesScreen from "@src/screens/PackagesScreen.svelte";
    // @ts-ignore
 import OptionsScreen from "@src/screens/OptionsScreen.svelte";
+import SystemScreen from "@src/screens/SystemScreen.svelte";
    import SubMenus from "@src/components/SubMenus.svelte";
    import Compare from "@src/components/Compare.svelte";
 import { ast, changes, currentScreen, installedPkgs, needsSaving } from "@src/store/store";
@@ -80,6 +81,8 @@ let compare = false;
                return PackagesScreen
            case 1:
                return OptionsScreen
+           case 2:
+               return SystemScreen 
          
        }
    }
@@ -115,7 +118,7 @@ let compare = false;
     overflow: hidden;
     position: relative;
     background: linear-gradient(90deg, #504d4d 0%, #504d4d 31.03%, #4f4c4c 98.21%);
-
+   
     }
      :global(*){
         margin:0;
@@ -137,7 +140,7 @@ let compare = false;
         min-width:300px;
         background-color: #000000d1;
         background: linear-gradient(180deg, #4f4c4c 0%, #403F3F 31.03%, #403F3F 98.21%);
-
+        padding-top:60px;
       
     }
     .left-panel button{
@@ -145,7 +148,8 @@ let compare = false;
     width: 200px;
     margin: 10px auto;
     padding: 11px;
-    font-size: 20px;
+    padding-left:20px;
+    font-size: 25px;
     border-radius: 7px;
     width: 96%;
     text-align: left;
@@ -164,7 +168,7 @@ let compare = false;
     background: #F8F8F8;
     border-radius: 13px;
     margin-right: 15px;
-    
+    position: relative;
     }
 
     .active{
