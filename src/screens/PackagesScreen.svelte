@@ -55,6 +55,7 @@ import { onMount } from "svelte";
 import axios from 'axios';
 import {getKeyName, getOverhead} from '@src/utils/globalFunctions'
 import { installedPkgs, nixEnvPkgs, overhead } from "@src/store/store";
+import { invoke } from "@tauri-apps/api/tauri";
 export let inputValue:String='';
 export const keyUpFn:Function=filter;
 let packages=[];
@@ -64,7 +65,7 @@ let keys:Array<any>=[];
 let showInstalled:boolean = false;
 
 onMount(async ()=>{
-    // $nixEnvPkgs=await invoke("get_nix_env_packages")
+    $nixEnvPkgs=await invoke("get_nix_env_pkgs")
  packages  = await axios.get('packagesList.json').then(data=>data.data)
 keys= Object.keys(packages);
 $overhead = getOverhead(keys)

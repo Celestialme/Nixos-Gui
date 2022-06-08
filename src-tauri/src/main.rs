@@ -104,13 +104,18 @@ fn start_repl(window: Window){
 });
 }
 
+#[tauri::command]
+fn get_nix_env_pkgs()->Vec<std::string::String>{
+  nix_env::get_nix_env_pkgs()
+}
+
 fn main() {
   STDIN.lock().unwrap().write_all(b":l <nixpkgs/nixos>\n").unwrap();
   
 
 
   tauri::Builder::default()
-  .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download,update_packages])
+  .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download,update_packages,get_nix_env_pkgs])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

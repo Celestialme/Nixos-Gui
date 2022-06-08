@@ -208,3 +208,23 @@ loop{
 
 std::str::from_utf8(&strip_ansi_escapes::strip( value.lock().unwrap().value.to_string() ).unwrap()).unwrap().to_string()
 }
+
+pub fn get_nix_env_pkgs()->Vec<std::string::String>{
+
+
+ 
+let p = Command::new("nix-env").args(["-q","--xml"])
+
+    .output()
+    .expect("failed to execute child");
+
+
+let xml = std::str::from_utf8(&p.stdout).unwrap();
+let re = regex::Regex::new("pname=\"(.*?)\"").unwrap();
+
+let mut pkgs = Vec::new();
+ for caps in re.captures_iter(xml) {
+    pkgs.push(caps[1].to_string());
+    }
+pkgs
+}

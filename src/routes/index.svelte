@@ -16,7 +16,7 @@
         <button class:active={$currentScreen==0} on:click={()=>$currentScreen=0}>PACKAGES</button>
         <button class:active={$currentScreen==1} on:click={()=>$currentScreen=1}>OPTIONS</button>
         <button class:active={$currentScreen==2} on:click={()=>$currentScreen=2}>SYSTEM</button>
-        <!-- <button class:active={$currentScreen==2} on:click={()=>invoke("update_packages")}>Update</button> -->
+        <!-- <button class:active={$currentScreen==3} on:click={()=>invoke("get_nix_env_pkgs").then(data=>console.log(data))}>Update</button> -->
         {#if $needsSaving}
         <div class='controlls'>
            

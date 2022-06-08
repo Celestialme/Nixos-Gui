@@ -60,9 +60,9 @@ listen('progress-'+name.replace(/\./g,''), (e:any) => {
   max_value = data.progress[1]
   msg = data.msg
 }).then(_unlisten=>unlisten=_unlisten)
-listen('finish-'+name.replace(/\./g,''), (e:any) => {
+listen('finish-'+name.replace(/\./g,''), async (e:any) => {
     success=e.payload;
-   // $nixEnvPkgs=await invoke("get_nix_env_packages")
+   $nixEnvPkgs=await invoke("get_nix_env_pkgs")
  
 }).then(_unlisten=>unlisten=_unlisten)
 

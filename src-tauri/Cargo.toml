@@ -20,6 +20,7 @@ serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.0.0-rc.9", features = ["api-all"] }
 lazy_static = "1.4.0"
 strip-ansi-escapes = "0.1.1"
+regex = "1"
 
 [dependencies.rnix] 
 git = "https://github.com/celestialme/rnix-parser"
