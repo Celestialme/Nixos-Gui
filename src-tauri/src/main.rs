@@ -109,13 +109,36 @@ fn get_nix_env_pkgs()->Vec<std::string::String>{
   nix_env::get_nix_env_pkgs()
 }
 
+#[tauri::command]
+fn get_channels()->Vec<std::string::String>{
+  nix_env::get_channels()
+}
+#[tauri::command]
+fn add_channel(name:String,url:String)->Vec<std::string::String>{
+  nix_env::add_channel()
+}
+#[tauri::command]
+ fn remove_channel(name:String){
+  nix_env::remove_channel()
+}
+#[tauri::command]
+ fn update_channels(name:String){
+  nix_env::update_channels()
+}
+#[tauri::command]
+ fn rebuild_switch(){
+  nix_env::rebuild_switch()
+}
+
 fn main() {
   STDIN.lock().unwrap().write_all(b":l <nixpkgs/nixos>\n").unwrap();
   
 
 
   tauri::Builder::default()
-  .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download,update_packages,get_nix_env_pkgs])
+  .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download,
+    update_packages,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,rebuild_switch    
+    ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

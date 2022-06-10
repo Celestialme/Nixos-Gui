@@ -23,15 +23,18 @@
 
 
   <div class="add-new">
-    <input type="text" placeholder ="NAME" class="name"><input type="text" placeholder="URL" class="url"><button>ADD</button>
+    <input type="text" placeholder ="NAME" class="name" bind:value={name} ><input type="text" placeholder="URL" class="url" bind:value={url}>
+    <button on:click={()=>invoke("add_channel",{name,url}).then((data)=>{channels=data})}>ADD</button>
   </div>
 </div>
 
 
 <script lang='ts'>
 export let state;
-
-let channels=[
+let name="";
+let url="";
+import { invoke } from '@tauri-apps/api/tauri'
+let channels:any=[
     {name:"Nixos",url:"https://github.com/default"},
     {name:"Nixos-unstable",url:"https://github.com/unstable"},
     {name:"Nixos-unstable",url:"https://github.com/unstable"},

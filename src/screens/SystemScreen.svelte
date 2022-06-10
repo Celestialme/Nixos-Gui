@@ -1,8 +1,8 @@
 <div class="buttons-container">
     <button on:click={()=>state.value=state.channels}>channels</button>
     <button on:click={()=>state.value=state.generations}>generations</button>
-    <button>update channels</button>
-    <button>rebuild</button>
+    <button on:click={()=>invoke("update_channels")}>update channels</button>
+    <button on:click={()=>invoke("rebuild_switch")} >rebuild</button>
 </div>
 
 {#if state.value == state.channels}
@@ -16,7 +16,7 @@
 <script lang='ts'>
 import Channels from "@src/components/Channels.svelte";
 import Generations from "@src/components/Generations.svelte";
-
+import { invoke } from '@tauri-apps/api/tauri'
 
 let state={
     value:"none",
