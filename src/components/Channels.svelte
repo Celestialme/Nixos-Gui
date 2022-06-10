@@ -14,7 +14,7 @@
        <tr>
            <td>{channel.name}</td>
            <td>{channel.url}</td>
-           <td><button>Remove</button> </td>
+           <td><button on:click={()=>remove_channel(channel.name)}>Remove</button> </td>
        </tr>
     {/each}
    
@@ -24,7 +24,7 @@
 
   <div class="add-new">
     <input type="text" placeholder ="NAME" class="name" bind:value={name} ><input type="text" placeholder="URL" class="url" bind:value={url}>
-    <button on:click={()=>invoke("add_channel",{name,url}).then((data)=>{channels=data})}>ADD</button>
+    <button on:click={add_channel}>ADD</button>
   </div>
 </div>
 
@@ -34,18 +34,19 @@ export let state;
 let name="";
 let url="";
 import { invoke } from '@tauri-apps/api/tauri'
-let channels:any=[
-    {name:"Nixos",url:"https://github.com/default"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-    {name:"Nixos-unstable",url:"https://github.com/unstable"},
-]
+import { onMount } from 'svelte';
+let channels:any=[]
+onMount(async ()=>{
+    channels= await invoke("get_channels")
+    channels = channels.map((item)=>JSON.parse(item))
+    
+})
+function add_channel(){
+    invoke("add_channel",{name,url}).then((data:Array<string>)=>{channels=data.map((item)=>JSON.parse(item))})
+}
+function remove_channel(name){
+    invoke("remove_channel",{name}).then((data:Array<string>)=>{channels=data.map((item)=>JSON.parse(item))})
+}
 </script>
 
 

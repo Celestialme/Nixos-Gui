@@ -1,7 +1,7 @@
 <div class="buttons-container">
     <button on:click={()=>state.value=state.channels}>channels</button>
     <button on:click={()=>state.value=state.generations}>generations</button>
-    <button on:click={()=>invoke("update_channels")}>update channels</button>
+    <button class:error={update_channels_success==false} on:click={update_channels}>update channels</button>
     <button on:click={()=>invoke("rebuild_switch")} >rebuild</button>
 </div>
 
@@ -24,6 +24,11 @@ let state={
     generations: "generations",
     none:"none"
 }
+let update_channels_success;
+async function update_channels(){
+  let data =  await invoke("update_channels").then((data:string)=>JSON.parse(data))
+  update_channels_success = data.success
+}
 </script>
 
 <style>
@@ -35,6 +40,12 @@ let state={
         justify-content: center;
         gap: 30px;
       
+    }
+    .error{
+        background:red;
+    }
+    .error:hover{
+        background: orange;
     }
     button{
         height:100px;

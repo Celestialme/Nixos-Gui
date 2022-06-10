@@ -115,14 +115,14 @@ fn get_channels()->Vec<std::string::String>{
 }
 #[tauri::command]
 fn add_channel(name:String,url:String)->Vec<std::string::String>{
-  nix_env::add_channel()
+  nix_env::add_channel(name,url)
 }
 #[tauri::command]
- fn remove_channel(name:String){
-  nix_env::remove_channel()
+ fn remove_channel(name:String)->Vec<std::string::String>{
+  nix_env::remove_channel(name)
 }
 #[tauri::command]
- fn update_channels(name:String){
+ fn update_channels()->String{
   nix_env::update_channels()
 }
 #[tauri::command]
