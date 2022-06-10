@@ -228,3 +228,48 @@ let mut pkgs = Vec::new();
     }
 pkgs
 }
+
+pub fn get_channels()->Vec<std::string::String>{
+  
+  let p = Command::new("nix-channel").arg("--list")
+
+  .output()
+  .expect("failed to execute child");
+
+ std::str::from_utf8(&p.stdout).unwrap().split("\n").map(|s| s.to_string()).collect();
+}
+
+pub fn add_channel(name:String,url:String)->Vec<std::string::String>{
+  
+  let p = Command::new("nix-channel").args(["--add",url,name])
+
+  .output()
+  .expect("failed to execute child");
+  get_channels()
+}
+
+pub fn remove_channel(name:String){
+  
+  let p = Command::new("nix-channel").args(["--remove",name])
+
+  .output()
+  .expect("failed to execute child");
+
+}
+
+pub fn update_channels(){
+  
+  let p = Command::new("nix-channel").arg("--update")
+
+  .output()
+  .expect("failed to execute child");
+
+}
+pub fn rebuild_switch(){
+  
+  let p = Command::new("nixos-rebuild").arg("switch")
+
+  .output()
+  .expect("failed to execute child");
+
+}
