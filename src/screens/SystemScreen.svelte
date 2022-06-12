@@ -1,8 +1,8 @@
 <div class="buttons-container">
     <button on:click={()=>state.value=state.channels}>channels</button>
     <button on:click={()=>state.value=state.generations}>generations</button>
-    <button class:error={update_channels_success==false} on:click={update_channels}>update channels</button>
-    <button on:click={()=>rebuild_switch(false)} >rebuild</button>
+    <button class:error={update_channels_success==false} class:success={update_channels_success==true} on:click={update_channels}>update channels</button>
+    <button on:click={()=>rebuild_switch()} >rebuild</button>
     {#if showProgress}
     <ProgressBar  value={value} {msg} max_value={max_value} {success}/>
     {/if}
@@ -37,16 +37,13 @@ async function update_channels(){
 }
 
 let showProgress=false
-    let showPromt = false;
     let value = 0
     let max_value =1
     let success;
     let msg = ''
     let unlisten;
-function rebuild_switch(password) {
-    showPromt=true;
-    if(!password) return
-    console.log(password)
+function rebuild_switch() {
+    
     if(showProgress)return
     showProgress=true;
     
@@ -60,7 +57,7 @@ listen('progress-rebuild-switch', (e:any) => {
 listen('finish-rebuild-switch', async (e:any) => {
     success=e.payload; 
 }).then(_unlisten=>unlisten=_unlisten)
-invoke("rebuild_switch",{password:password})
+invoke("rebuild_switch")
 }
 onDestroy(()=>{
   unlisten && unlisten()
@@ -81,7 +78,13 @@ onDestroy(()=>{
         background:red;
     }
     .error:hover{
-        background: orange;
+        background: red;
+    }
+    .success{
+        background:green;
+    }
+    .success:hover{
+        background: green;
     }
     button{
         height:100px;

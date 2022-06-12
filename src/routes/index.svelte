@@ -60,8 +60,8 @@ let keyUpFn:Function=()=>{};
 
 
 if(!$ast){
-axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
-    // invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
+// axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
+    invoke("get_config").then((data:any)=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
     
 }else{
     $installedPkgs=getPkgs($ast)

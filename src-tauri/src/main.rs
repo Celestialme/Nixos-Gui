@@ -125,6 +125,12 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
  fn update_channels()->String{
   nix_env::update_channels()
 }
+
+#[tauri::command]
+ fn get_generations()->Vec<String>{
+  nix_env::get_generations()
+}
+
 #[tauri::command]
  fn rebuild_switch(window:Window){
   nix_env::rebuild_switch(window)
@@ -137,7 +143,7 @@ fn main() {
 
   tauri::Builder::default()
   .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download,
-    update_packages,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,rebuild_switch    
+    update_packages,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch    
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");

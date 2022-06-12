@@ -5,16 +5,18 @@
         
     <table>
         <tr>
-          <th>Name</th>
-          <th>Url</th>
+          <th>INDEX</th>
+          <th>DATE</th>
+          <th>Current</th>
           <th></th>
         </tr>
         
         {#each generations as generation}
            <tr>
-               <td>{generation.name}</td>
-               <td>{generation.url}</td>
-               <td><button>Remove</button> </td>
+               <td>{generation.index}</td>
+               <td>{generation.date}</td>
+               <td>{generation.current?"✔️":""}</td>
+               <!-- <td><button>Remove</button> </td> -->
            </tr>
         {/each}
        
@@ -28,18 +30,28 @@
     
     <script lang='ts'>
     export let state;
-    
-    let generations=[
-        {name:"Nixos",url:"https://github.com/default"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
-        {name:"Nixos-unstable",url:"https://github.com/unstable"},
+    import { invoke } from '@tauri-apps/api/tauri'
+    import { onMount } from 'svelte';
+
+onMount(async ()=>{
+    generations= await invoke("get_generations")
+    generations = generations.map((item)=>
+    {
+        let temp={index:undefined,date:undefined,current:false,}
+        if(item.includes('(current)')){
+            item = item.replace("(current)","").trim()
+            temp.current = true
+        }
+        item = item.split(/\s+/)
+        temp.index=item[0]
+        temp.date=item[1] +" "+item[2]
+        console.log(temp)
+        return temp
+    })
+    console.log(await invoke("get_generations"))
+})
+    let generations:any=[
+ 
     ]
     </script>
     

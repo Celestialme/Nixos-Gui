@@ -116,7 +116,7 @@ let  stderr = child.stderr.take().unwrap();
 let err = BufReader::new(stderr);
 let out = BufReader::new(stdout);
 println!("{:?}",std::env::current_dir());
-File::create("file.json");
+File::create("file.json").unwrap();
 let mut file = std::fs::OpenOptions::new()
       .write(true)
       .append(true)
@@ -275,9 +275,24 @@ pub fn update_channels()->String{
     "{\"success\":false}".into()
   }
 }
+
+
+pub fn get_generations()->Vec<String>{
+  
+  let p = Command::new("nix-env").args(["--list-generations", "--profile", "/nix/var/nix/profiles/system"])
+
+  .output()
+  .expect("failed to execute child");
+
+ std::str::from_utf8(&p.stdout).unwrap().split("\n").map(|s| s.to_string()).filter(|s| !s.is_empty())
+.collect()
+
+}
+
+
 pub fn rebuild_switch(window:Window){
 
-  let mut child = Command::new("nixos-rebuild").args(["nixos-rebuild","switch"])
+  let mut child = Command::new("nixos-rebuild").arg("switch")
   .stdin(Stdio::piped())
   .stdout(Stdio::piped())
   .stderr(Stdio::piped())
