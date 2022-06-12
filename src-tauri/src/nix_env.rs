@@ -308,7 +308,6 @@ let mut success = "true";
 let mut error_msg = String::new();
 window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",0,1,"")).unwrap();
 out.lines().for_each(|line|{
-  thread::sleep(time::Duration::from_millis(10));
   let mut line = line.unwrap();  
  line = line.trim().to_string();
  println!("{}",line);
