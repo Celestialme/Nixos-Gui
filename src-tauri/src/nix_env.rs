@@ -22,8 +22,8 @@ struct Value{
 pub fn download(app:String,window:Window){
 
 
-  // let mut child = Command::new("nix-env").arg("-iA").arg("nixpkgs.".to_owned()+&app)
-  let mut child = Command::new("nix-env").arg("-iA").arg("-f").arg("/nixos-unstable").arg(&app).args(["--option","sandbox","false"])
+   let mut child = Command::new("nix-env").arg("-iA").arg("nixpkgs.".to_owned()+&app)
+  //let mut child = Command::new("nix-env").arg("-iA").arg("-f").arg("/nixos-unstable").arg(&app).args(["--option","sandbox","false"])
   .stdin(Stdio::piped())
   .stdout(Stdio::piped())
   .stderr(Stdio::piped())
