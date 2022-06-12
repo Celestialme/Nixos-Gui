@@ -126,8 +126,8 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
   nix_env::update_channels()
 }
 #[tauri::command]
- fn rebuild_switch(){
-  nix_env::rebuild_switch()
+ fn rebuild_switch(window:Window){
+  nix_env::rebuild_switch(window)
 }
 
 fn main() {

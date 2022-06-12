@@ -275,11 +275,75 @@ pub fn update_channels()->String{
     "{\"success\":false}".into()
   }
 }
-pub fn rebuild_switch(){
-  
-  let p = Command::new("nixos-rebuild").arg("switch")
+pub fn rebuild_switch(window:Window){
 
-  .output()
+  let mut child = Command::new("nixos-rebuild").args(["nixos-rebuild","switch"])
+  .stdin(Stdio::piped())
+  .stdout(Stdio::piped())
+  .stderr(Stdio::piped())
+  .spawn()
   .expect("failed to execute child");
+// let mut stdin = child.stdin.take().expect("failed to get stdin");
+let  output = child.stderr.take().unwrap();  
+let out = BufReader::new(output);
+std::thread::spawn(move ||{
+let mut todo:Vec<String> = Vec::new();
+let mut todo_max_length = 0;
+let mut success = "true";
+let mut error_msg = String::new();
+window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",0,1,"")).unwrap();
+out.lines().for_each(|line|{
+  let mut line = line.unwrap();  
+ line = line.trim().to_string();
+ println!("{}",line);
+      if line==""{return}
+      if line.contains("error") || success =="false"{
+          success = "false";    
+          error_msg+=&(r"<br>".to_owned()+&line);
+          
+          return
+      };
+      if line.starts_with("/nix/store"){
+          todo.push(line);
+          todo_max_length+=1;
+      } else{
+          match todo.iter().position(|r| line.contains(r)) {
+            None => "None",
+            Some(val) => {
+              todo.remove(val);
+            "Removed"
+            },
+        };
+        
+        window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",todo_max_length-todo.len(),todo_max_length,
+        line
+        .replace("\"","'")
+        .replace(r"`","'")
+        .replace(".",".<wbr>")
+        .replace("_","_<wbr>")
+        .replace("-","_<wbr>")
+        .replace("/","/<wbr>")
+      )).unwrap();
+      }
+ // println!("{}/{}",build_length-build_list.len(),build_length)
+ });
+
+window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",1,1,"")).unwrap();
+window.emit(&format!("{}-{}","finish","rebuild-switch"), success).unwrap();
+if success == "false"{
+  println!("eroooooooooooooooooooooooor {}",error_msg);
+window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",todo_max_length-todo.len(),todo_max_length,
+        error_msg
+        .replace("\"","'")
+        .replace(r"`","'")
+        .replace(".",".<wbr>")
+        .replace("_","_<wbr>")
+        .replace("-","_<wbr>")
+        .replace("/","/<wbr>")
+      )).unwrap();
+    };
+ println!("finished");
+});
+
 
 }
