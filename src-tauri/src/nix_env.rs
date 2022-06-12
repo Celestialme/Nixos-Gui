@@ -322,6 +322,7 @@ out.lines().for_each(|line|{
       if line.starts_with("/nix/store"){
           todo.push(line);
           todo_max_length+=1;
+          return
       } else{
           match todo.iter().position(|r| line.contains(r)) {
             None => "None",
