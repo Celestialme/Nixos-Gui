@@ -42,7 +42,7 @@ onMount(async ()=>{
             item = item.replace("(current)","").trim()
             temp.current = true
         }
-        item = item.split(/\s+/)
+        item = item.trim().split(/\s+/)
         temp.index=item[0]
         temp.date=item[1] +" "+item[2]
         console.log(temp)
