@@ -12,10 +12,11 @@ function getKeyName(key){
 function filterPackages({packages,keys,value}){
     let  filteredKey= keys.filter((key)=>{
    
-   return key.includes(value) || packages[key].pname.includes(value) || packages[key].description.includes(value)
+   return key.includes(value) || packages[key]?.pname.includes(value) || packages[key]?.description.includes(value)
 })
 
 filteredKey = filteredKey.sort((a,b)=>{
+ if(!packages[a]  || !packages[b]) return 0
  let byPname = (packages[a]['pname'].startsWith(value)?0:1) - (packages[b]['pname'].startsWith(value)?0:1) // sort  by pname
  let keyA = getKeyName(a)
  let keyB = getKeyName(b)
@@ -145,4 +146,3 @@ onmessage = function({data}){
     }
    
 }
-
