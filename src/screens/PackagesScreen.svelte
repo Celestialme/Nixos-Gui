@@ -5,7 +5,9 @@
         <!-- <input type="text" bind:value={inputValue} on:keyup={filter}> -->
         
         {#each filteredKey as  key }
+         {#if packages[key]}
         <Package name={getKeyName(key,$overhead)} description={packages[key].description} version={packages[key].version}/>
+         {/if}
         {/each}
 
 
