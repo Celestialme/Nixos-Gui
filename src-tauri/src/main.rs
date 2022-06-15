@@ -53,18 +53,18 @@ fn get_config() -> String  {
   #[tauri::command]
   fn update_db(window:Window) -> String{
      
-    nix_env::update_packages(window);
+    nix_env::update_packages(window)
 
-
-
-      "started update".into()
   }
 
 
 #[tauri::command]
 fn save_config(payload:String) -> String{
+   if !nix_env::is_root(){
+     return "denied".into()
+   }
     std::fs::write("/etc/nixos/configuration.nix", payload.to_string()).expect("could not write to configuration");
-    "saved".into()
+    "success".into()
 }
 
 
@@ -132,7 +132,7 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
 }
 
 #[tauri::command]
- fn rebuild_switch(window:Window){
+ fn rebuild_switch(window:Window)->String{
   nix_env::rebuild_switch(window)
 }
 

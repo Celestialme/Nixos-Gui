@@ -18,6 +18,16 @@ struct Value{
   value:String
 }
 
+pub fn is_root()->bool{
+   
+let p = Command::new("whoami")
+
+.output()
+.expect("failed to execute child");
+
+
+std::str::from_utf8(&p.stdout).unwrap()=="root"
+}
 
 pub fn download(app:String,window:Window){
 
@@ -96,14 +106,24 @@ window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"prog
 
 
 
-pub fn update_packages(window:Window){
+pub fn update_packages(window:Window)->String{
   let  RESPONSE:Arc<Mutex<Value>> = Arc::new(Mutex::new(
     {Value{
           status:"out".to_string(),
           value:"".to_string(),
       }}
   ));
-
+  let mut file:File;
+  if is_root(){
+  File::create("/etc/file.json").unwrap();
+  file = std::fs::OpenOptions::new()
+        .write(true)
+        .append(true)
+        .open("/etc/file.json")
+        .expect("file.json not found");  
+  }else{
+    return "denied".into()
+  }
 let mut child = Command::new("nix").arg("repl")
     .stdin(Stdio::piped())
     .stdout(Stdio::piped())
@@ -115,13 +135,8 @@ let  stdout = child.stdout.take().unwrap();
 let  stderr = child.stderr.take().unwrap();
 let err = BufReader::new(stderr);
 let out = BufReader::new(stdout);
+
 // println!("{:?}",std::env::current_dir());
-File::create("~/file.json").unwrap();
-let mut file = std::fs::OpenOptions::new()
-      .write(true)
-      .append(true)
-      .open("~/file.json")
-      .expect("file.json not found");  
 
 let response = Arc::clone(&RESPONSE);
 std::thread::spawn(move ||{
@@ -197,6 +212,9 @@ for pkg in pkgs{
 println!("finished");
 window.emit(&format!("{}-{}","finish","update-db"), "true").unwrap();
 });
+
+
+"success".into()
 }
 
 
@@ -296,8 +314,10 @@ pub fn get_generations()->Vec<String>{
 }
 
 
-pub fn rebuild_switch(window:Window){
-
+pub fn rebuild_switch(window:Window)->String{
+  if !is_root(){
+    return "denied".into()
+  }
   let mut child = Command::new("nixos-rebuild").arg("switch").args(["--option", "sandbox" ,"false"])
   .stdin(Stdio::piped())
   .stdout(Stdio::piped())
@@ -367,5 +387,5 @@ window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progres
  println!("finished");
 });
 
-
+"success".into()
 }
