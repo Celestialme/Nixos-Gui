@@ -26,7 +26,7 @@ let p = Command::new("whoami")
 .expect("failed to execute child");
 
 
-std::str::from_utf8(&p.stdout).unwrap()=="root"
+std::str::from_utf8(&p.stdout).unwrap().trim()=="root"
 }
 
 pub fn download(app:String,window:Window){
@@ -115,12 +115,13 @@ pub fn update_packages(window:Window)->String{
   ));
   let mut file:File;
   if is_root(){
-  File::create("/etc/file.json").unwrap();
+     Command::new("mkdir").arg("-p").arg("/etc/NIX_GUI").status().unwrap();
+  File::create("/etc/NIX_GUI/packages.json").unwrap();
   file = std::fs::OpenOptions::new()
         .write(true)
         .append(true)
-        .open("/etc/file.json")
-        .expect("file.json not found");  
+        .open("/etc/NIX_GUI/packages.json")
+        .expect("packages.json not found");  
   }else{
     return "denied".into()
   }
@@ -176,14 +177,14 @@ std::thread::spawn(move ||{
 
 
 
-// let p = Command::new("nix-env").args(["-f","<nixpkgs>","-qaP","*","--no-name"])
+let p = Command::new("nix-env").args(["-f","<nixpkgs>","-qaP","*","--no-name"])
 
-//     .output()
-//     .expect("failed to execute child");
+    .output()
+    .expect("failed to execute child");
 
 
-// let pkgs:Vec<String> = std::str::from_utf8(&p.stdout).unwrap().split("\n").map(|s| s.to_string()).collect();
-let pkgs = ["dart","firefox","wget","fish"];
+let pkgs:Vec<String> = std::str::from_utf8(&p.stdout).unwrap().split("\n").map(|s| s.to_string()).collect();
+// let pkgs = ["dart","firefox","wget","fish"]; // test data
 
 let mut i = 0;
 let length = pkgs.len();
@@ -292,7 +293,7 @@ pub fn update_channels()->String{
 
   .output()
   .expect("failed to execute child");
-  
+  println!("{}",std::str::from_utf8(&p.stderr).unwrap());
   if !std::str::from_utf8(&p.stderr).unwrap().contains("error"){
     "{\"success\":true}".into()
   }else{

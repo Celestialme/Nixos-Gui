@@ -17,13 +17,19 @@
 {/if}
 
 
+{#if access==false}
+<Denied bind:access/>
+{/if}
+
 <script lang='ts'>
 import Channels from "@src/components/Channels.svelte";
+import Denied from "@src/components/Denied.svelte";
 import Generations from "@src/components/Generations.svelte";
 import ProgressBar from "@src/components/ProgressBar.svelte";
 import { listen } from "@tauri-apps/api/event";
 import { invoke } from '@tauri-apps/api/tauri'
 import { onDestroy } from "svelte";
+let access=undefined;
 
 let state={
     value:"none",
@@ -46,7 +52,7 @@ let showProgress=false
 function rebuild_switch() {
     
     if(showProgress)return
-    showProgress=true;
+   
     
 listen('progress-rebuild-switch', (e:any) => {
   console.log(e.payload)
@@ -58,12 +64,13 @@ listen('progress-rebuild-switch', (e:any) => {
 listen('finish-rebuild-switch', async (e:any) => {
     success=e.payload; 
 }).then(_unlisten=>unlisten=_unlisten)
-invoke("rebuild_switch")
+invoke("rebuild_switch").then(data => access = data!="denied")
+access && (showProgress=true);
 }
 function update_db(){
   
     if(showProgress)return
-    showProgress=true;
+   
     
 listen('progress-update-db', (e:any) => {
   console.log(e.payload)
@@ -75,7 +82,9 @@ listen('finish-update-db', async (e:any) => {
     console.log(success)
     success=e.payload; 
 }).then(_unlisten=>unlisten=_unlisten)
-invoke("update_db")
+invoke("update_db").then(data => access = data!="denied")
+
+access && (showProgress=true);
 }
 
 

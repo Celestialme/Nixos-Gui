@@ -4,24 +4,27 @@ import { ast, installedPkgs } from "@src/store/store";
 import { Ast2Text, config, getPkgs } from "@src/utils/globalFunctions";
 import { invoke } from "@tauri-apps/api/tauri";
 import axios from "axios";
+import Denied from "./Denied.svelte";
 export let compare;
+let access=undefined;
 
 let conf = Ast2Text($ast).split(/\n/)
-
 async  function save(){
     //TODO write to config file 
     let configuration = conf.join('\n').replace(/⇐change|⇐ADD/g,'')
     // let data = JSON.stringify(configuration)
-    await invoke("save_config",{payload:configuration}).then(data=>console.log(data))
+    await invoke("save_config",{payload:configuration}).then(data=>access = data!="denied")
     await invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
-    compare = false;
+    access && (compare = false);
 }
 function cancel(){
     invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
 compare = false;
 }
 </script>
-
+{#if access==false}
+<Denied bind:access/>
+{/if}
 
 <div class='container'>
     <div class='title'>
