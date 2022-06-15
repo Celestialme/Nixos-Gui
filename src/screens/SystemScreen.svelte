@@ -70,9 +70,9 @@ listen('progress-update-db', (e:any) => {
   let data = JSON.parse(e.payload)
   value = data.progress[0]
   max_value = data.progress[1]
-  msg = data.msg
 }).then(_unlisten=>unlisten=_unlisten)
 listen('finish-update-db', async (e:any) => {
+    console.log(success)
     success=e.payload; 
 }).then(_unlisten=>unlisten=_unlisten)
 invoke("update_db")

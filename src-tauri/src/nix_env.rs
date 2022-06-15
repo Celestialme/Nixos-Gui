@@ -115,12 +115,12 @@ let  stdout = child.stdout.take().unwrap();
 let  stderr = child.stderr.take().unwrap();
 let err = BufReader::new(stderr);
 let out = BufReader::new(stdout);
-println!("{:?}",std::env::current_dir());
-File::create("file.json").unwrap();
+// println!("{:?}",std::env::current_dir());
+File::create("~/file.json").unwrap();
 let mut file = std::fs::OpenOptions::new()
       .write(true)
       .append(true)
-      .open("file.json")
+      .open("~/file.json")
       .expect("file.json not found");  
 
 let response = Arc::clone(&RESPONSE);
@@ -154,12 +154,14 @@ std::thread::spawn(move ||{
 
 
 
-repl_command(Arc::clone(&RESPONSE),"pkgs = import /nixos-unstable {}",&stdin);
+repl_command(Arc::clone(&RESPONSE),"pkgs = import <nixpkgs> {}",&stdin);
 thread::sleep(time::Duration::from_millis(1000));
 
+std::thread::spawn(move ||{
 
 
-// let p = Command::new("nix-env").args(["-f","/nixos-unstable","-qaP","*","--no-name"])
+
+// let p = Command::new("nix-env").args(["-f","<nixpkgs>","-qaP","*","--no-name"])
 
 //     .output()
 //     .expect("failed to execute child");
@@ -192,7 +194,9 @@ for pkg in pkgs{
  window.emit(&format!("{}-{}","progress","update-db"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",i,length,"")).unwrap();
 
 }
-window.emit(&format!("{}-{}","finish","update-db"), true).unwrap();
+println!("finished");
+window.emit(&format!("{}-{}","finish","update-db"), "true").unwrap();
+});
 }
 
 
