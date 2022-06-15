@@ -52,7 +52,7 @@ let showProgress=false
 function rebuild_switch() {
     
     if(showProgress)return
-   
+    showProgress=true;
     
 listen('progress-rebuild-switch', (e:any) => {
   console.log(e.payload)
@@ -64,13 +64,15 @@ listen('progress-rebuild-switch', (e:any) => {
 listen('finish-rebuild-switch', async (e:any) => {
     success=e.payload; 
 }).then(_unlisten=>unlisten=_unlisten)
-invoke("rebuild_switch").then(data => access = data!="denied")
-access && (showProgress=true);
+invoke("rebuild_switch").then(data => {access = data!="denied",
+!access&&(showProgress=false)
+})
+
 }
 function update_db(){
   
     if(showProgress)return
-   
+    showProgress=true;
     
 listen('progress-update-db', (e:any) => {
   console.log(e.payload)
@@ -82,9 +84,9 @@ listen('finish-update-db', async (e:any) => {
     console.log(success)
     success=e.payload; 
 }).then(_unlisten=>unlisten=_unlisten)
-invoke("update_db").then(data => access = data!="denied")
-
-access && (showProgress=true);
+invoke("update_db").then(data => {access = data!="denied",
+!access&&(showProgress=false)
+})
 }
 
 
