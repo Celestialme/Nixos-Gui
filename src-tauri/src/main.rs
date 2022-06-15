@@ -51,9 +51,9 @@ fn get_config() -> String  {
   }
 
   #[tauri::command]
-  fn update_packages() -> String{
+  fn update_db(window:Window) -> String{
      
-    nix_env::update_packages();
+    nix_env::update_packages(window);
 
 
 
@@ -143,7 +143,7 @@ fn main() {
 
   tauri::Builder::default()
   .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download,
-    update_packages,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch    
+    update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch    
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");

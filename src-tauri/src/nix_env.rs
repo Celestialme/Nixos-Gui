@@ -96,7 +96,7 @@ window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"prog
 
 
 
-pub fn update_packages(){
+pub fn update_packages(window:Window){
   let  RESPONSE:Arc<Mutex<Value>> = Arc::new(Mutex::new(
     {Value{
           status:"out".to_string(),
@@ -189,8 +189,10 @@ for pkg in pkgs{
      temp = format!("\n{},",out.replace("\\","").replace("\"{","").replace("}\"",""));
   }
  file.write_all(temp.as_bytes()).unwrap();
+ window.emit(&format!("{}-{}","progress","update-db"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",i,length,"")).unwrap();
 
 }
+window.emit(&format!("{}-{}","finish","update-db"), true).unwrap();
 }
 
 
@@ -292,7 +294,7 @@ pub fn get_generations()->Vec<String>{
 
 pub fn rebuild_switch(window:Window){
 
-  let mut child = Command::new("nixos-rebuild").arg("switch")
+  let mut child = Command::new("nixos-rebuild").arg("switch").args(["--option", "sandbox" ,"false"])
   .stdin(Stdio::piped())
   .stdout(Stdio::piped())
   .stderr(Stdio::piped())
@@ -312,7 +314,7 @@ out.lines().for_each(|line|{
  line = line.trim().to_string();
  println!("{}",line);
       if line==""{return}
-      if line.contains("error") || success =="false"{
+      if line.starts_with("error") || success =="false"{
           success = "false";    
           error_msg+=&(r"<br>".to_owned()+&line);
           

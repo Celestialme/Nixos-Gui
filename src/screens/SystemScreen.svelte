@@ -2,6 +2,7 @@
     <button on:click={()=>state.value=state.channels}>channels</button>
     <button on:click={()=>state.value=state.generations}>generations</button>
     <button class:error={update_channels_success==false} class:success={update_channels_success==true} on:click={update_channels}>update channels</button>
+    <button on:click={()=>update_db()} >update DB</button>
     <button on:click={()=>rebuild_switch()} >rebuild</button>
     {#if showProgress}
     <ProgressBar  value={value} {msg} max_value={max_value} {success}/>
@@ -59,6 +60,25 @@ listen('finish-rebuild-switch', async (e:any) => {
 }).then(_unlisten=>unlisten=_unlisten)
 invoke("rebuild_switch")
 }
+function update_db(){
+  
+    if(showProgress)return
+    showProgress=true;
+    
+listen('progress-update-db', (e:any) => {
+  console.log(e.payload)
+  let data = JSON.parse(e.payload)
+  value = data.progress[0]
+  max_value = data.progress[1]
+  msg = data.msg
+}).then(_unlisten=>unlisten=_unlisten)
+listen('finish-update-db', async (e:any) => {
+    success=e.payload; 
+}).then(_unlisten=>unlisten=_unlisten)
+invoke("update_db")
+}
+
+
 onDestroy(()=>{
   unlisten && unlisten()
 })
