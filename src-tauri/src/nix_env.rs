@@ -188,6 +188,8 @@ let pkgs:Vec<String> = std::str::from_utf8(&p.stdout).unwrap().split("\n").map(|
 
 let mut i = 0;
 let length = pkgs.len();
+let re_start = regex::Regex::new("^\\s*\"\\{").unwrap();
+let re_end = regex::Regex::new("\\}\"$").unwrap();
 for pkg in pkgs{
   i+=1;
  println!("{}/{}",i,length);
@@ -200,11 +202,21 @@ for pkg in pkgs{
   homepage = (try pkg.meta.homepage or \"\").value; }})",pkg,pkg),&stdin);
   let temp;
   if i==1{
-    temp = format!("\n {{ {},",out.replace("\\","").replace("\"{","").replace("}\"",""));
+    let mut tmp_string = out.replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
+    tmp_string = re_start.replace_all(&tmp_string,"").to_string();
+    tmp_string = re_end.replace_all(&tmp_string,"").to_string();
+    temp = format!("\n {{ {},",tmp_string);
+    
   }else   if i==length{
-     temp = format!("\n{} }}",out.replace("\\","").replace("\"{","").replace("}\"",""));
+    let mut tmp_string = out.replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
+    tmp_string = re_start.replace_all(&tmp_string,"").to_string();
+    tmp_string = re_end.replace_all(&tmp_string,"").to_string();
+     temp = format!("\n{} }}",tmp_string);
   }else{
-     temp = format!("\n{},",out.replace("\\","").replace("\"{","").replace("}\"",""));
+    let mut tmp_string = out.replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
+    tmp_string = re_start.replace_all(&tmp_string,"").to_string();
+    tmp_string = re_end.replace_all(&tmp_string,"").to_string();
+     temp = format!("\n{},",tmp_string);
   }
  file.write_all(temp.as_bytes()).unwrap();
  window.emit(&format!("{}-{}","progress","update-db"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",i,length,"")).unwrap();
