@@ -32,7 +32,7 @@ std::str::from_utf8(&p.stdout).unwrap().trim()=="root"
 pub fn download(app:String,window:Window){
 
 
-   let mut child = Command::new("nix-env").arg("-iA").arg("nixos.".to_owned()+&app).args(["--option","sandbox","false"])
+   let mut child = Command::new("nix-env").arg("-iA").arg("nixos.".to_owned()+&app)
   //let mut child = Command::new("nix-env").arg("-iA").arg("-f").arg("/nixos-unstable").arg(&app).args(["--option","sandbox","false"])
   .stdin(Stdio::piped())
   .stdout(Stdio::piped())
@@ -347,7 +347,7 @@ pub fn rebuild_switch(window:Window)->String{
   if !is_root(){
     return "denied".into()
   }
-  let mut child = Command::new("nixos-rebuild").arg("switch").args(["--option", "sandbox" ,"false"])
+  let mut child = Command::new("nixos-rebuild").arg("switch")
   .stdin(Stdio::piped())
   .stdout(Stdio::piped())
   .stderr(Stdio::piped())
