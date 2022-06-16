@@ -199,21 +199,25 @@ for pkg in pkgs{
   in builtins.toJSON (pkgs.lib.attrsets.setAttrByPath [\"{}\"] \
   {{ description=(try pkg.description or pkg.meta.description or \"\").value; \
   version=(try pkg.version or pkg.meta.version or \"\").value; \
+  pname=(try pkg.pname or pkg.name or pkg.meta.name or \"\").value;\
   homepage = (try pkg.meta.homepage or \"\").value; }})",pkg,pkg),&stdin);
   let temp;
-  if i==1{
-    let mut tmp_string = out.replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
+  if i==length{
+    break
+  }
+  else if i==1{
+    let mut tmp_string = out.replace(r"\\\\","").replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
     tmp_string = re_start.replace_all(&tmp_string,"").to_string();
     tmp_string = re_end.replace_all(&tmp_string,"").to_string();
     temp = format!("\n {{ {},",tmp_string);
     
-  }else   if i==length{
-    let mut tmp_string = out.replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
+  }else   if i==length-1{
+    let mut tmp_string = out.replace(r"\\\\","").replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
     tmp_string = re_start.replace_all(&tmp_string,"").to_string();
     tmp_string = re_end.replace_all(&tmp_string,"").to_string();
      temp = format!("\n{} }}",tmp_string);
   }else{
-    let mut tmp_string = out.replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
+    let mut tmp_string = out.replace(r"\\\\","").replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
     tmp_string = re_start.replace_all(&tmp_string,"").to_string();
     tmp_string = re_end.replace_all(&tmp_string,"").to_string();
      temp = format!("\n{},",tmp_string);
