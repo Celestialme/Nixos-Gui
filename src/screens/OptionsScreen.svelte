@@ -39,7 +39,7 @@ import { onMount } from "svelte";
 import axios from 'axios';
 import Option from "@src/components/Option.svelte";
 import { optionList ,OptionInputValue} from "@src/store/store";
-
+import { invoke } from "@tauri-apps/api/tauri";
 
 let filteredKey:Array<any>=[];
 let worker:Worker;
@@ -47,7 +47,7 @@ let keys:Array<any>=[];
 export let inputValue;
 $:$OptionInputValue = inputValue;
 onMount(async ()=>{
- $optionList  = await axios.get('options.json').then(data=>data.data)
+ $optionList  = JSON.parse(await invoke('get_options'))
 keys= Object.keys($optionList);
 worker = new Worker('worker.js');
 worker.onmessage = function({data}){

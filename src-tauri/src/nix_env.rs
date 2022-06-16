@@ -114,7 +114,9 @@ pub fn update_packages(window:Window)->String{
       }}
   ));
   let mut file:File;
-  if is_root(){
+  if !is_root(){
+    return "denied".into();
+  }
      Command::new("mkdir").arg("-p").arg("/etc/NIX_GUI").status().unwrap();
   File::create("/etc/NIX_GUI/packages.json").unwrap();
   file = std::fs::OpenOptions::new()
@@ -122,9 +124,7 @@ pub fn update_packages(window:Window)->String{
         .append(true)
         .open("/etc/NIX_GUI/packages.json")
         .expect("packages.json not found");  
-  }else{
-    return "denied".into()
-  }
+  
 let mut child = Command::new("nix").arg("repl")
     .stdin(Stdio::piped())
     .stdout(Stdio::piped())
@@ -230,6 +230,18 @@ println!("finished");
 window.emit(&format!("{}-{}","finish","update-db"), "true").unwrap();
 });
 
+let p = Command::new("nix-instantiate").args(["--eval","<nixpkgs/nixos/release.nix>","-A","options.drvPath"])
+    .output()
+    .expect("failed to execute child");
+;
+let  drv_path = std::str::from_utf8(&p.stdout).unwrap().replace("\"","").replace("\n","");
+
+let p = Command::new("nix-store").args(["-r",&drv_path])
+    .output()
+    .expect("failed to execute child");
+
+let mut options_json = std::str::from_utf8(&p.stdout).unwrap().replace("\n","").to_owned()+"/share/doc/nixos/options.json";
+std::fs::copy(options_json, "/etc/NIX_GUI/options.json").expect("could not copy options json");
 
 "success".into()
 }
