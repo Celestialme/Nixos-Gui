@@ -26,7 +26,13 @@ lazy_static! {
 static ref IS_RUNING:Mutex<bool> = Mutex::new(false);
 }
 
- 
+#[tauri::command]
+fn get_packages() -> String{
+  match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
+    Ok(txt) => txt,
+    Err(err) => "file not found".to_string()
+  }
+}
 #[tauri::command]
 fn get_config() -> String  {
 
@@ -142,7 +148,7 @@ fn main() {
 
 
   tauri::Builder::default()
-  .invoke_handler(tauri::generate_handler![get_config,save_config,repl,start_repl,start_download,
+  .invoke_handler(tauri::generate_handler![get_packages,get_config,save_config,repl,start_repl,start_download,
     update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch    
     ])
     .run(tauri::generate_context!())

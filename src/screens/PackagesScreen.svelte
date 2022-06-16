@@ -68,7 +68,7 @@ let showInstalled:boolean = false;
 
 onMount(async ()=>{
     $nixEnvPkgs=await invoke("get_nix_env_pkgs")
- packages  = await axios.get('packagesList.json').then(data=>data.data)
+ packages  = JSON.parse( await invoke('get_packages'))
 keys= Object.keys(packages);
 $overhead = getOverhead(keys)
 worker = new Worker('/worker.js');
