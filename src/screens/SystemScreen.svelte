@@ -5,7 +5,7 @@
     <button on:click={()=>update_db()} >update DB</button>
     <button on:click={()=>rebuild_switch()} >rebuild</button>
     {#if showProgress}
-    <ProgressBar  value={value} {msg} max_value={max_value} {success}/>
+    <ProgressBar title={progress_title} value={value} {msg} max_value={max_value} {success}/>
     {/if}
 </div>
 
@@ -26,10 +26,17 @@ import Channels from "@src/components/Channels.svelte";
 import Denied from "@src/components/Denied.svelte";
 import Generations from "@src/components/Generations.svelte";
 import ProgressBar from "@src/components/ProgressBar.svelte";
+import { needs_db_update } from "@src/store/store";
 import { listen } from "@tauri-apps/api/event";
 import { invoke } from '@tauri-apps/api/tauri'
-import { onDestroy } from "svelte";
+import { onDestroy, onMount } from "svelte";
 let access=undefined;
+let progress_title;
+onMount(()=>{
+    if($needs_db_update){
+    update_db()
+}
+})
 
 let state={
     value:"none",
@@ -53,7 +60,7 @@ function rebuild_switch() {
     
     if(showProgress)return
     showProgress=true;
-    
+    progress_title="Rebuilding system..."
 listen('progress-rebuild-switch', (e:any) => {
   console.log(e.payload)
   let data = JSON.parse(e.payload)
@@ -73,7 +80,7 @@ function update_db(){
   
     if(showProgress)return
     showProgress=true;
-    
+    progress_title="Updating DB..."
 listen('progress-update-db', (e:any) => {
   console.log(e.payload)
   let data = JSON.parse(e.payload)
@@ -83,6 +90,7 @@ listen('progress-update-db', (e:any) => {
 listen('finish-update-db', async (e:any) => {
     console.log(success)
     success=e.payload; 
+    $needs_db_update=false;
 }).then(_unlisten=>unlisten=_unlisten)
 invoke("update_db").then(data => {access = data!="denied",
 !access&&(showProgress=false)

@@ -62,6 +62,7 @@ listen('progress-'+name.replace(/\./g,''), (e:any) => {
 }).then(_unlisten=>unlisten=_unlisten)
 listen('finish-'+name.replace(/\./g,''), async (e:any) => {
     success=e.payload;
+    if(success!="true")return
    $nixEnvPkgs=await invoke("get_nix_env_pkgs")
  
 }).then(_unlisten=>unlisten=_unlisten)

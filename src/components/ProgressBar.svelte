@@ -3,10 +3,11 @@ export let value;
 export let max_value;
 export let success;
 export let msg;
+export let title="Downloading...";
 </script>
 
 <div style='text-align:left;padding:20px 0px'>
-    <span class='title'>{success==undefined?"Downloading...":success=="true"?"Finished Successfully":"Build Failed!"}</span>
+    <span class='title'>{success==undefined?title:success=="true"?"Finished Successfully":"Build Failed!"}</span>
     <div class='progress-track' >
         <div class='progress-bar' class:success={success=="true"} class:error={success=="false"} style='width:{value/max_value * 100}%'></div>
     </div>

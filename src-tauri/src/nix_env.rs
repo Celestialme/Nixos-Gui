@@ -32,7 +32,7 @@ std::str::from_utf8(&p.stdout).unwrap().trim()=="root"
 pub fn download(app:String,window:Window){
 
 
-   let mut child = Command::new("nix-env").arg("-iA").arg("nixos.".to_owned()+&app)
+   let mut child = Command::new("nix-env").arg("-iA").arg("nixos.".to_owned()+&app).args(["--option","sandbox","false"])
   //let mut child = Command::new("nix-env").arg("-iA").arg("-f").arg("/nixos-unstable").arg(&app).args(["--option","sandbox","false"])
   .stdin(Stdio::piped())
   .stdout(Stdio::piped())
@@ -196,7 +196,7 @@ for pkg in pkgs{
  let out =  repl_command(Arc::clone(&RESPONSE),&format!("let \
   try = builtins.tryEval; \
   pkg = pkgs.{}; \
-  in builtins.toJSON (pkgs.lib.attrsets.setAttrByPath [\"{}\"] \
+  in builtins.toJSON (pkgs.lib.attrsets.setAttrByPath [\"nixos.{}\"] \
   {{ description=(try pkg.description or pkg.meta.description or \"\").value; \
   version=(try pkg.version or pkg.meta.version or \"\").value; \
   pname=(try pkg.pname or pkg.name or pkg.meta.name or \"\").value;\

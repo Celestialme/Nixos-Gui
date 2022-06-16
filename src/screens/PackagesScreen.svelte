@@ -56,11 +56,11 @@ import Package from "@src/components/Package.svelte";
 import { onMount } from "svelte";
 import axios from 'axios';
 import {getKeyName, getOverhead} from '@src/utils/globalFunctions'
-import { installedPkgs, nixEnvPkgs, overhead } from "@src/store/store";
+import { installedPkgs, nixEnvPkgs, overhead,currentScreen, needs_db_update } from "@src/store/store";
 import { invoke } from "@tauri-apps/api/tauri";
 export let inputValue:String='';
 export const keyUpFn:Function=filter;
-let packages=[];
+let packages={error:null};
 let filteredKey:Array<any>=[];
 let worker:Worker;
 let keys:Array<any>=[];
@@ -68,7 +68,11 @@ let showInstalled:boolean = false;
 
 onMount(async ()=>{
     $nixEnvPkgs=await invoke("get_nix_env_pkgs")
- packages  = JSON.parse( await invoke('get_packages'))
+ packages  = JSON.parse( await invoke('get_packages')) 
+ if(packages.error){
+     $currentScreen=2
+     $needs_db_update=true;
+ }
 keys= Object.keys(packages);
 $overhead = getOverhead(keys)
 worker = new Worker('/worker.js');
@@ -100,6 +104,7 @@ function filter(){
 
 
 function filterInstalledPackages(showInstalled){
+    console.log($nixEnvPkgs)
 let result = [...$nixEnvPkgs.map((pkg)=>keys[0] && keys[0].split('.').slice(0,$overhead-1).join(".")+"."+pkg)]
 
 if(!showInstalled || !keys.length)return[]
