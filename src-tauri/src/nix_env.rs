@@ -193,6 +193,7 @@ let re_end = regex::Regex::new("\\}\"$").unwrap();
 for pkg in pkgs{
   i+=1;
  println!("{}/{}",i,length);
+thread::sleep(time::Duration::from_millis(10));
  let out =  repl_command(Arc::clone(&RESPONSE),&format!("let \
   try = builtins.tryEval; \
   pkg = pkgs.{}; \
