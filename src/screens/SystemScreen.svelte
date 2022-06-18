@@ -18,7 +18,7 @@
 
 
 {#if access==false}
-<Denied bind:access/>
+<Denied {task} bind:access/>
 {/if}
 
 <script lang='ts'>
@@ -31,6 +31,7 @@ import { listen } from "@tauri-apps/api/event";
 import { invoke } from '@tauri-apps/api/tauri'
 import { onDestroy, onMount } from "svelte";
 let access=undefined;
+let task ="";
 let progress_title;
 onMount(()=>{
     if($needs_db_update){
@@ -61,6 +62,7 @@ function rebuild_switch() {
     if(showProgress)return
     showProgress=true;
     progress_title="Rebuilding system..."
+    task="Rebuild System"
 listen('progress-rebuild-switch', (e:any) => {
   console.log(e.payload)
   let data = JSON.parse(e.payload)
@@ -81,6 +83,7 @@ function update_db(){
     if(showProgress)return
     showProgress=true;
     progress_title="Updating DB..."
+    task="Update DB"
 listen('progress-update-db', (e:any) => {
   console.log(e.payload)
   let data = JSON.parse(e.payload)

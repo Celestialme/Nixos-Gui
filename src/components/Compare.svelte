@@ -7,7 +7,7 @@ import axios from "axios";
 import Denied from "./Denied.svelte";
 export let compare;
 let access=undefined;
-
+let task ="Save configuration"
 let conf = Ast2Text($ast).split(/\n/)
 async  function save(){
     //TODO write to config file 
@@ -23,7 +23,7 @@ compare = false;
 }
 </script>
 {#if access==false}
-<Denied bind:access/>
+<Denied {task} bind:access/>
 {/if}
 
 <div class='container'>
