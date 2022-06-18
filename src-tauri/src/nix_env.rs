@@ -183,7 +183,7 @@ let p = Command::new("nix-env").args(["-f","<nixpkgs>","-qaP","*","--no-name"])
     .expect("failed to execute child");
 
 
-let pkgs:Vec<String> = std::str::from_utf8(&p.stdout).unwrap().split("\n").map(|s| s.to_string()).collect();
+let pkgs:Vec<String> = std::str::from_utf8(&p.stdout).unwrap().split("\n").map(|s| s.to_string()).filter(|item| !item.is_empty()).collect();
 // let pkgs = ["dart","firefox","wget","fish"]; // test data
 
 let mut i = 0;
@@ -202,16 +202,13 @@ for pkg in pkgs{
   pname=(try pkg.pname or pkg.name or pkg.meta.name or \"\").value;\
   homepage = (try pkg.meta.homepage or \"\").value; }})",pkg,pkg),&stdin);
   let temp;
-  if i==length{
-    break
-  }
-  else if i==1{
+   if i==1{
     let mut tmp_string = out.replace(r"\\\\","").replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
     tmp_string = re_start.replace_all(&tmp_string,"").to_string();
     tmp_string = re_end.replace_all(&tmp_string,"").to_string();
     temp = format!("\n {{ {},",tmp_string);
     
-  }else   if i==length-1{
+  }else   if i==length{
     let mut tmp_string = out.replace(r"\\\\","").replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
     tmp_string = re_start.replace_all(&tmp_string,"").to_string();
     tmp_string = re_end.replace_all(&tmp_string,"").to_string();
@@ -230,19 +227,11 @@ println!("finished");
 window.emit(&format!("{}-{}","finish","update-db"), "true").unwrap();
 });
 
-let p = Command::new("nix-instantiate").args(["--eval","<nixpkgs/nixos/release.nix>","-A","options.drvPath"])
+let p = Command::new("nix-build").args(["<nixpkgs/nixos/release.nix>","-A","options","--no-out-link"])
     .output()
     .expect("failed to execute child");
-;
-let  drv_path = std::str::from_utf8(&p.stdout).unwrap().replace("\"","").replace("\n","");
-
-let p = Command::new("nix-store").args(["-r",&drv_path])
-    .output()
-    .expect("failed to execute child");
-
 let mut options_json = std::str::from_utf8(&p.stdout).unwrap().replace("\n","").to_owned()+"/share/doc/nixos/options.json";
 std::fs::copy(options_json, "/etc/NIX_GUI/options.json").expect("could not copy options json");
-
 "success".into()
 }
 
