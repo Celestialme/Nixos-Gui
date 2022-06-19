@@ -47,22 +47,25 @@ let mut todo:Vec<String> = Vec::new();
 let mut todo_max_length = 0;
 let mut success = "true";
 let mut error_msg = String::new();
+let mut push_mode = false;
 window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",0,1,"")).unwrap();
 out.lines().for_each(|line|{
   let mut line = line.unwrap();  
  line = line.trim().to_string();
  println!("{}",line);
       if line==""{return}
-      if line.contains("error") || success =="false"{
+      if line.contains("these derivations will be built") || line.contains("these paths will be fetched"){
+        push_mode=true;
+      }else if line.contains("error") || success =="false"{
           success = "false";    
           error_msg+=&(r"<br>".to_owned()+&line);
           
           return
-      };
-      if line.starts_with("/nix/store"){
+      }else  if line.starts_with("/nix/store") && push_mode==true{
           todo.push(line);
           todo_max_length+=1;
       } else{
+        push_mode=false;
           match todo.iter().position(|r| line.contains(r)) {
             None => "None",
             Some(val) => {
@@ -87,7 +90,6 @@ out.lines().for_each(|line|{
 window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",1,1,"")).unwrap();
 window.emit(&format!("{}-{}","finish",app.replace(".","")), success).unwrap();
 if success == "false"{
-  println!("eroooooooooooooooooooooooor {}",error_msg);
 window.emit(&format!("{}-{}","progress",app.replace(".","")), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",todo_max_length-todo.len(),todo_max_length,
         error_msg
         .replace("\"","'")
@@ -350,23 +352,26 @@ let mut todo:Vec<String> = Vec::new();
 let mut todo_max_length = 0;
 let mut success = "true";
 let mut error_msg = String::new();
+let mut push_mode = false;
 window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",0,1,"")).unwrap();
 out.lines().for_each(|line|{
   let mut line = line.unwrap();  
  line = line.trim().to_string();
  println!("{}",line);
       if line==""{return}
-      if line.starts_with("error") || success =="false"{
+      if line.contains("these derivations will be built") || line.contains("these paths will be fetched"){
+        push_mode=true;
+      }else if line.starts_with("error") || success =="false"{
           success = "false";    
           error_msg+=&(r"<br>".to_owned()+&line);
           
           return
-      };
-      if line.starts_with("/nix/store"){
+      }else  if line.starts_with("/nix/store") &&  push_mode==true{
           todo.push(line);
           todo_max_length+=1;
           return
       } else{
+        push_mode=false;
           match todo.iter().position(|r| line.contains(r)) {
             None => "None",
             Some(val) => {
@@ -391,7 +396,6 @@ out.lines().for_each(|line|{
 window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",1,1,"")).unwrap();
 window.emit(&format!("{}-{}","finish","rebuild-switch"), success).unwrap();
 if success == "false"{
-  println!("eroooooooooooooooooooooooor {}",error_msg);
 window.emit(&format!("{}-{}","progress","rebuild-switch"), format!("{{ \"progress\":[{},{}],\"msg\":\"{}\" }}",todo_max_length-todo.len(),todo_max_length,
         error_msg
         .replace("\"","'")

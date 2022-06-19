@@ -1,6 +1,6 @@
 <div class="container" on:click={navigate}>
 
-    <p class='name'>{name}</p>
+    <p class='name'>{@html name.replace(/\./g,".<wbr>")}</p>
     <p class='description'>Description: {@html description}</p>
     <p class='example'>Default: {JSON.stringify(defaultValue)}</p>
     <p class='example'>Example: {example}</p>

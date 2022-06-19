@@ -5,7 +5,7 @@
     <button on:click={()=>update_db()} >update DB</button>
     <button on:click={()=>rebuild_switch()} >rebuild</button>
     {#if showProgress}
-    <ProgressBar title={progress_title} value={value} {msg} max_value={max_value} {success}/>
+    <ProgressBar title={progress_title} value={value} {msg} max_value={max_value} {success} wide/>
     {/if}
 </div>
 
@@ -51,11 +51,11 @@ async function update_channels(){
   update_channels_success = data.success
 }
 
-let showProgress=false
+let showProgress=true
     let value = 0
     let max_value =1
     let success;
-    let msg = ''
+    let msg = 'asdas asdasasdasasdasasdasasdasasdas asdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdas asdasasdasasdasasdasasdasasdasasdas'
     let unlisten;
 function rebuild_switch() {
     
