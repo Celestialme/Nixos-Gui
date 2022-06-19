@@ -51,11 +51,11 @@ async function update_channels(){
   update_channels_success = data.success
 }
 
-let showProgress=true
+let showProgress=false
     let value = 0
     let max_value =1
     let success;
-    let msg = 'asdas asdasasdasasdasasdasasdasasdas asdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdas asdasasdasasdasasdasasdasasdasasdas'
+    let msg = ''
     let unlisten;
 function rebuild_switch() {
     
