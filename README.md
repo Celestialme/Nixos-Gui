@@ -3,7 +3,7 @@
 Gui application to manage NIXOS build.
 # usage
 ### packages section 
-you can search for packages. you can mark them (they will be added to configuration.nix) or you can download directly (nix-env -iA will be used)
+you can search for packages. you can mark them (they will be added to configuration.nix using rnix ast) or you can download directly (nix-env -iA will be used)
 ### options section  
 you can manage your options from there. changed will update configuration.nix accordingly. Application will ask for manual revision of configuration.nix before update.
 ### system section   
