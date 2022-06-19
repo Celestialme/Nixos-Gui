@@ -56,7 +56,7 @@ out.lines().for_each(|line|{
       if line==""{return}
       if line.contains("these derivations will be built") || line.contains("these paths will be fetched"){
         push_mode=true;
-      }else if line.contains("error") || success =="false"{
+      }else if line.starts_with("error") || success =="false"{
           success = "false";    
           error_msg+=&(r"<br>".to_owned()+&line);
           
