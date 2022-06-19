@@ -1,40 +1,30 @@
-# create-svelte
+# about
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Gui application to manage NIXOS build.
+# usage
+### packages section 
+you can search for packages. you can mark them (they will be added to configuration.nix) or you can download directly (nix-env -iA will be used)
+### options section  
+you can manage your options from there. changed will update configuration.nix accordingly. Application will ask for manual revision of configuration.nix before update.
+### system section   
+you can controll channels, see generations, update channels, rebuild.
 
-## Creating a project
+downloads and rebuild has progress bar indicator.
 
-If you're seeing this, you've probably already done this step. Congrats!
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+# create local dev env
+``` 
+git clone https://github.com/Celestialme/Nixos-Gui.git 
+cd Nixos-Gui
+nix-shell
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
 
-> Note: the `@next` is temporary
+npm install
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
 npm run dev
+npm run tauri dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+# OR download release 
+https://github.com/Celestialme/Nixos-Gui/releases
+# OR fork and build with actions yourself
