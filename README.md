@@ -30,7 +30,7 @@ npm run tauri dev
 # OR download release and install
 https://github.com/Celestialme/Nixos-Gui/releases
 
-nix-build --expr 'with import <nixpkgs> {}; callPackage ./default.nix {}'
+nix-build --expr 'with import \<nixpkgs> {}; callPackage ./default.nix {}'
 
 default.nix
   
