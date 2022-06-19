@@ -9,7 +9,7 @@ you can manage your options from there. changed will update configuration.nix ac
 ### system section   
 you can controll channels, see generations, update channels, rebuild.
 
-on first run you have let app create packages and options database as root which will be located at /etc/NIX-GUI. to modify configuration.nix or rebuild system you need to run nix-gui with sudo. Installed packages and channels depend on user by which app is run.
+on the first run you have to let app create packages and options database as root which will be located at /etc/NIX_GUI. to modify configuration.nix or rebuild system you need to run nix-gui as root or with sudo. Installed packages and channels depend on user by which app is run.
 
 downloads and rebuild has progress bar indicator.
 
