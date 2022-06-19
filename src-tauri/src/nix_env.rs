@@ -142,7 +142,7 @@ let out = BufReader::new(stdout);
 let response = Arc::clone(&RESPONSE);
 std::thread::spawn(move ||{
   err.lines().for_each(|line|{
-    if line.as_ref().unwrap()=="" || line.as_ref().unwrap().starts_with("warning: Nix"){return}
+    if line.as_ref().unwrap()=="" || line.as_ref().unwrap().starts_with("warning: Nix") || line.as_ref().unwrap().contains("Inappropriate ioctl for device"){return}
      (*response.lock().unwrap()).value =line.as_ref().unwrap().to_string();
      (*response.lock().unwrap()).status = "ERROR".to_string();
     println!("{}",line.as_ref().unwrap());
@@ -193,7 +193,6 @@ let re_end = regex::Regex::new("\\}\"$").unwrap();
 for pkg in pkgs{
   i+=1;
  println!("{}/{}",i,length);
-thread::sleep(time::Duration::from_millis(10));
  let out =  repl_command(Arc::clone(&RESPONSE),&format!("let \
   try = builtins.tryEval; \
   pkg = pkgs.{}; \
