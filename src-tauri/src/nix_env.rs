@@ -359,7 +359,7 @@ out.lines().for_each(|line|{
  line = line.trim().to_string();
  println!("{}",line);
       if line==""{return}
-      if line.contains("these derivations will be built") || line.contains("these paths will be fetched"){
+      if line.contains("derivations will be built") || line.contains("paths will be fetched"){
         push_mode=true;
       }else if line.starts_with("error") || success =="false"{
           success = "false";    
