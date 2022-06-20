@@ -70,3 +70,10 @@ in stdenv.mkDerivation {
 
 ```
 # OR fork and build with actions yourself
+![Alt text](screenshots/1.png?raw=true "Optional Title")
+![Alt text](screenshots/3.png?raw=true "Optional Title")
+![Alt text](screenshots/4.png?raw=true "Optional Title")
+![Alt text](screenshots/5.png?raw=true "Optional Title")
+![Alt text](screenshots/8.png?raw=true "Optional Title")
+![Alt text](screenshots/6.png?raw=true "Optional Title")
+![Alt text](screenshots/7.png?raw=true "Optional Title")
