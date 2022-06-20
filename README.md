@@ -18,15 +18,21 @@ downloads and rebuild has progress bar indicator.
 ``` 
 git clone https://github.com/Celestialme/Nixos-Gui.git 
 cd Nixos-Gui
-nix-shell
-
-
-npm install
-
-npm run dev
-npm run tauri dev
-
 ```
+### open 2 terminals here:
+
+terminal #1 run:
+```
+nix-shell
+npm install
+npm run dev
+```
+terminal #2 run:
+```
+nix-shell
+npm run tauri dev
+```
+
 # OR download release and install
 https://github.com/Celestialme/Nixos-Gui/releases
 
