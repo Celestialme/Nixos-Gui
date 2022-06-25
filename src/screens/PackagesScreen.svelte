@@ -2,6 +2,7 @@
 
     <div class='container' class:populated={filteredKey.length}>
         <button class:showInstalled={showInstalled} on:click={()=>{showInstalled=!showInstalled;filter()}}>SHOW INSTALLED</button>
+        <button class:showInstalled={showInstalled} on:click={runInvoke}>run invoke</button>
         <!-- <input type="text" bind:value={inputValue} on:keyup={filter}> -->
         
         {#each filteredKey as  key }
@@ -118,6 +119,11 @@ for (let i = 0; i < $installedPkgs.length; i++) {
 console.log(result)
 
 return Array.from(new Set(result)) 
+}
+
+
+function runInvoke(){
+    invoke("exp",{pkgs:["1","2","3"]})
 }
 
 </script>

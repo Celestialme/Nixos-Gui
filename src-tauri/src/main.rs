@@ -3,6 +3,7 @@
   windows_subsystem = "windows"
 )]
 mod nix_env;
+mod worker;
 use std::io::{BufRead, BufReader, Read};
 use std::process::{Command, Stdio,Child,ChildStdin,ChildStdout};
 use std::sync::{Arc,Mutex};
@@ -150,6 +151,11 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
   nix_env::rebuild_switch(window)
 }
 
+#[tauri::command]
+ fn exp(){
+  worker::filter("htop");
+}
+
 fn main() {
   STDIN.lock().unwrap().write_all(b":l <nixpkgs/nixos>\n").unwrap();
   
@@ -157,7 +163,7 @@ fn main() {
 
   tauri::Builder::default()
   .invoke_handler(tauri::generate_handler![get_packages,get_options,get_config,save_config,repl,start_repl,start_download,
-    update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch    
+    update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch,exp
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
