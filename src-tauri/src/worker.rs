@@ -1,10 +1,13 @@
+
+
+lazy_static! {
+static ref  pkgs:serde_json::Value =  serde_json::from_str(&match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
+    Ok(txt) => txt,
+    Err(err) => "{\"error\":\"file not found\" }".to_string()
+}).unwrap();
+}
 pub fn filter(value:&str,mut keys:Vec<String>) ->Vec<String>{
-    let pkgs_json =  match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
-        Ok(txt) => txt,
-        Err(err) => "{\"error\":\"file not found\" }".to_string()
-    };
     
-    let pkgs:serde_json::Value = serde_json::from_str(&pkgs_json).unwrap();
 if keys.is_empty(){
     keys = Vec::new();
     for (key, val) in pkgs.as_object().unwrap().iter() {
@@ -46,7 +49,7 @@ keys.into_iter().map(|key| {
 let mut pkg_body = pkgs[&key].as_object().unwrap().clone();
 pkg_body.insert("key".to_owned(),serde_json::Value::String(key.to_owned()));
 serde_json::to_string(&pkg_body).unwrap()
-}).collect::<Vec<String>>()
+}).collect::<Vec<String>>()[0..50].to_vec()
 
 
 

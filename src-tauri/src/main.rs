@@ -152,8 +152,11 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
 }
 
 #[tauri::command]
- fn exp(){
-  worker::filter("google",vec!["nixos.googler".to_owned(), "nixos.htop".to_owned(), "nixos.google-clasp".to_owned(), "nixos.steam".to_owned(),"nixos.google-chrome".to_owned()]);
+ fn filter_packages(window:Window,value:String,keys:Vec<String>){
+  std::thread::spawn(move||{
+    
+    window.emit("filterPackages",worker::filter(&value,keys));
+  });
 }
 
 fn main() {
@@ -163,7 +166,7 @@ fn main() {
 
   tauri::Builder::default()
   .invoke_handler(tauri::generate_handler![get_packages,get_options,get_config,save_config,repl,start_repl,start_download,
-    update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch,exp
+    update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch,filter_packages
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");

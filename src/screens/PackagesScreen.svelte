@@ -59,6 +59,7 @@ import axios from 'axios';
 import {getKeyName, getOverhead} from '@src/utils/globalFunctions'
 import { installedPkgs, nixEnvPkgs, overhead,currentScreen, needs_db_update } from "@src/store/store";
 import { invoke } from "@tauri-apps/api/tauri";
+import { listen } from "@tauri-apps/api/event";
 export let inputValue:String='';
 export const keyUpFn:Function=filter;
 let packages={error:null};
@@ -81,6 +82,13 @@ worker.onmessage = function({data}){
 if(inputValue=='')return
 filteredKey = data.value;
 }
+
+let unlisten;
+listen('filterPackages', (e:any) => {
+let pkgs = e.payload.map(x=>JSON.parse(x))
+console.log(pkgs)
+}).then(_unlisten=>unlisten=_unlisten)
+
 })
 
 $:filteredKey =filterInstalledPackages(showInstalled)
@@ -92,7 +100,8 @@ function filter(){
         return
     }
     if(!showInstalled){
-    worker.postMessage({type:'filterPackages',payload:{keys,packages,value:inputValue}})
+   
+    invoke("filter_packages",{value:inputValue,keys:[]})
     }else{
         let _filteredKey = filterInstalledPackages(showInstalled)
         if(inputValue==''){
