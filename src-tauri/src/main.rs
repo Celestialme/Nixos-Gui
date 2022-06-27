@@ -153,7 +153,7 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
 
 #[tauri::command]
  fn exp(){
-  worker::filter("htop");
+  worker::filter("steam");
 }
 
 fn main() {
