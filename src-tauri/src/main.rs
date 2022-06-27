@@ -153,7 +153,7 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
 
 #[tauri::command]
  fn exp(){
-  worker::filter("steam");
+  worker::filter("google",vec!["nixos.googler".to_owned(), "nixos.htop".to_owned(), "nixos.google-clasp".to_owned(), "nixos.steam".to_owned(),"nixos.google-chrome".to_owned()]);
 }
 
 fn main() {
