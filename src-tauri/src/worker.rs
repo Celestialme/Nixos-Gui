@@ -1,4 +1,4 @@
-pub fn filter(value:&str,mut keys:Vec<String>){
+pub fn filter(value:&str,mut keys:Vec<String>) ->Vec<String>{
     let pkgs_json =  match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
         Ok(txt) => txt,
         Err(err) => "{\"error\":\"file not found\" }".to_string()
@@ -42,8 +42,14 @@ if by_key_name != std::cmp::Ordering::Equal{
 
 });
 
+keys.into_iter().map(|key| {
+let mut pkg_body = pkgs[&key].as_object().unwrap().clone();
+pkg_body.insert("key".to_owned(),serde_json::Value::String(key.to_owned()));
+serde_json::to_string(&pkg_body).unwrap()
+}).collect::<Vec<String>>()
 
-println!("{:?}",keys);
+
+
 }
 fn get_key_name(key:&str,overhead:usize) -> String{
     let mut tmp:Vec<String> = key.split(".").map(|x| x.to_string()).collect();
