@@ -5,10 +5,10 @@
         <button class:showInstalled={showInstalled} on:click={runInvoke}>run invoke</button>
         <!-- <input type="text" bind:value={inputValue} on:keyup={filter}> -->
         
-        {#each filteredKey as  key }
-         {#if packages[key]}
-        <Package name={getKeyName(key,$overhead)} description={packages[key].description} version={packages[key].version}/>
-         {/if}
+        {#each filtered_pkgs as  pkg }
+         
+        <Package name={getKeyName(pkg.key,$overhead)} description={pkg.description} version={pkg.version}/>
+        
         {/each}
 
 
@@ -63,7 +63,7 @@ import { listen } from "@tauri-apps/api/event";
 export let inputValue:String='';
 export const keyUpFn:Function=filter;
 let packages={error:null};
-let filteredKey:Array<any>=[];
+let filtered_pkgs:Array<any>=[];
 let worker:Worker;
 let keys:Array<any>=[];
 let showInstalled:boolean = false;
@@ -85,8 +85,8 @@ filteredKey = data.value;
 
 let unlisten;
 listen('filterPackages', (e:any) => {
-let pkgs = e.payload.map(x=>JSON.parse(x))
-console.log(pkgs)
+    if(inputValue=='')return
+filtered_pkgs = e.payload.map(x=>JSON.parse(x))
 }).then(_unlisten=>unlisten=_unlisten)
 
 })

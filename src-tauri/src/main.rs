@@ -156,6 +156,7 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
   std::thread::spawn(move||{
     
     window.emit("filterPackages",worker::filter(&value,keys));
+    println!("filtered");
   });
 }
 
