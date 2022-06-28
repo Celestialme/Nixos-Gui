@@ -1,6 +1,6 @@
 
 
-    <div class='container' class:populated={filteredKey.length}>
+    <div class='container' >
         <button class:showInstalled={showInstalled} on:click={()=>{showInstalled=!showInstalled;filter()}}>SHOW INSTALLED</button>
         <button class:showInstalled={showInstalled} on:click={runInvoke}>run invoke</button>
         <!-- <input type="text" bind:value={inputValue} on:keyup={filter}> -->
@@ -78,10 +78,10 @@ onMount(async ()=>{
 keys= Object.keys(packages);
 $overhead = getOverhead(keys)
 worker = new Worker('/worker.js');
-worker.onmessage = function({data}){
-if(inputValue=='')return
-filteredKey = data.value;
-}
+// worker.onmessage = function({data}){
+// if(inputValue=='')return
+// filteredKey = data.value;
+// }
 
 let unlisten;
 listen('filterPackages', (e:any) => {
@@ -91,12 +91,12 @@ filtered_pkgs = e.payload.map(x=>JSON.parse(x))
 
 })
 
-$:filteredKey =filterInstalledPackages(showInstalled)
+$:filtered_pkgs =filterInstalledPackages(showInstalled)
    
 function filter(){
     console.log(inputValue)
     if(!worker || (inputValue=='' && !showInstalled)){
-        filteredKey=[]
+        filtered_pkgs=[]
         return
     }
     if(!showInstalled){
@@ -104,10 +104,9 @@ function filter(){
     invoke("filter_packages",{value:inputValue,keys:[]})
     }else{
         let _filteredKey = filterInstalledPackages(showInstalled)
-        if(inputValue==''){
-            filteredKey=_filteredKey
-            }
-        worker.postMessage({type:'filterPackages',payload:{keys:_filteredKey,packages,value:inputValue}})
+        
+        // worker.postMessage({type:'filterPackages',payload:{keys:_filteredKey,packages,value:inputValue}})
+        invoke("filter_packages",{value:inputValue,keys:_filteredKey})
 
     }
 }

@@ -1,7 +1,7 @@
 
 
 lazy_static! {
-static ref  pkgs:serde_json::Value =  serde_json::from_str(&match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
+pub static ref  pkgs:serde_json::Value =  serde_json::from_str(&match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
     Ok(txt) => txt,
     Err(err) => "{\"error\":\"file not found\" }".to_string()
 }).unwrap();
@@ -68,4 +68,6 @@ fn get_key_name(key:&str,overhead:usize) -> String{
    tmp.join(".").to_owned()
 
 }
+
+
 
