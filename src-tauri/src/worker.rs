@@ -19,11 +19,12 @@ if keys.is_empty(){
    keys = KEYS.to_vec();
 }
 
-
+if !value.is_empty(){
 keys = keys.into_iter().filter(|key| {
     key.contains(&value) || (!pkgs[key]["pname"].is_null() && pkgs[key]["pname"].as_str().unwrap().to_string().contains(&value) ) ||  ( !pkgs[key]["description"].is_null() && pkgs[key]["description"].as_str().unwrap().to_string().contains(&value))
 
 }).collect();
+};
 let now = std::time::Instant::now();
 keys.sort_by(|a,b|{
 let by_pname = (match pkgs[b]["pname"].as_str().unwrap().to_string().starts_with(&value){true=>&1,false=>&0}).cmp(match pkgs[a]["pname"].as_str().unwrap().to_string().starts_with(&value){true=>&1,false=>&0}); // sort  by pname

@@ -201,6 +201,7 @@ for pkg in pkgs{
   in builtins.toJSON (pkgs.lib.attrsets.setAttrByPath [\"nixos.{}\"] \
   {{ description=(try pkg.description or pkg.meta.description or \"\").value; \
   version=(try pkg.version or pkg.meta.version or \"\").value; \
+  name=(try pkg.name or pkg.meta.name or \"\").value;\
   pname=(try pkg.pname or pkg.name or pkg.meta.name or \"\").value;\
   homepage = (try pkg.meta.homepage or \"\").value; }})",pkg,pkg),&stdin);
   let temp;
@@ -257,20 +258,16 @@ pub fn get_nix_env_pkgs()->Vec<std::string::String>{
 
 
  
-let p = Command::new("nix-env").args(["-q","--xml"])
+let p = Command::new("nix-env").args(["-q"])
 
     .output()
     .expect("failed to execute child");
 
 
-let xml = std::str::from_utf8(&p.stdout).unwrap();
-let re = regex::Regex::new("pname=\"(.*?)\"").unwrap();
+std::str::from_utf8(&p.stdout).unwrap().trim().split("\n").map(|s| s.to_string()).collect()
 
-let mut pkgs = Vec::new();
- for caps in re.captures_iter(xml) {
-    pkgs.push(caps[1].to_string());
-    }
-pkgs
+
+
 }
 
 pub fn get_channels()->Vec<String>{

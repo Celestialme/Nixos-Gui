@@ -121,7 +121,22 @@ fn start_repl(window: Window){
 
 #[tauri::command]
 fn get_nix_env_pkgs()->Vec<std::string::String>{
-  nix_env::get_nix_env_pkgs()
+  let tmp = nix_env::get_nix_env_pkgs().into_iter().map(|pkg_name| {
+    let mut res="";
+    for (key, val) in worker::pkgs.as_object().unwrap().iter() {
+      println!("{}===={}",val["name"].as_str().unwrap().to_string().trim(),pkg_name.trim());
+      if !val["name"].is_null() && val["name"].as_str().unwrap().to_string().trim()==pkg_name.trim() {
+        res = key;
+        break
+      };
+  };
+
+
+  res.to_owned()
+
+  }).collect();
+  println!("{:?}",tmp);
+  tmp
 }
 
 #[tauri::command]

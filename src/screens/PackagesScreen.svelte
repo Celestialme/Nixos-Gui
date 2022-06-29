@@ -1,7 +1,7 @@
 
 
     <div class='container' >
-        <button class:showInstalled={showInstalled} on:click={()=>{showInstalled=!showInstalled;filter()}}>SHOW INSTALLED</button>
+        <button class:showInstalled={showInstalled} on:click={()=>{showInstalled=!showInstalled;filter(showInstalled)}}>SHOW INSTALLED</button>
         <button class:showInstalled={showInstalled} on:click={runInvoke}>run invoke</button>
         <!-- <input type="text" bind:value={inputValue} on:keyup={filter}> -->
         
@@ -91,10 +91,10 @@ filtered_pkgs = e.payload.map(x=>JSON.parse(x))
 
 })
 
-$:filtered_pkgs =filterInstalledPackages(showInstalled)
+$:filter(showInstalled)
    
-function filter(){
-    console.log(inputValue)
+function filter(showInstalled){
+    
     if(!worker || (inputValue=='' && !showInstalled)){
         filtered_pkgs=[]
         return
@@ -103,31 +103,15 @@ function filter(){
    
     invoke("filter_packages",{value:inputValue,keys:[]})
     }else{
-        let _filteredKey = filterInstalledPackages(showInstalled)
         
+        console.log($nixEnvPkgs)
         // worker.postMessage({type:'filterPackages',payload:{keys:_filteredKey,packages,value:inputValue}})
-        invoke("filter_packages",{value:inputValue,keys:_filteredKey})
+        invoke("filter_packages",{value:inputValue,keys:$nixEnvPkgs})
 
     }
 }
 
 
-function filterInstalledPackages(showInstalled){
-    console.log($nixEnvPkgs)
-let result = [...$nixEnvPkgs.map((pkg)=>keys[0] && keys[0].split('.').slice(0,$overhead-1).join(".")+"."+pkg)]
-
-if(!showInstalled || !keys.length)return[]
-let prefix = keys[0].split('.').slice(0,$overhead-1).join('.')+'.'
-for (let i = 0; i < $installedPkgs.length; i++) {
-        let pkg = prefix+$installedPkgs[i]
-        
-        if(!packages[pkg]) continue
-        result.push(pkg)
-}
-console.log(result)
-
-return Array.from(new Set(result)) 
-}
 
 
 function runInvoke(){
