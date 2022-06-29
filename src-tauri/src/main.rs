@@ -167,9 +167,13 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
 
 #[tauri::command]
  fn filter_packages(window:Window,value:String,keys:Vec<String>){
+  *(worker::CURRENT_VALUE.lock().unwrap()) = value.to_owned();
   std::thread::spawn(move||{
-    
-    window.emit("filterPackages",worker::filter(&value,keys));
+    let result = worker::filter(&value,keys);
+    if *(worker::CURRENT_VALUE.lock().unwrap())!= value{
+      return
+    }
+    window.emit("filterPackages",result);
     println!("filtered");
   });
 }

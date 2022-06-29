@@ -1,5 +1,6 @@
 
 
+    use std::sync::{Arc,Mutex};
 lazy_static! {
 pub static ref  pkgs:serde_json::Value =  serde_json::from_str(&match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
     Ok(txt) => txt,
@@ -12,6 +13,7 @@ static ref KEYS:Vec<String> = {
     };
     keys
 };
+pub static ref CURRENT_VALUE:Mutex<String> = Mutex::new("".to_owned());
 }
 pub fn filter(value:&str,mut keys:Vec<String>) ->Vec<String>{
     
@@ -25,6 +27,9 @@ keys = keys.into_iter().filter(|key| {
 
 }).collect();
 };
+if *CURRENT_VALUE.lock().unwrap()!= value{
+    return Vec::new();
+}
 keys.sort_by(|a,b|{
 let by_pname = (match pkgs[b]["pname"].as_str().unwrap().to_string().starts_with(&value){true=>&1,false=>&0}).cmp(match pkgs[a]["pname"].as_str().unwrap().to_string().starts_with(&value){true=>&1,false=>&0}); // sort  by pname
 let key_a = get_key_name(a,1);
@@ -50,6 +55,9 @@ if by_key_name != std::cmp::Ordering::Equal{
 
 
 });
+if *CURRENT_VALUE.lock().unwrap()!= value{
+    return Vec::new();
+}
 keys = keys.iter().map(|key| {
 let mut pkg_body = pkgs[&key].as_object().unwrap().clone();
 pkg_body.insert("key".to_owned(),serde_json::Value::String(key.to_owned()));
