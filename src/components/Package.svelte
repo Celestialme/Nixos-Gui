@@ -2,7 +2,7 @@
     <div class='left-panel'>
         {#key name}
             <CheckIcon {name}/>
-            <DownloadIcon  {marked} on:click={()=>startDownload()}/>
+            <DownloadIcon  {marked} on:click={()=>startDownload(name)}/>
         {/key}
     </div>
     <div class='right-panel'>
@@ -50,8 +50,9 @@ $:{showProgress=false;
     name //dependency
 }
 
-function startDownload() {
+function startDownload(name) {
     if(showProgress)return
+    name = getKeyName(name);
     showProgress=true;
     
 listen('progress-'+name.replace(/\./g,''), (e:any) => {

@@ -9,7 +9,7 @@ export let type
 
 let _value =  $changes[name] || find_key_value($ast,name)[1];
 if(_value){
-_value=_value.replace(/\s*⇐change|\s*⇐ADD/g,'')
+_value=_value.replace(/\s*⇐change|\s*⇐ADD/g,'').replace(/\"/g,'\\"')
 console.log(_value);
 }
 let types = type.replace('one of','').trim().split(/\s*,\s*/g)

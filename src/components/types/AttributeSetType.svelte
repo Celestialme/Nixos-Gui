@@ -5,9 +5,10 @@ import {  find_key_value, removeLastChar ,setContainerHeight} from "@src/utils/g
 export let name;
 let value=[];
 let _value =  $changes[name] || find_key_value($ast,name)[1];
-console.log($ast);
+
+
 if(_value){ 
-    let _JSON =  removeLastChar(',',_value.replace(/\s*⇐change|\s*⇐ADD/g,'').replace(/=/g,':').replace(/;/g,',').replace(/(.*:)/g,'"$1"').replace(/(:.*),/g,'"$1",'))
+    let _JSON =  removeLastChar(',',_value.replace(/\s*⇐change|\s*⇐ADD/g,'').replace(/\"/g,'\\"').replace(/=/g,':').replace(/;/g,',').replace(/(.*:)/g,'"$1"').replace(/(:.*),/g,'"$1",'))
     value= Object.entries(JSON.parse(_JSON)).map((item)=>({key:item[0],value:item[1]}))
     
 }

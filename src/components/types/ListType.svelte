@@ -5,9 +5,9 @@ import {  find_key_value,setContainerHeight } from "@src/utils/globalFunctions";
 export let name;
 let value=[];
 let _value = $changes[name] || find_key_value($ast,name)[1];
-console.log($ast);
+console.log(_value)
 if(_value){ 
-    let _JSON =  _value.replace(/\s*⇐change|\s*⇐ADD/g,'').trim().replace(/\s+/g,',').replace(/^(\[\s*),/,'$1').replace(/,\s*(\])$/,'$1')
+    let _JSON =  _value.replace(/\s*⇐change|\s*⇐ADD/g,'').trim().replace(/\"/g,'\\"').replace(/\s+/g,'","').replace(/^(\[\s*)",/,'$1').replace(/,"\s*(\])$/,'$1')
     value= JSON.parse(_JSON).map((item)=>({'value':item}))
     
 }
@@ -30,7 +30,7 @@ function remove(entry){
 function change(){
    
     
-    let listToString = "[ "+ ListEntry.reduce((acc,x)=>acc+' "'+x.value+'" ','')+" ]"
+    let listToString = "[ "+ ListEntry.reduce((acc,x)=>acc+' '+x.value+' ','')+" ]"
     $changes[name]=listToString
     $needsSaving=true;
 }
