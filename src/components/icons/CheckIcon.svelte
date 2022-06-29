@@ -7,25 +7,23 @@
         
 
     <script>
-import  { ast,installedPkgs, needsSaving } from "@src/store/store";
+import  { ast,markedPkgs, needsSaving } from "@src/store/store";
 import { addPkg, getPkgs, removePkg } from "@src/utils/globalFunctions";
 
 export let name;
-       
-     
-          
-        let marked = $installedPkgs.includes(name)
+                        
+        let marked = $markedPkgs.includes(name)
         
         function mark(){
             marked=!marked
             if(marked){
                 addPkg(name,$ast)
-                $installedPkgs=getPkgs($ast)
-                console.log($installedPkgs)
+                $markedPkgs=getPkgs($ast)
+                console.log($markedPkgs)
             }else{
                 removePkg(name,$ast)
-                $installedPkgs=getPkgs($ast)
-                console.log($installedPkgs)
+                $markedPkgs=getPkgs($ast)
+                console.log($markedPkgs)
             }
             $needsSaving=true;
         }

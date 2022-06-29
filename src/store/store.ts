@@ -6,6 +6,6 @@ export const ast = writable()
 export const needsSaving =  writable(false)
 export const needs_db_update =  writable(false)
 export const changes =  writable({})
-export const installedPkgs = writable([])
+export const markedPkgs = writable([])
 export const nixEnvPkgs = writable([])
 

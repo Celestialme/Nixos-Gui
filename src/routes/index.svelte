@@ -48,7 +48,7 @@ import OptionsScreen from "@src/screens/OptionsScreen.svelte";
 import SystemScreen from "@src/screens/SystemScreen.svelte";
    import SubMenus from "@src/components/SubMenus.svelte";
    import Compare from "@src/components/Compare.svelte";
-import { ast, changes, currentScreen, installedPkgs, needsSaving } from "@src/store/store";
+import { ast, changes, currentScreen, markedPkgs, needsSaving } from "@src/store/store";
 import { findNode, getPkgs, setOption } from "@src/utils/globalFunctions";
 import { invoke } from '@tauri-apps/api/tauri'
 import { listen } from '@tauri-apps/api/event'
@@ -60,11 +60,11 @@ let keyUpFn:Function=()=>{};
 
 
 if(!$ast){
-// axios.get('ast.json').then(data=>$ast = data.data).then(()=>$installedPkgs=getPkgs($ast))
-    invoke("get_config").then((data:any)=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
+// axios.get('ast.json').then(data=>$ast = data.data).then(()=>$markedPkgs=getPkgs($ast))
+    invoke("get_config").then((data:any)=>$ast = JSON.parse(data)).then(()=>$markedPkgs=getPkgs($ast))
     
 }else{
-    $installedPkgs=getPkgs($ast)
+    $markedPkgs=getPkgs($ast)
 }
 let unlisten;
 listen('repl', event => {

@@ -178,7 +178,7 @@ let pkgsNode = find_key_value(ast,'environment.systemPackages','node' ).findNode
 let pkgs = []
     for(let child of pkgsNode.children){
         if(child.kind === 'NODE_IDENT'){
-            pkgs.push(Ast2Text(child).replace(' ⇐ADD',''))
+            pkgs.push("nixos."+Ast2Text(child).replace(' ⇐ADD',''))
         }
     }
 return pkgs
@@ -201,21 +201,6 @@ return index==-1 ? false : index
     return key.replace("nixos.","")
     }
    
-
-
-
-export function getOverhead(pkgList){ // submodules before actual name
-
-let min = Infinity
-for(let i=0;i<pkgList.length;i++){
-
-        let len = pkgList[i].split('.').length
-        if(len < min) min=len
-   
-    
-        }
-return min
-}
 
 
 export     const config = {

@@ -1,7 +1,7 @@
 <div class="container">
     <div class='left-panel'>
         {#key name}
-            <CheckIcon name={getKeyName(name)}/>
+            <CheckIcon {name}/>
             <DownloadIcon  {marked} on:click={()=>startDownload()}/>
         {/key}
     </div>

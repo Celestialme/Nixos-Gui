@@ -57,7 +57,7 @@ import Package from "@src/components/Package.svelte";
 import { onMount } from "svelte";
 import axios from 'axios';
 
-import { installedPkgs, nixEnvPkgs,currentScreen, needs_db_update } from "@src/store/store";
+import { markedPkgs, nixEnvPkgs,currentScreen, needs_db_update } from "@src/store/store";
 import { invoke } from "@tauri-apps/api/tauri";
 import { listen } from "@tauri-apps/api/event";
 export let inputValue:String='';
@@ -103,9 +103,9 @@ function filter(showInstalled){
     invoke("filter_packages",{value:inputValue,keys:[]})
     }else{
         
-        console.log($nixEnvPkgs)
+       
         // worker.postMessage({type:'filterPackages',payload:{keys:_filteredKey,packages,value:inputValue}})
-        invoke("filter_packages",{value:inputValue,keys:$nixEnvPkgs})
+        invoke("filter_packages",{value:inputValue,keys:[...$nixEnvPkgs,...$markedPkgs]})
 
     }
 }

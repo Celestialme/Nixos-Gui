@@ -1,5 +1,5 @@
 <script>
-import { ast, installedPkgs } from "@src/store/store";
+import { ast, markedPkgs } from "@src/store/store";
 
 import { Ast2Text, config, getPkgs } from "@src/utils/globalFunctions";
 import { invoke } from "@tauri-apps/api/tauri";
@@ -14,11 +14,11 @@ async  function save(){
     let configuration = conf.join('\n').replace(/⇐change|⇐ADD/g,'')
     // let data = JSON.stringify(configuration)
     await invoke("save_config",{payload:configuration}).then(data=>access = data!="denied")
-    await invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
+    await invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$markedPkgs=getPkgs($ast))
     access && (compare = false);
 }
 function cancel(){
-    invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$installedPkgs=getPkgs($ast))
+    invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$markedPkgs=getPkgs($ast))
 compare = false;
 }
 </script>
