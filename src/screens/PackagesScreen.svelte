@@ -7,7 +7,7 @@
         
         {#each filtered_pkgs as  pkg }
          
-        <Package name={getKeyName(pkg.key,$overhead)} description={pkg.description} version={pkg.version}/>
+        <Package name={pkg.key} description={pkg.description} version={pkg.version}/>
         
         {/each}
 
@@ -56,8 +56,8 @@
 import Package from "@src/components/Package.svelte";
 import { onMount } from "svelte";
 import axios from 'axios';
-import {getKeyName, getOverhead} from '@src/utils/globalFunctions'
-import { installedPkgs, nixEnvPkgs, overhead,currentScreen, needs_db_update } from "@src/store/store";
+
+import { installedPkgs, nixEnvPkgs,currentScreen, needs_db_update } from "@src/store/store";
 import { invoke } from "@tauri-apps/api/tauri";
 import { listen } from "@tauri-apps/api/event";
 export let inputValue:String='';
@@ -76,7 +76,6 @@ onMount(async ()=>{
      $needs_db_update=true;
  }
 keys= Object.keys(packages);
-$overhead = getOverhead(keys)
 worker = new Worker('/worker.js');
 // worker.onmessage = function({data}){
 // if(inputValue=='')return
@@ -85,7 +84,7 @@ worker = new Worker('/worker.js');
 
 let unlisten;
 listen('filterPackages', (e:any) => {
-    if(inputValue=='')return
+    if(inputValue=='' && !showInstalled)return
 filtered_pkgs = e.payload.map(x=>JSON.parse(x))
 }).then(_unlisten=>unlisten=_unlisten)
 

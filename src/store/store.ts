@@ -8,4 +8,4 @@ export const needs_db_update =  writable(false)
 export const changes =  writable({})
 export const installedPkgs = writable([])
 export const nixEnvPkgs = writable([])
-export const overhead = writable(0)
+

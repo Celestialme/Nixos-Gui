@@ -197,22 +197,11 @@ return index==-1 ? false : index
 }
 
 
-  export function getKeyName(key,overhead){
-    let length = key.split('.').length
-    let sections = length - overhead;
-    for(var i=key.length-1;i>=0 ;i--){
-        if(key[i]=='.'){
-            
-           
-            if(sections<=0){
-                i++
-                break
-            }
-             sections--
-            }
+  export function getKeyName(key){
+    return key.replace("nixos.","")
     }
-    return key.slice(-(key.length - i))
-}
+   
+
 
 
 export function getOverhead(pkgList){ // submodules before actual name

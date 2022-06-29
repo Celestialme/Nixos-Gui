@@ -1,12 +1,12 @@
 <div class="container">
     <div class='left-panel'>
         {#key name}
-            <CheckIcon {name}/>
+            <CheckIcon name={getKeyName(name)}/>
             <DownloadIcon  {marked} on:click={()=>startDownload()}/>
         {/key}
     </div>
     <div class='right-panel'>
-        <p class='name'>{@html name.replace(/\./g,".<wbr>")}</p>
+        <p class='name'>{@html getKeyName(name.replace(/\./g,".<wbr>"))}</p>
         <p class='description'>{description}</p>
         <p class='version'>version: {version}</p>
         {#key name}
@@ -26,7 +26,8 @@ import CheckIcon from "./icons/CheckIcon.svelte";
 import DownloadIcon from "./icons/DownloadIcon.svelte";
 import ProgressBar from "./ProgressBar.svelte";
 import { onDestroy } from "svelte";
-import { nixEnvPkgs } from "@src/store/store";
+import { nixEnvPkgs} from "@src/store/store";
+import { getKeyName } from "@src/utils/globalFunctions";
 
 
 
@@ -72,6 +73,9 @@ invoke('start_download',{payload:name})
 onDestroy(()=>{
   unlisten && unlisten()
 })
+
+
+
 
 </script>
 
