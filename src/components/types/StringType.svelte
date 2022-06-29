@@ -6,7 +6,7 @@ export let name;
 let value;
 let _value = $changes[name] || find_key_value($ast,name)[1];
 if(_value){
-    value=_value.replace(/⇐.*$/,'').replace(/\"/g,'\\"')
+    value=_value.replace(/⇐.*$/,'')
 }
 
 
