@@ -123,7 +123,7 @@ fn start_repl(window: Window){
 fn get_nix_env_pkgs()->Vec<std::string::String>{ //returns keys nixos.htop
   let tmp = nix_env::get_nix_env_pkgs().into_iter().map(|pkg_name| {
     let mut res="";
-    for (key, val) in worker::pkgs.as_object().unwrap().iter() {
+    for (key, val) in worker::PKGS.as_object().unwrap().iter() {
       if !val["name"].is_null() && val["name"].as_str().unwrap().to_string().trim()==pkg_name.trim() {
         res = key;
         break

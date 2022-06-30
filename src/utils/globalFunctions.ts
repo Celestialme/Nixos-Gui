@@ -198,7 +198,7 @@ return index==-1 ? false : index
 
 
   export function getKeyName(key){
-    return key.replace("nixos.","")
+    return key.replace(/^nixos\./,"")
     }
    
 
