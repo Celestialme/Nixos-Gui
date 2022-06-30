@@ -174,14 +174,16 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
       return
     }
     window.emit("filterPackages",result);
-    println!("filtered");
+    
   });
 }
 
 #[tauri::command]
 fn filter_dict(window:Window,filter_key:String){
+  *(worker::CURRENT_VALUE.lock().unwrap()) = filter_key.to_owned();
+  std::thread::spawn(move||{
   worker::filter_dict(window,&filter_key);
-
+  });
 }
 
 fn main() {

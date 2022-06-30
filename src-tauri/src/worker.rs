@@ -117,8 +117,10 @@ fn get_dict_key_name(key:&str)->String{
 
 
 pub fn filter_dict(window:Window,filter_key:&str){ // for submenus
+
 let mut  temp:HashMap<String, serde_json::Value> = HashMap::new();
 for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
+    if *CURRENT_VALUE.lock().unwrap()!= filter_key {break};
    if !filter_key.is_empty() && key.starts_with(filter_key) && !key.contains("<name>"){
        let temp_key;
        if key.split(".").map(|x|x.to_string()).collect::<Vec<String>>().contains(&get_dict_key_name(filter_key)){ // when full section name is written
