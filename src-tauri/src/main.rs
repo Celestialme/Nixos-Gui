@@ -179,8 +179,8 @@ fn add_channel(name:String,url:String)->Vec<std::string::String>{
 }
 
 #[tauri::command]
-fn filter_dict(window:Window,filter_key:String)->std::collections::HashMap<String, serde_json::Value>{
-  worker::filter_dict(&filter_key)
+fn filter_dict(window:Window,filter_key:String){
+  worker::filter_dict(window,&filter_key);
 
 }
 

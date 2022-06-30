@@ -1,7 +1,8 @@
 
-
+     use tauri::Window;
     use std::sync::{Arc,Mutex};
     use std::collections::HashMap;
+    use serde::{Serialize, Deserialize};
 lazy_static! {
 pub static ref  PKGS:serde_json::Value =  serde_json::from_str(&match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
     Ok(txt) => txt,
@@ -19,6 +20,19 @@ pub static ref  OPTION_LIST  :serde_json::Value =  serde_json::from_str(&match s
     Ok(txt) => txt,
     Err(err) => "{\"error\":\"file not found\" }".to_string()
 }).unwrap();
+}
+
+
+
+#[derive(Serialize,Deserialize)]
+struct Resp {
+    Type:String,
+    Value:HashMap<String, serde_json::Value>
+}
+#[derive(Serialize,Deserialize)]
+struct Resp2 {
+    Type:String,
+    Value:serde_json::Value
 }
 pub fn filter(value:&str,mut keys:Vec<String>) ->Vec<String>{
     
@@ -80,7 +94,7 @@ fn get_key_name(key:&str) -> String{
 }
 
 
-fn get_dict_key_name (key:&str)->String{
+fn get_dict_key_name(key:&str)->String{
     let mut i=0;
         for _i in (0..key.chars().count()).rev(){
             
@@ -91,8 +105,8 @@ fn get_dict_key_name (key:&str)->String{
         }
       
        let _key = key.chars().rev().collect::<String>();
-       let end =  if (key.chars().count()-i) == 0 {key.chars().count()} else {(key.chars().count()-i)};
-        (&_key[..end]).to_owned().chars().rev().collect::<String>()
+       let end =  if (key.chars().count()-i) == 0 {key.chars().count()} else {key.chars().count()-i};
+               (&_key[..end]).to_owned().chars().rev().collect::<String>()
         
     }
 
@@ -102,7 +116,7 @@ fn get_dict_key_name (key:&str)->String{
 
 
 
-pub fn filter_dict(filter_key:&str) -> HashMap<String, serde_json::Value>{ // for submenus
+pub fn filter_dict(window:Window,filter_key:&str){ // for submenus
 let mut  temp:HashMap<String, serde_json::Value> = HashMap::new();
 for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
    if !filter_key.is_empty() && key.starts_with(filter_key) && !key.contains("<name>"){
@@ -123,12 +137,15 @@ for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
        }
    } else if !filter_key.is_empty() && key.starts_with(filter_key) && key.replace(filter_key,"").starts_with("<name>"){
     // postMessage({type:'filterDict-repl',value:dict[key]})
-   
+    window.emit("filterDict",&Resp2{Type:"filterDict-repl".to_string(),Value:OPTION_LIST[key].clone()});
+
     break
    }else if filter_key.is_empty(){
     temp.insert(key.to_string(), OPTION_LIST[key].clone());
    }
 };
-temp
+
+window.emit("filterDict",&Resp{Type:"filterDict".to_string(),Value:temp});
+
 }
 

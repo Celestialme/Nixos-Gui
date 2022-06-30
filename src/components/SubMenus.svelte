@@ -28,26 +28,26 @@ $:worker.postMessage({type:'filterDict',payload: {dict:$optionList,filterKey:$Op
 $:invoke("filter_dict",{filterKey:$OptionInputValue}).then(data=>console.log(data))
 
     let filter;
-    worker.onmessage=filter = async ({data})=>{
-      response = data;
-        if(data.type=='filterDict'){
-          console.log(data.value)
-          optionKeys =  Object.keys(data.value)
-          subMenus= new Set();
-          for (let subMenu of optionKeys) {
-              let submenuSplit = subMenu.split('.');
-              subMenus.add(submenuSplit[0]);
-            }
+    // worker.onmessage=filter = async ({data})=>{
+    //   response = data;
+    //     if(data.type=='filterDict'){
+    //       console.log(data.value)
+    //       optionKeys =  Object.keys(data.value)
+    //       subMenus= new Set();
+    //       for (let subMenu of optionKeys) {
+    //           let submenuSplit = subMenu.split('.');
+    //           subMenus.add(submenuSplit[0]);
+    //         }
 
 
-            subMenus=[...subMenus]
+    //         subMenus=[...subMenus]
 
-        }else if(data.type=='filterDict-repl'){
+    //     }else if(data.type=='filterDict-repl'){
             
-           invoke("repl",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`})
+    //        invoke("repl",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`})
          
-        }
-    }
+    //     }
+    // }
 
 
 //fake fetching data with promise
@@ -61,8 +61,30 @@ listen('repl', (e:any) => {
           }
           filter({data:{type:"filterDict",value:temp}})
 }).then(_unlisten=>unlisten=_unlisten)
+
+let unlisten2;
+listen('filterDict', (e:any) => {
+  console.log(e.payload)
+  if(e.payload.Type == "filterDict"){
+  optionKeys =  Object.keys(e.payload.Value)
+          subMenus= new Set();
+          for (let subMenu of optionKeys) {
+              let submenuSplit = subMenu.split('.');
+              subMenus.add(submenuSplit[0]);
+            }
+
+
+            subMenus=[...subMenus]
+  }else if(e.payload.Type=='filterDict-repl'){
+            
+                   invoke("repl",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`})
+                 
+                }
+}).then(_unlisten=>unlisten2=_unlisten)
+
 onDestroy(()=>{
     unlisten()
+    unlisten2()
 })
 
 function click(subMenu){
