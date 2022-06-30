@@ -57,14 +57,15 @@ listen('repl', (e:any) => {
   let res = JSON.parse(JSON.parse(e.payload))
   let temp ={}
           for(let item of res){
-            temp["<"+item+">"]=response.value
+            temp["<"+item+">"]=response.Value
           }
-          filter({data:{type:"filterDict",value:temp}})
+          filter({payload:{Type:"filterDict",Value:temp}})
 }).then(_unlisten=>unlisten=_unlisten)
 
 let unlisten2;
-listen('filterDict', (e:any) => {
+listen('filterDict',filter = (e:any) => {
   console.log(e.payload)
+  response = e.payload
   if(e.payload.Type == "filterDict"){
   optionKeys =  Object.keys(e.payload.Value)
           subMenus= new Set();
