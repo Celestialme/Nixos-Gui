@@ -7,7 +7,7 @@ lazy_static! {
 pub static ref  PKGS:serde_json::Value =  serde_json::from_str(&match std::fs::read_to_string("/etc/NIX_GUI/packages.json"){
     Ok(txt) => txt,
     Err(err) => "{\"error\":\"file not found\" }".to_string()
-}).unwrap();
+}).expect("package.json is corrupted, please delete it from /etc/NIX_GUI/packages.json");
 static ref KEYS:Vec<String> = {
     let mut keys = Vec::new();
     for (key, val) in PKGS.as_object().unwrap().iter() {
@@ -89,7 +89,7 @@ keys
 }
 fn get_key_name(key:&str) -> String{
   let re =  regex::Regex::new(r"^nixos\.").unwrap();
-  re.replace_all(key,"").to_string()
+  re.replace(key,"").to_string()
 
 }
 
@@ -121,14 +121,16 @@ let mut  temp:HashMap<String, serde_json::Value> = HashMap::new();
 for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
    if !filter_key.is_empty() && key.starts_with(filter_key) && !key.contains("<name>"){
        let temp_key;
-       if key.split(".").map(|x|x.to_string()).collect::<Vec<String>>().contains(&get_dict_key_name(filter_key)){
-        temp_key = regex::Regex::new(&(filter_key.to_string()+"\\.?")).unwrap().replace_all(key,"").to_string();
+       if key.split(".").map(|x|x.to_string()).collect::<Vec<String>>().contains(&get_dict_key_name(filter_key)){ // when full section name is written
+        temp_key = regex::Regex::new(&(filter_key.to_string()+r"\.?")).unwrap().replace(key,"").to_string();
+        
        }else{
-           let temp_filter_key = match regex::Regex::new(r"^.*\.").unwrap().find(key) {
+           let temp_filter_key = match regex::Regex::new(r"^.*\.").unwrap().find(filter_key) {
                Some(x) => x.as_str(),
                None => ""
            };
-           temp_key = regex::Regex::new(&(temp_filter_key.to_string()+"\\.?")).unwrap().replace_all(key,"").to_string();
+           temp_key = regex::Regex::new(&(temp_filter_key.to_string()+r"\.?")).unwrap().replace(key,"").to_string();
+           
        }
 
 

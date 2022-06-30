@@ -96,6 +96,7 @@ postMessage({type:'filterOptions',value:filteredKey.slice(0,50)})
             }else{
                 let tempFilterKey=filterKey.match(/^.*\./)?.[0]??''
                 tempKey = key.replace(new RegExp(tempFilterKey+'\\.?'),'')
+                console.log(key,tempKey)
             }
 
             if(tempKey!=''){
