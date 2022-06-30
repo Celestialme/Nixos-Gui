@@ -80,20 +80,55 @@ fn get_key_name(key:&str) -> String{
 }
 
 
-fn filter_key(filter_key:&str){ // for submenus
-let  temp:HashMap<String, serde_json::Value> = HashMap::new();
-for (key, val) in PKGS.as_object().unwrap().iter() {
+fn get_dict_key_name (key:&str)->String{
+    let mut i=0;
+        for _i in (0..key.chars().count()).rev(){
+            
+            if key.chars().nth(_i).unwrap() =='.'{
+                i= _i+1;
+                break
+            }
+        }
+      
+       let _key = key.chars().rev().collect::<String>();
+       let end =  if (key.chars().count()-i) == 0 {key.chars().count()} else {(key.chars().count()-i)};
+        (&_key[..end]).to_owned().chars().rev().collect::<String>()
+        
+    }
+
+
+
+
+
+
+
+pub fn filter_dict(filter_key:&str) -> HashMap<String, serde_json::Value>{ // for submenus
+let mut  temp:HashMap<String, serde_json::Value> = HashMap::new();
+for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
    if !filter_key.is_empty() && key.starts_with(filter_key) && !key.contains("<name>"){
        let temp_key;
-       if key.split(".").map(|x|x.to_string()).collect::<Vec<String>>().contains(&get_key_name(filter_key)){
-        temp_key = regex::Regex::new(&(filter_key.to_string()+"\\.?")).unwrap().replace_all(key,"");
+       if key.split(".").map(|x|x.to_string()).collect::<Vec<String>>().contains(&get_dict_key_name(filter_key)){
+        temp_key = regex::Regex::new(&(filter_key.to_string()+"\\.?")).unwrap().replace_all(key,"").to_string();
        }else{
            let temp_filter_key = match regex::Regex::new(r"^.*\.").unwrap().find(key) {
                Some(x) => x.as_str(),
                None => ""
            };
+           temp_key = regex::Regex::new(&(temp_filter_key.to_string()+"\\.?")).unwrap().replace_all(key,"").to_string();
        }
+
+
+       if !temp_key.is_empty() {
+           temp.insert(temp_key, OPTION_LIST[key].clone());
+       }
+   } else if !filter_key.is_empty() && key.starts_with(filter_key) && key.replace(filter_key,"").starts_with("<name>"){
+    // postMessage({type:'filterDict-repl',value:dict[key]})
+   
+    break
+   }else if filter_key.is_empty(){
+    temp.insert(key.to_string(), OPTION_LIST[key].clone());
    }
 };
+temp
 }
 
