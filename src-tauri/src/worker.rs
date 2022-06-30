@@ -137,9 +137,7 @@ for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
        }
    } else if !filter_key.is_empty() && key.starts_with(filter_key) && key.replacen(filter_key,"",1).starts_with("<name>"){
     // postMessage({type:'filterDict-repl',value:dict[key]})
-    println!("key -- {}",key);
-    println!("filter key -- {}",filter_key);
-    println!("replaced -- {}",key.replace(filter_key,""));
+    
     window.emit("filterDict",&Resp2{Type:"filterDict-repl".to_string(),Value:OPTION_LIST[key].clone()});
 
     break

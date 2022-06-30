@@ -1,6 +1,6 @@
 <div class="container" on:click={navigate}>
 
-    <p class='name'>{@html name.replace(/\./g,".<wbr>")}</p>
+    <p class='name'>{@html name.replace("<","&lt;").replace(/\./g,".<wbr>")}</p>
     <p class='description'>Description: {@html description}</p>
     <p class='example'>Default: {JSON.stringify(defaultValue)}</p>
     <p class='example'>Example: {example}</p>
@@ -25,6 +25,7 @@ import { goto } from "$app/navigation";
     export let example ;
      export let defaultValue ;
     export let type ;
+    
     $:example =example?JSON.stringify(example).replace(/,/g,', '):example
     function navigate(){
         if(name.includes('<name>'))return

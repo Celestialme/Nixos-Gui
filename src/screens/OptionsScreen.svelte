@@ -51,6 +51,7 @@ onMount(async ()=>{
 keys= Object.keys($optionList);
 worker = new Worker('worker.js');
 worker.onmessage = function({data}){
+    
 if($OptionInputValue=='')return
 if(data.type!='filterOptions')return
 filteredKey = data.value;
