@@ -8,7 +8,7 @@ pub static ref  PKGS:serde_json::Value =  serde_json::from_str(&match std::fs::r
     Ok(txt) => txt,
     Err(err) => "{\"error\":\"file not found\" }".to_string()
 }).expect("package.json is corrupted, please delete it from /etc/NIX_GUI/packages.json");
-static ref KEYS:Vec<String> = {
+static ref PKG_KEYS:Vec<String> = {
     let mut keys = Vec::new();
     for (key, val) in PKGS.as_object().unwrap().iter() {
         keys.push(key.to_owned());
@@ -20,6 +20,14 @@ pub static ref  OPTION_LIST  :serde_json::Value =  serde_json::from_str(&match s
     Ok(txt) => txt,
     Err(err) => "{\"error\":\"file not found\" }".to_string()
 }).unwrap();
+
+static ref OPTION_KEYS:Vec<String> = {
+    let mut keys = Vec::new();
+    for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
+        keys.push(key.to_owned());
+    };
+    keys
+};
 }
 
 
@@ -37,7 +45,7 @@ struct Resp2 {
 pub fn filter(value:&str,mut keys:Vec<String>) ->Vec<String>{
     
 if keys.is_empty(){
-   keys = KEYS.to_vec();
+   keys = PKG_KEYS.to_vec();
 }
 
 if !value.is_empty(){
@@ -154,3 +162,31 @@ window.emit("filterDict",&Resp{Type:"filterDict".to_string(),Value:temp});
 
 }
 
+
+pub fn filter_options(mut value:String){
+value = regex::Regex::new(r"\.$").unwrap().replace(&value,"").to_string();
+let mut  filtered_key:Vec<String> = OPTION_KEYS.iter().filter(|key|key.contains(
+    &regex::Regex::new(r"<.*>").unwrap().replace_all(&value,"<name>").to_string()
+
+)).map(|x|x.to_string()).collect();
+
+
+let _match = match regex::Regex::new(r"^.*\.").unwrap().find(&value){
+    Some(x)=>x.as_str(),
+    None =>""
+};
+if !_match.is_empty(){
+    filtered_key= filtered_key.into_iter().map(|key|{
+        regex::Regex::new(r"<.*>").unwrap().replace_all(&key,_match).to_string()
+    }).collect();
+};
+filtered_key.sort_by(|a,b|{
+    let temp = (match a.starts_with(&value){true=>1,false=>0}).cmp(&match b.starts_with(&value){true=>1,false=>0});
+    if temp == std::cmp::Ordering::Equal{
+        return a.chars().count().cmp(&b.chars().count());
+    }else{
+        return temp;
+    };
+});
+
+}

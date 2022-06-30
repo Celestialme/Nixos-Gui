@@ -186,6 +186,11 @@ fn filter_dict(window:Window,filter_key:String){
   });
 }
 
+#[tauri::command]
+fn filter_options(window:Window,value:String){
+ window.emit("filterOptions",worker::filter_options(value));
+}
+
 fn main() {
   STDIN.lock().unwrap().write_all(b":l <nixpkgs/nixos>\n").unwrap();
   
@@ -193,7 +198,7 @@ fn main() {
 
   tauri::Builder::default()
   .invoke_handler(tauri::generate_handler![get_packages,get_options,get_config,save_config,repl,start_repl,start_download,
-    update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch,filter_packages,filter_dict
+    update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch,filter_packages,filter_dict,filter_options
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
