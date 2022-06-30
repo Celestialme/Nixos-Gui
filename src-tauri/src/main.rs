@@ -188,7 +188,13 @@ fn filter_dict(window:Window,filter_key:String){
 
 #[tauri::command]
 fn filter_options(window:Window,value:String){
- window.emit("filterOptions",worker::filter_options(value));
+
+  *(worker::CURRENT_VALUE.lock().unwrap()) = value.to_owned();
+  std::thread::spawn(move||{
+    worker::filter_options(window,value);
+  });
+
+
 }
 
 fn main() {

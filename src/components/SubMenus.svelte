@@ -24,7 +24,7 @@ let optionKeys;
 let subMenus:any = [];
 let worker = new Worker('worker.js');
 let response;
-$:worker.postMessage({type:'filterDict',payload: {dict:$optionList,filterKey:$OptionInputValue}})
+// $:worker.postMessage({type:'filterDict',payload: {dict:$optionList,filterKey:$OptionInputValue}})
  $:invoke("filter_dict",{filterKey:$OptionInputValue})
 
     let filter;

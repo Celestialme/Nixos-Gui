@@ -163,7 +163,8 @@ window.emit("filterDict",&Resp{Type:"filterDict".to_string(),Value:temp});
 }
 
 
-pub fn filter_options(mut value:String){
+pub fn filter_options(window:Window,mut value:String){
+let _value = value.to_owned();
 value = regex::Regex::new(r"\.$").unwrap().replace(&value,"").to_string();
 let mut  filtered_key:Vec<String> = OPTION_KEYS.iter().filter(|key|key.contains(
     &regex::Regex::new(r"<.*>").unwrap().replace_all(&value,"<name>").to_string()
@@ -180,13 +181,16 @@ if !_match.is_empty(){
         regex::Regex::new(r"<.*>").unwrap().replace_all(&key,_match).to_string()
     }).collect();
 };
+if *CURRENT_VALUE.lock().unwrap()!= _value {return};
 filtered_key.sort_by(|a,b|{
-    let temp = (match a.starts_with(&value){true=>1,false=>0}).cmp(&match b.starts_with(&value){true=>1,false=>0});
+    let temp = (match b.starts_with(&value){true=>1,false=>0}).cmp(&match a.starts_with(&value){true=>1,false=>0});
     if temp == std::cmp::Ordering::Equal{
         return a.chars().count().cmp(&b.chars().count());
     }else{
         return temp;
     };
 });
+if *CURRENT_VALUE.lock().unwrap()!= _value {return};
+window.emit("filterOptions",filtered_key);
 
 }

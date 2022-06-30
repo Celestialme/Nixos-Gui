@@ -40,6 +40,7 @@ import axios from 'axios';
 import Option from "@src/components/Option.svelte";
 import { optionList ,OptionInputValue} from "@src/store/store";
 import { invoke } from "@tauri-apps/api/tauri";
+import { listen } from "@tauri-apps/api/event";
 
 let filteredKey:Array<any>=[];
 let worker:Worker;
@@ -56,6 +57,15 @@ if($OptionInputValue=='')return
 if(data.type!='filterOptions')return
 filteredKey = data.value;
 }
+
+
+let unlisten;
+listen('filterOptions', (e:any) => {
+if($OptionInputValue=='')return
+filteredKey = e.payload;
+console.log(filteredKey)
+}).then(_unlisten=>unlisten=_unlisten)
+
 filter($OptionInputValue)
 })
 
@@ -68,7 +78,8 @@ function filter($OptionInputValue){
         return
     }
     
-    worker.postMessage({type:'filterOptions',payload:{keys,$optionList,value:$OptionInputValue}})
+    // worker.postMessage({type:'filterOptions',payload:{keys,$optionList,value:$OptionInputValue}})
+     invoke("filter_options",{value:$OptionInputValue})
 }
 
 
