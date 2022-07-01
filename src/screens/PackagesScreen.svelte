@@ -1,7 +1,7 @@
 
 
     <div class='container' >
-        <button class:showInstalled={showInstalled} on:click={()=>{showInstalled=!showInstalled;filter(showInstalled)}}>SHOW INSTALLED</button>
+        <button class:showInstalled={showInstalled} on:click={()=>{showInstalled=!showInstalled;filter()}}>SHOW INSTALLED</button>
         <button class:showInstalled={showInstalled} on:click={runInvoke}>run invoke</button>
         <!-- <input type="text" bind:value={inputValue} on:keyup={filter}> -->
         
@@ -95,20 +95,22 @@ onDestroy(()=>{
 })
 
 
-$:filter(showInstalled)
+$:{filter()
+showInstalled
+}
    
-function filter(showInstalled){
+function filter(){
     
-    if(!worker || (inputValue=='' && !showInstalled)){
+    if( inputValue=='' && !showInstalled){
         filtered_pkgs=[]
         return
     }
     if(!showInstalled){
-   
+        console.log("filtering1")
     invoke("filter_packages",{value:inputValue,keys:[]})
     }else{
         
-       
+       console.log("filtering2")
         // worker.postMessage({type:'filterPackages',payload:{keys:_filteredKey,packages,value:inputValue}})
         invoke("filter_packages",{value:inputValue,keys:[...$nixEnvPkgs,...$markedPkgs]})
 

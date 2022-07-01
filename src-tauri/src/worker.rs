@@ -43,7 +43,7 @@ struct Resp2 {
     Value:serde_json::Value
 }
 pub fn filter(value:&str,mut keys:Vec<String>) ->Vec<String>{
-    
+    println!("{:?}",keys);
 if keys.is_empty(){
    keys = PKG_KEYS.to_vec();
 }
@@ -57,6 +57,7 @@ keys = keys.into_iter().filter(|key| {
 if *CURRENT_VALUE.lock().unwrap()!= value{
     return Vec::new();
 }
+
 keys.sort_by(|a,b|{
 let by_pname = (match PKGS[b]["pname"].as_str().unwrap().to_string().starts_with(&value){true=>&1,false=>&0}).cmp(match PKGS[a]["pname"].as_str().unwrap().to_string().starts_with(&value){true=>&1,false=>&0}); // sort  by pname
 let key_a = get_key_name(a);
