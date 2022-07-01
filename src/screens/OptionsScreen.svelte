@@ -1,10 +1,10 @@
 
 
-    <div class='container' class:populated={filteredKey.length}>
+    <div class='container'>
         
         
-        {#each filteredKey as  key }
-        <Option name={key} description={$optionList[key.replace(/<.*>/,'<name>')]?.description} example={$optionList[key.replace(/<.*>/,'<name>')]?.example} defaultValue={$optionList[key.replace(/<.*>/,'<name>')]?.default} type={$optionList[key.replace(/<.*>/,'<name>')]?.type }/>
+        {#each filtered_options as  option }
+        <Option name={option.key} description={option?.description} example={option?.example} defaultValue={option?.default} type={option?.type }/>
         {/each}
 
 
@@ -36,45 +36,37 @@
 
 <script lang='ts'>
 import { onMount } from "svelte";
-import axios from 'axios';
 import Option from "@src/components/Option.svelte";
-import { optionList ,OptionInputValue} from "@src/store/store";
+import { OptionInputValue} from "@src/store/store";
 import { invoke } from "@tauri-apps/api/tauri";
 import { listen } from "@tauri-apps/api/event";
 
-let filteredKey:Array<any>=[];
-let worker:Worker;
-let keys:Array<any>=[];
+let filtered_options:Array<any>=[];
 export let inputValue;
 $:$OptionInputValue = inputValue;
-onMount(async ()=>{
- $optionList  = JSON.parse(await invoke('get_options'))
-keys= Object.keys($optionList);
-worker = new Worker('worker.js');
-worker.onmessage = function({data}){
-    
-if($OptionInputValue=='')return
-if(data.type!='filterOptions')return
-filteredKey = data.value;
-}
-
-
 let unlisten;
+onMount(async ()=>{
+
+
 listen('filterOptions', (e:any) => {
 if($OptionInputValue=='')return
-filteredKey = e.payload;
-console.log(filteredKey)
+filtered_options =  e.payload.map(x=>JSON.parse(x));
 }).then(_unlisten=>unlisten=_unlisten)
 
 filter($OptionInputValue)
+})
+
+onDestroy(()=>{
+    unlisten()
+    
 })
 
 $:filter($OptionInputValue)
    
 function filter($OptionInputValue){
      
-    if(!worker || $OptionInputValue==''){
-        filteredKey=[]
+    if( $OptionInputValue==''){
+        filtered_options=[]
         return
     }
     
@@ -85,4 +77,9 @@ function filter($OptionInputValue){
 
 
 
+
+
+function onDestroy(arg0: () => void) {
+throw new Error("Function not implemented.");
+}
 </script>

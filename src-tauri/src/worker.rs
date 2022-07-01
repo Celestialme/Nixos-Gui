@@ -190,7 +190,15 @@ filtered_key.sort_by(|a,b|{
         return temp;
     };
 });
+
 if *CURRENT_VALUE.lock().unwrap()!= _value {return};
-window.emit("filterOptions",filtered_key);
+
+let filtered_option = filtered_key.iter().map(|key| {
+    let mut option_body = OPTION_LIST[&key].as_object().unwrap().clone();
+    option_body.insert("key".to_owned(),serde_json::Value::String(key.to_owned()));
+    serde_json::to_string(&option_body).unwrap()
+    }).collect::<Vec<String>>();
+
+window.emit("filterOptions",filtered_option);
 
 }

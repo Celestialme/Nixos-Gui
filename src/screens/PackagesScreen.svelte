@@ -68,6 +68,7 @@ let worker:Worker;
 let keys:Array<any>=[];
 let showInstalled:boolean = false;
 
+let unlisten;
 onMount(async ()=>{
     $nixEnvPkgs=await invoke("get_nix_env_pkgs")
  packages  = JSON.parse( await invoke('get_packages')) 
@@ -82,13 +83,17 @@ worker = new Worker('/worker.js');
 // filteredKey = data.value;
 // }
 
-let unlisten;
 listen('filterPackages', (e:any) => {
     if(inputValue=='' && !showInstalled)return
 filtered_pkgs = e.payload.map(x=>JSON.parse(x))
 }).then(_unlisten=>unlisten=_unlisten)
 
 })
+onDestroy(()=>{
+    unlisten()
+    
+})
+
 
 $:filter(showInstalled)
    
@@ -117,4 +122,9 @@ function runInvoke(){
     invoke("exp",{pkgs:["1","2","3"]})
 }
 
+
+
+function onDestroy(arg0: () => void) {
+throw new Error("Function not implemented.");
+}
 </script>
