@@ -172,15 +172,11 @@ let mut  filtered_key:Vec<String> = OPTION_KEYS.iter().filter(|key|key.contains(
 )).map(|x|x.to_string()).collect();
 
 
-let _match = match regex::Regex::new(r"^.*\.").unwrap().find(&value){
+let _match = match regex::Regex::new(r"<.*>").unwrap().find(&value){
     Some(x)=>x.as_str(),
-    None =>""
+    None =>"<name>"
 };
-if !_match.is_empty(){
-    filtered_key= filtered_key.into_iter().map(|key|{
-        regex::Regex::new(r"<.*>").unwrap().replace_all(&key,_match).to_string()
-    }).collect();
-};
+
 if *CURRENT_VALUE.lock().unwrap()!= _value {return};
 filtered_key.sort_by(|a,b|{
     let temp = (match b.starts_with(&value){true=>1,false=>0}).cmp(&match a.starts_with(&value){true=>1,false=>0});
@@ -192,10 +188,12 @@ filtered_key.sort_by(|a,b|{
 });
 
 if *CURRENT_VALUE.lock().unwrap()!= _value {return};
-
+println!("{:?}",filtered_key);
 let filtered_option = filtered_key.iter().map(|key| {
+    
     let mut option_body = OPTION_LIST[&key].as_object().unwrap().clone();
-    option_body.insert("key".to_owned(),serde_json::Value::String(key.to_owned()));
+    option_body.insert("key".to_owned(),serde_json::Value::String( regex::Regex::new(r"<.*>").unwrap().replace_all(&key,_match).to_string()
+));
     serde_json::to_string(&option_body).unwrap()
     }).collect::<Vec<String>>();
 

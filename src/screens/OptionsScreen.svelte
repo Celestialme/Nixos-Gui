@@ -35,7 +35,7 @@
 
 
 <script lang='ts'>
-import { onMount } from "svelte";
+import { onMount ,onDestroy } from "svelte";
 import Option from "@src/components/Option.svelte";
 import { OptionInputValue} from "@src/store/store";
 import { invoke } from "@tauri-apps/api/tauri";
@@ -51,6 +51,7 @@ onMount(async ()=>{
 listen('filterOptions', (e:any) => {
 if($OptionInputValue=='')return
 filtered_options =  e.payload.map(x=>JSON.parse(x));
+console.log(filtered_options)
 }).then(_unlisten=>unlisten=_unlisten)
 
 filter($OptionInputValue)
@@ -79,7 +80,5 @@ function filter($OptionInputValue){
 
 
 
-function onDestroy(arg0: () => void) {
-throw new Error("Function not implemented.");
-}
+
 </script>

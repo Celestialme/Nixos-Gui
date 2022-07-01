@@ -54,7 +54,7 @@
 
 <script lang='ts'>
 import Package from "@src/components/Package.svelte";
-import { onMount } from "svelte";
+import { onMount ,onDestroy } from "svelte";
 import axios from 'axios';
 
 import { markedPkgs, nixEnvPkgs,currentScreen, needs_db_update } from "@src/store/store";
@@ -124,7 +124,5 @@ function runInvoke(){
 
 
 
-function onDestroy(arg0: () => void) {
-throw new Error("Function not implemented.");
-}
+
 </script>
