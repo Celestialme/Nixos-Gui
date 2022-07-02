@@ -4,7 +4,7 @@ import { ast, changes, needsSaving } from "@src/store/store";
 import {  Ast2Text, find_key_value,setContainerHeight } from "@src/utils/globalFunctions";
 export let name;
 let value=[];
-let _value = $changes[name] || find_key_value($ast,name,"node").findNode("self","NODE_LIST").children.filter(node => !node.kind.startsWith("TOKEN")).map(node=>Ast2Text(node))
+let _value = $changes[name] || find_key_value($ast,name,"node").findNode?.("self","NODE_LIST")?.children.filter(node => !node.kind.startsWith("TOKEN")).map(node=>Ast2Text(node))
 console.log(_value)
 // if(_value){ 
 //     let _JSON =  _value.replace(/\s*⇐change|\s*⇐ADD/g,'').trim().replace(/\"/g,'\\"').replace(/\s+/g,'","').replace(/^(\[\s*)",/,'$1').replace(/,"\s*(\])$/,'$1')
