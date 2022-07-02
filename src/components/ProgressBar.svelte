@@ -5,12 +5,14 @@ export let success;
 export let msg;
 export let title="Downloading...";
 export let wide = false;
+$:percent = Math.round(value/(max_value | 1) * 100)
 </script>
 
 <div style='text-align:left;padding:20px 0px' class:wide={wide}>
     <span class='title'>{success==undefined?title:success=="true"?"Finished Successfully":"Build Failed!"}</span>
+    <span class="percent">{percent}%</span>
     <div class='progress-track' >
-        <div class='progress-bar' class:success={success=="true"} class:error={success=="false"} style='width:{value/max_value * 100}%'></div>
+        <div class='progress-bar' class:success={success=="true"} class:error={success=="false"} style='width:{percent}%'></div>
     </div>
     <span class='msg'>{@html msg}</span>
 </div>
@@ -34,6 +36,9 @@ export let wide = false;
     }
     .title{
         font-size: 20px;
+    }
+    .percent{
+        float:right
     }
     .success{
         background: green;
