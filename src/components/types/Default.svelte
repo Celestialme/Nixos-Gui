@@ -5,12 +5,12 @@ import { find_key_value ,getKeyName,setContainerHeight} from "@src/utils/globalF
 export let name;
 
 let value;
-let _value = $changes[name] || find_key_value($ast,name)[1];
+let _value = $changes[name]?.nix || find_key_value($ast,name)[1];
 if(_value){
     value=_value.replace(/⇐.*$/,'')
 }
 function change(){
-    $changes[name] = value;
+    $changes[name] = {nix:value};
     $needsSaving=true;
 }
 

@@ -4,7 +4,7 @@ import { ast, changes, needsSaving } from "@src/store/store";
 import { find_key_value, getPkgs ,getKeyName,setContainerHeight} from "@src/utils/globalFunctions";
 export let name;
 let value;
-let _value = $changes[name] || find_key_value($ast,name)[1];
+let _value = $changes[name]?.nix || find_key_value($ast,name)[1];
 if(_value){
     value=_value.replace(/⇐.*$/,'')
 }
@@ -16,7 +16,7 @@ console.log(getPkgs($ast))
 
 
 function change(){
-    $changes[name] = value;
+    $changes[name] = {nix:value};
     $needsSaving=true;
 }
 </script>

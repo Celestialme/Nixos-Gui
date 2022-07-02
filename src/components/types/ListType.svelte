@@ -1,16 +1,25 @@
-<script>
+<script lang="ts">
 import { ast, changes, needsSaving } from "@src/store/store";
 
-import {  find_key_value,setContainerHeight } from "@src/utils/globalFunctions";
+import {  Ast2Text, find_key_value,setContainerHeight } from "@src/utils/globalFunctions";
 export let name;
 let value=[];
-let _value = $changes[name] || find_key_value($ast,name)[1];
+let _value = $changes[name] || find_key_value($ast,name,"node").findNode("self","NODE_LIST").children.filter(node => !node.kind.startsWith("TOKEN")).map(node=>Ast2Text(node))
 console.log(_value)
-if(_value){ 
-    let _JSON =  _value.replace(/\s*⇐change|\s*⇐ADD/g,'').trim().replace(/\"/g,'\\"').replace(/\s+/g,'","').replace(/^(\[\s*)",/,'$1').replace(/,"\s*(\])$/,'$1')
-    value= JSON.parse(_JSON).map((item)=>({'value':item}))
+// if(_value){ 
+//     let _JSON =  _value.replace(/\s*⇐change|\s*⇐ADD/g,'').trim().replace(/\"/g,'\\"').replace(/\s+/g,'","').replace(/^(\[\s*)",/,'$1').replace(/,"\s*(\])$/,'$1')
+//     value= JSON.parse(_JSON).map((item)=>({'value':item}))
     
+// }
+
+if(_value && !_value.js){ 
+    
+    value= _value.map((item)=>({'value':item}))
+    
+}else if(_value){
+    value = _value.js
 }
+
 let inputValue=''
 let ListEntry=value.length?value:[];
 
@@ -31,7 +40,7 @@ function change(){
    
     
     let listToString = "[ "+ ListEntry.reduce((acc,x)=>acc+' '+x.value+' ','')+" ]"
-    $changes[name]=listToString
+    $changes[name]={nix:listToString,js:ListEntry}
     $needsSaving=true;
 }
 

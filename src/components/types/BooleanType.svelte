@@ -4,7 +4,7 @@ import { ast, changes, needsSaving } from "@src/store/store";
 import { find_key_value,setContainerHeight} from "@src/utils/globalFunctions";
 export let name;
 let state=false;
-let _value = $changes[name]?.toString() || find_key_value($ast,name)[1];
+let _value = $changes[name]?.nix?.toString() || find_key_value($ast,name)[1];
 if(_value){
     state=JSON.parse(_value.replace(/⇐.*$/,''))
    
@@ -14,7 +14,7 @@ if(_value){
 
 function toggle(){
     state=!state
-    $changes[name]=state
+    $changes[name]={nix:state}
     $needsSaving=true;
 }
 

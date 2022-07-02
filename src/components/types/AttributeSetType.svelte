@@ -4,7 +4,7 @@ import { ast, changes, needsSaving } from "@src/store/store";
 import {  find_key_value, removeLastChar ,setContainerHeight} from "@src/utils/globalFunctions";
 export let name;
 let value=[];
-let _value =  $changes[name] || find_key_value($ast,name)[1];
+let _value =  $changes[name]?.nix || find_key_value($ast,name)[1];
 
 
 if(_value){ 
@@ -33,7 +33,7 @@ function change(){
   let attrToString = '{\n'+ ListEntry.reduce((acc,x)=>{
     return acc + x.key+'  = '+x.value+';\n'
   },'') + '\n}'
-$changes[name]=attrToString
+$changes[name]={nix:attrToString}
 $needsSaving=true;
 }
 

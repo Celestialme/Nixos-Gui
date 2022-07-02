@@ -7,7 +7,7 @@ export let type
 
 
 
-let _value =  $changes[name] || find_key_value($ast,name)[1];
+let _value =  $changes[name]?.nix || find_key_value($ast,name)[1];
 if(_value){
 _value=_value.replace(/\s*⇐change|\s*⇐ADD/g,'')
 console.log(_value);
@@ -18,7 +18,7 @@ let selectedType = _value||undefined;
 
 function change(){
 
-   $changes[name]=selectedType
+   $changes[name]={nix:selectedType}
    $needsSaving=true;
 }
 </script>

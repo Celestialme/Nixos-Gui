@@ -83,7 +83,7 @@ let compare = false;
    function apply(){
     const NODE_ATTR_SET = findNode($ast,"NODE_LAMBDA").findNode('self',"NODE_ATTR_SET")
     for(let key in $changes){
-    setOption(NODE_ATTR_SET,key,$changes[key])
+    setOption(NODE_ATTR_SET,key,$changes[key].nix)
     }
     $changes={}
     $needsSaving=false
