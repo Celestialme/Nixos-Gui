@@ -25,6 +25,16 @@ lazy_static! {
  static   ref   STDIN:Mutex<ChildStdin> = Mutex::new( CHILD.lock().unwrap().stdin.take().unwrap());
 //  static   ref   STDOUT:Mutex<ChildStdout> = Mutex::new( CHILD.lock().unwrap().stdout.take().unwrap());
 static ref IS_RUNING:Mutex<bool> = Mutex::new(false);
+
+static ref  RESPONSE:Arc<Mutex<nix_env::Value>> = Arc::new(Mutex::new(
+  {nix_env::Value{
+        status:"out".to_string(),
+        value:"".to_string(),
+    }}
+));
+
+
+
 }
 
 #[tauri::command]
@@ -84,39 +94,32 @@ fn save_config(payload:String) -> String{
 
 
 #[tauri::command]
-fn repl(payload:String) -> String  {
+fn repl_command(payload:String) -> String  {
   //  builtins.toJSON (builtins.attrNames config.users.users)
     let data = format!("{}\n",payload);
-    STDIN.lock().unwrap().write_all(data.as_bytes()).unwrap();
-  
+    nix_env::repl_command(Arc::clone(&RESPONSE),&data,&STDIN.lock().unwrap())
 
+    
+    
+  }
+
+fn start_repl(){
  
-    format!("wait for response")
-    
-    
-  }
-#[tauri::command]
-fn start_repl(window: Window){
-  if *IS_RUNING.lock().unwrap(){
-    return
-  }
-  *IS_RUNING.lock().unwrap()=true;
   let mut out = BufReader::new(CHILD.lock().unwrap().stdout.take().unwrap());
 
+  let response = Arc::clone(&RESPONSE);
   std::thread::spawn(move ||{
-     
     out.lines().for_each(|line|{
-   if line.as_ref().unwrap()==""{return}
-       println!("out: {}", line.as_ref().unwrap());
-       
-       // std::fs::write("./src/bla.txt", line.unwrap()).expect("could not write to configuration");
-       window.emit("repl", std::str::from_utf8(&strip_ansi_escapes::strip(line.as_ref().unwrap()).unwrap()).unwrap()).unwrap();
+      if line.as_ref().unwrap()==""  {return}
+      
+      (*response.lock().unwrap()).value =line.as_ref().unwrap().to_string();
+      (*response.lock().unwrap()).status = "OUT".to_string();
+      
+    }
+  );
+  
+  });
 
-  }
-   );
-
-
-});
 }
 
 #[tauri::command]
@@ -199,11 +202,11 @@ fn filter_options(window:Window,value:String){
 
 fn main() {
   STDIN.lock().unwrap().write_all(b":l <nixpkgs/nixos>\n").unwrap();
-  
+  start_repl();
 
 
   tauri::Builder::default()
-  .invoke_handler(tauri::generate_handler![get_packages,get_options,get_config,save_config,repl,start_repl,start_download,
+  .invoke_handler(tauri::generate_handler![get_packages,get_options,get_config,save_config,repl_command,start_download,
     update_db,get_nix_env_pkgs,get_channels,add_channel,remove_channel,update_channels,get_generations,rebuild_switch,filter_packages,filter_dict,filter_options
     ])
     .run(tauri::generate_context!())

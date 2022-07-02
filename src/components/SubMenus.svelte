@@ -22,48 +22,23 @@ import Home from "./icons/Home.svelte";
 // let socket = io("https://exp2.celestialmee.repl.co")
 let optionKeys;
 let subMenus:any = [];
-let worker = new Worker('worker.js');
 let response;
 // $:worker.postMessage({type:'filterDict',payload: {dict:$optionList,filterKey:$OptionInputValue}})
  $:invoke("filter_dict",{filterKey:$OptionInputValue})
 
     let filter;
-    // worker.onmessage=filter = async ({data})=>{
-    //   response = data;
-    //     if(data.type=='filterDict'){
-    //       console.log(data.value)
-    //       optionKeys =  Object.keys(data.value)
-    //       subMenus= new Set();
-    //       for (let subMenu of optionKeys) {
-    //           let submenuSplit = subMenu.split('.');
-    //           subMenus.add(submenuSplit[0]);
-    //         }
-
-
-    //         subMenus=[...subMenus]
-
-    //     }else if(data.type=='filterDict-repl'){
-            
-    //        invoke("repl",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`})
-         
-    //     }
-    // }
-
-
-//fake fetching data with promise
-
-let unlisten;
-listen('repl', (e:any) => {
-  let res = JSON.parse(JSON.parse(e.payload))
+ function repl_response(data) {
+   console.log(data)
+  let res = JSON.parse(JSON.parse(data))
   let temp ={}
           for(let item of res){
             temp["<"+item+">"]=response.Value
           }
           console.log(62,temp)
           filter({payload:{Type:"filterDict",Value:temp}})
-}).then(_unlisten=>unlisten=_unlisten)
+}
 
-let unlisten2;
+let unlisten;
 listen('filterDict',filter = (e:any) => {
   
   response = e.payload
@@ -80,14 +55,13 @@ listen('filterDict',filter = (e:any) => {
             subMenus=[...subMenus]
   }else if(e.payload.Type=='filterDict-repl'){
             
-                   invoke("repl",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`})
+                   invoke("repl_command",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`}).then(data=>repl_response(data))
                  
                 }
-}).then(_unlisten=>unlisten2=_unlisten)
+}).then(_unlisten=>unlisten=_unlisten)
 
 onDestroy(()=>{
     unlisten()
-    unlisten2()
 })
 
 function click(subMenu){

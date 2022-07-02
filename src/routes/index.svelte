@@ -66,14 +66,7 @@ if(!$ast){
 }else{
     $markedPkgs=getPkgs($ast)
 }
-let unlisten;
-listen('repl', event => {
-//   console.log(JSON.parse(JSON.parse(event.payload)))
-}).then(_unlisten=>unlisten=_unlisten)
-onDestroy(()=>{
-    unlisten()
-})
-invoke("start_repl")
+
 let compare = false;
    function getCurrentScreen(){
        switch ($currentScreen) {

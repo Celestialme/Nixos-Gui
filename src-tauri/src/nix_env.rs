@@ -13,9 +13,9 @@ use tauri::{Manager, Window};
 use std::fs::File;  
 use std::{thread, time};
 use std::sync::{Arc,Mutex};
-struct Value{
-  status:String,
-  value:String
+pub struct Value{
+ pub status:String,
+  pub value:String
 }
 
 pub fn is_root()->bool{
@@ -239,7 +239,7 @@ std::fs::copy(options_json, "/etc/NIX_GUI/options.json").expect("could not copy 
 }
 
 
-fn repl_command(value:Arc<Mutex<Value>>,command:&str,mut stdin:&ChildStdin)->String{
+pub fn repl_command(value:Arc<Mutex<Value>>,command:&str,mut stdin:&ChildStdin)->String{
   (*value.lock().unwrap()).value = "NONE".to_string();
   let _command = format!("{}\n",command);
   stdin.write_all(_command.as_bytes()).unwrap();
