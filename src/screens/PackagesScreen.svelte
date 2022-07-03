@@ -90,7 +90,8 @@ filtered_pkgs = e.payload.map(x=>JSON.parse(x))
 
 })
 onDestroy(()=>{
-    unlisten()
+    
+   unlisten && unlisten()
     
 })
 

@@ -53,6 +53,7 @@ listen('filterDict',filter = (e:any) => {
 
 
             subMenus=[...subMenus]
+           
   }else if(e.payload.Type=='filterDict-repl'){
             
                    invoke("repl_command",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`}).then(data=>repl_response(data))
@@ -61,7 +62,7 @@ listen('filterDict',filter = (e:any) => {
 }).then(_unlisten=>unlisten=_unlisten)
 
 onDestroy(()=>{
-    unlisten()
+  unlisten &&  unlisten()
 })
 
 function click(subMenu){

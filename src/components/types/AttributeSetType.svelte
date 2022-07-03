@@ -1,16 +1,20 @@
 <script>
 import { ast, changes, needsSaving } from "@src/store/store";
 
-import {  find_key_value, removeLastChar ,setContainerHeight} from "@src/utils/globalFunctions";
+import {  Ast2Text, find_key_value, removeLastChar ,setContainerHeight} from "@src/utils/globalFunctions";
 export let name;
 let value=[];
-let _value =  $changes[name]?.nix || find_key_value($ast,name)[1];
-
-
-if(_value){ 
-    let _JSON =  removeLastChar(',',_value.replace(/\s*⇐change|\s*⇐ADD/g,'').replace(/\"/g,'\\"').replace(/=/g,':').replace(/;/g,',').replace(/(.*:)/g,'"$1"').replace(/(:.*),/g,'"$1",'))
-    value= Object.entries(JSON.parse(_JSON)).map((item)=>({key:item[0],value:item[1]}))
+let _value =  $changes[name] || find_key_value($ast,name,"node").findNode?.("self","NODE_ATTR_SET").children.filter(node => !node.kind.startsWith("TOKEN"))
+.map(entry => {
+    let temp = entry.children.filter(node => !node.kind.startsWith("TOKEN")) 
+    return {key:Ast2Text(temp[0]),value:Ast2Text(temp[1])}
+    })
+console.log(_value)
+if(_value && !_value.js){ 
     
+    value= _value
+    }else if(_value){
+    value = _value.js
 }
 
 let ListEntry=value.length?value:[];
@@ -33,7 +37,7 @@ function change(){
   let attrToString = '{\n'+ ListEntry.reduce((acc,x)=>{
     return acc + x.key+'  = '+x.value+';\n'
   },'') + '\n}'
-$changes[name]={nix:attrToString}
+ $changes[name]={nix:attrToString,js:ListEntry}
 $needsSaving=true;
 }
 
