@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 import { ast, changes, needsSaving } from "@src/store/store";
 
 import {  find_key_value,setContainerHeight } from "@src/utils/globalFunctions";
+import { invoke } from "@tauri-apps/api/tauri";
 export let name;
 export let type
 
@@ -11,6 +12,9 @@ let _value =  $changes[name]?.nix || find_key_value($ast,name)[1];
 if(_value){
 _value=_value.replace(/\s*⇐change|\s*⇐ADD/g,'')
 console.log(_value);
+}else{
+    invoke("repl_command",{payload: 'builtins.toJSON config.'+name }).then((data:string)=>_value=JSON.parse(JSON.parse(data)))
+
 }
 let types = type.replace('one of','').trim().split(/\s*,\s*/g)
 let selectedType = _value||undefined;

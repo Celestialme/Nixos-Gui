@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 import { ast, changes, needsSaving } from "@src/store/store";
 
 import {  Ast2Text, find_key_value, removeLastChar ,setContainerHeight} from "@src/utils/globalFunctions";
+import { invoke } from "@tauri-apps/api/tauri";
 export let name;
 let value=[];
 let _value =  $changes[name] || find_key_value($ast,name,"node").findNode?.("self","NODE_ATTR_SET").children.filter(node => !node.kind.startsWith("TOKEN"))
@@ -9,12 +10,18 @@ let _value =  $changes[name] || find_key_value($ast,name,"node").findNode?.("sel
     let temp = entry.children.filter(node => !node.kind.startsWith("TOKEN")) 
     return {key:Ast2Text(temp[0]),value:Ast2Text(temp[1])}
     })
-console.log(_value)
+
 if(_value && !_value.js){ 
     
     value= _value
     }else if(_value){
     value = _value.js
+}else{
+  invoke("repl_command",{payload: 'builtins.toJSON config.'+name }).then((data:string)=>{ListEntry=Object.entries(JSON.parse(JSON.parse(data))).map((item)=>{
+    
+    return {key:item[0],value:JSON.stringify(item[1]),discard:true}
+  }   )})
+
 }
 
 let ListEntry=value.length?value:[];
@@ -35,6 +42,7 @@ function remove(entry){
 }
 function change(){
   let attrToString = '{\n'+ ListEntry.reduce((acc,x)=>{
+    if (x.discard)return acc;
     return acc + x.key+'  = '+x.value+';\n'
   },'') + '\n}'
  $changes[name]={nix:attrToString,js:ListEntry}

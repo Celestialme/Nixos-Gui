@@ -1,12 +1,16 @@
-<script>
+<script lang="ts">
 import { ast, changes, needsSaving } from "@src/store/store";
 
 import { find_key_value, getPkgs ,getKeyName,setContainerHeight} from "@src/utils/globalFunctions";
+import { invoke } from "@tauri-apps/api/tauri";
 export let name;
 let value;
 let _value = $changes[name]?.nix || find_key_value($ast,name)[1];
 if(_value){
     value=_value.replace(/⇐.*$/,'')
+}else{
+    invoke("repl_command",{payload: 'builtins.toJSON config.'+name }).then((data:string)=>value=JSON.parse(JSON.parse(data)))
+
 }
 
 
