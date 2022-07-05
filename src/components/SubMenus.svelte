@@ -26,25 +26,15 @@ let response;
 // $:worker.postMessage({type:'filterDict',payload: {dict:$optionList,filterKey:$OptionInputValue}})
  $:invoke("filter_dict",{filterKey:$OptionInputValue})
 
-    let filter;
- function repl_response(data) {
-   console.log(data)
-  let res = JSON.parse(JSON.parse(data))
-  let temp ={}
-          for(let item of res){
-            temp["<"+item+">"]=response.Value
-          }
-          console.log(62,temp)
-          filter({payload:{Type:"filterDict",Value:temp}})
-}
+  
 
 let unlisten;
-listen('filterDict',filter = (e:any) => {
+listen('filterDict',(e:any) => {
+
+
   
-  response = e.payload
-  if(e.payload.Type == "filterDict"){
     
-  optionKeys =  Object.keys(e.payload.Value)
+  optionKeys =  Object.keys(e.payload)
           subMenus= new Set();
           for (let subMenu of optionKeys) {
               let submenuSplit = subMenu.split('.');
@@ -54,11 +44,7 @@ listen('filterDict',filter = (e:any) => {
 
             subMenus=[...subMenus]
            
-  }else if(e.payload.Type=='filterDict-repl'){
-            
-                   invoke("repl_command",{payload:`builtins.toJSON (builtins.attrNames config.${$OptionInputValue.slice(0,-1)})`}).then(data=>repl_response(data))
-                 
-                }
+  
 }).then(_unlisten=>unlisten=_unlisten)
 
 onDestroy(()=>{

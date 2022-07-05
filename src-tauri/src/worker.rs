@@ -164,19 +164,18 @@ for (key, val) in OPTION_LIST.iter() {
     let mut  temp:HashMap<String, serde_json::Value> = HashMap::new();
    
     for _key in keys {
-        let _str = format!("<{}>",_key.to_string());
+        let _str = format!("<{}>",_key.as_str().unwrap().to_string());
         temp.insert(_str, OPTION_LIST[key].clone());
        
     };
-    window.emit("filterDict",&Resp{Type:"filterDict".to_string(),Value:temp});
-    // window.emit("filterDict",&Resp2{Type:"filterDict-repl".to_string(),Value:OPTION_LIST[key].clone()});
-
+    window.emit("filterDict",temp);
+ 
     return
    }else if filter_key.is_empty(){
     temp.insert(key.to_string(), OPTION_LIST[key].clone());
    }
 };
-window.emit("filterDict",&Resp{Type:"filterDict".to_string(),Value:temp});
+window.emit("filterDict",temp);
 
 }
 
