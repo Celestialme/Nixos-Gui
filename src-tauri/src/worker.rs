@@ -16,14 +16,16 @@ static ref PKG_KEYS:Vec<String> = {
     keys
 };
 pub static ref CURRENT_VALUE:Mutex<String> = Mutex::new("".to_owned());
-pub static ref  OPTION_LIST  :serde_json::Value =  serde_json::from_str(&match std::fs::read_to_string("/etc/NIX_GUI/options.json"){
+pub static ref  OPTION_LIST: serde_json::Map<String, serde_json::Value> =  { 
+    let tmp:serde_json::Value = serde_json::from_str(&match std::fs::read_to_string("/etc/NIX_GUI/options.json"){
     Ok(txt) => txt,
     Err(err) => "{\"error\":\"file not found\" }".to_string()
 }).unwrap();
-
+tmp.as_object().unwrap().clone()
+};
 static ref OPTION_KEYS:Vec<String> = {
     let mut keys = Vec::new();
-    for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
+    for (key, val) in OPTION_LIST.iter() {
         keys.push(key.to_owned());
     };
     keys
@@ -44,6 +46,7 @@ struct Resp2 {
 }
 pub fn filter(value:&str,mut keys:Vec<String>) ->Vec<String>{
     println!("{:?}",keys);
+    let re =  regex::Regex::new(r"^nixos\.").unwrap();
 if keys.is_empty(){
    keys = PKG_KEYS.to_vec();
 }
@@ -60,8 +63,8 @@ if *CURRENT_VALUE.lock().unwrap()!= value{
 
 keys.sort_by(|a,b|{
 let by_pname = (match PKGS[b]["pname"].as_str().unwrap().to_string().starts_with(&value){true=>&1,false=>&0}).cmp(match PKGS[a]["pname"].as_str().unwrap().to_string().starts_with(&value){true=>&1,false=>&0}); // sort  by pname
-let key_a = get_key_name(a);
-let key_b = get_key_name(b);
+let key_a = get_key_name(a,&re);
+let key_b = get_key_name(b,&re);
 let by_key_name = (match key_b.contains(value){true=>&1,false=>&0}).cmp(match key_a.contains(value){true=>&1,false=>&0});
 if by_key_name != std::cmp::Ordering::Equal{ 
     by_key_name
@@ -96,8 +99,7 @@ keys
 
 
 }
-fn get_key_name(key:&str) -> String{
-  let re =  regex::Regex::new(r"^nixos\.").unwrap();
+fn get_key_name(key:&str,re:&regex::Regex) -> String{
   re.replace(key,"").to_string()
 
 }
@@ -126,17 +128,18 @@ fn get_dict_key_name(key:&str)->String{
 
 
 pub fn filter_dict(window:Window,filter_key:&str){ // for submenus
-
+let re =regex::Regex::new(&(filter_key.to_string()+r"\.?")).unwrap();
+let re2 = regex::Regex::new(r"^.*\.").unwrap();
 let mut  temp:HashMap<String, serde_json::Value> = HashMap::new();
-for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
+for (key, val) in OPTION_LIST.iter() {
     if *CURRENT_VALUE.lock().unwrap()!= filter_key {break};
    if !filter_key.is_empty() && key.starts_with(filter_key) && !key.contains("<name>"){
        let temp_key;
        if key.split(".").map(|x|x.to_string()).collect::<Vec<String>>().contains(&get_dict_key_name(filter_key)){ // when full section name is written
-        temp_key = regex::Regex::new(&(filter_key.to_string()+r"\.?")).unwrap().replace(key,"").to_string();
+        temp_key = re.replace(key,"").to_string();
         
        }else{
-           let temp_filter_key = match regex::Regex::new(r"^.*\.").unwrap().find(filter_key) {
+           let temp_filter_key = match re2.find(filter_key) {
                Some(x) => x.as_str(),
                None => ""
            };
@@ -151,6 +154,7 @@ for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
    } else if !filter_key.is_empty() && key.starts_with(filter_key) && key.replacen(filter_key,"",1).starts_with("<name>"){
     // postMessage({type:'filterDict-repl',value:dict[key]})
     
+    println!("{:?}",OPTION_LIST[key].clone());
     window.emit("filterDict",&Resp2{Type:"filterDict-repl".to_string(),Value:OPTION_LIST[key].clone()});
 
     break
@@ -158,7 +162,6 @@ for (key, val) in OPTION_LIST.as_object().unwrap().iter() {
     temp.insert(key.to_string(), OPTION_LIST[key].clone());
    }
 };
-
 window.emit("filterDict",&Resp{Type:"filterDict".to_string(),Value:temp});
 
 }
@@ -166,14 +169,15 @@ window.emit("filterDict",&Resp{Type:"filterDict".to_string(),Value:temp});
 
 pub fn filter_options(window:Window,mut value:String){
 let _value = value.to_owned();
+let re = regex::Regex::new(r"<.*>").unwrap();
 value = regex::Regex::new(r"\.$").unwrap().replace(&value,"").to_string();
 let mut  filtered_key:Vec<String> = OPTION_KEYS.iter().filter(|key|key.contains(
-    &regex::Regex::new(r"<.*>").unwrap().replace_all(&value,"<name>").to_string()
+    &re.replace_all(&value,"<name>").to_string()
 
 )).map(|x|x.to_string()).collect();
 
 
-let _match = match regex::Regex::new(r"<.*>").unwrap().find(&value){
+let _match = match re.find(&value){
     Some(x)=>x.as_str(),
     None =>"<name>"
 };
@@ -189,15 +193,17 @@ filtered_key.sort_by(|a,b|{
 });
 
 if *CURRENT_VALUE.lock().unwrap()!= _value {return};
-println!("{:?}",filtered_key);
-let filtered_option = filtered_key.iter().map(|key| {
+
+let mut filtered_option = filtered_key.iter().map(|key| {
     
-    let mut option_body = OPTION_LIST[&key].as_object().unwrap().clone();
-    option_body.insert("key".to_owned(),serde_json::Value::String( regex::Regex::new(r"<.*>").unwrap().replace_all(&key,_match).to_string()
+    let mut option_body = OPTION_LIST[key].as_object().unwrap().clone();
+    option_body.insert("key".to_owned(),serde_json::Value::String( re.replace_all(&key,_match).to_string()
 ));
     serde_json::to_string(&option_body).unwrap()
     }).collect::<Vec<String>>();
-
+    filtered_option.truncate(50);
+    
+    
 window.emit("filterOptions",filtered_option);
 
 }
