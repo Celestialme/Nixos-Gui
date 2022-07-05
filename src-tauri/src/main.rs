@@ -95,16 +95,11 @@ fn save_config(payload:String) -> String{
 
 #[tauri::command]
 fn repl_command(payload:String) -> String  {
-  //  builtins.toJSON (builtins.attrNames config.users.users)
-  println!("{}",payload);
     let data = format!("{}\n",payload);
     nix_env::repl_command(Arc::clone(&RESPONSE),&data,&STDIN.lock().unwrap())
   }
 
-pub fn pub_repl_command(payload:String) -> String  {
-    let data = format!("{}\n",payload);
-    nix_env::repl_command(Arc::clone(&RESPONSE),&data,&STDIN.lock().unwrap())
-  }
+
 
 fn start_repl(){
  

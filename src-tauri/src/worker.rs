@@ -46,7 +46,6 @@ struct Resp2 {
     Value:serde_json::Value
 }
 pub fn filter(value:&str,mut keys:Vec<String>) ->Vec<String>{
-    println!("{:?}",keys);
     let re =  regex::Regex::new(r"^nixos\.").unwrap();
 if keys.is_empty(){
    keys = PKG_KEYS.to_vec();
