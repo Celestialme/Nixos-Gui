@@ -159,11 +159,16 @@ for (key, val) in OPTION_LIST.iter() {
     filter_key.pop();
    
     let payload = format!("builtins.toJSON (builtins.attrNames config.{})",filter_key);
-    let temp:serde_json::Value = serde_json::from_str(&repl_command(payload)).unwrap();
-    let temp:&serde_json::Map<String, serde_json::Value> = temp.as_object().unwrap();
-    for (key, val) in temp.iter() {
-        println("{}",key);
+    let keys:Vec<serde_json::Value> = serde_json::from_str(&repl_command(payload).replace("\"","").replace(r"\","\"")).unwrap();
+   
+    let mut  temp:HashMap<String, serde_json::Value> = HashMap::new();
+   
+    for _key in keys {
+        let _str = format!("<{}>",_key.to_string());
+        temp.insert(_str, OPTION_LIST[key].clone());
+       
     };
+    window.emit("filterDict",&Resp{Type:"filterDict".to_string(),Value:temp});
     // window.emit("filterDict",&Resp2{Type:"filterDict-repl".to_string(),Value:OPTION_LIST[key].clone()});
 
     return
