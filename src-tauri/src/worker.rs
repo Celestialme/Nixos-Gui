@@ -1,4 +1,5 @@
 
+    
      use tauri::Window;
     use std::sync::{Arc,Mutex};
     use std::collections::HashMap;
@@ -127,7 +128,7 @@ fn get_dict_key_name(key:&str)->String{
 
 
 
-pub fn filter_dict(window:Window,filter_key:&str){ // for submenus
+pub fn filter_dict(window:Window,filter_key:&str,repl_command:&dyn Fn(String) -> String ){ // for submenus
 let re =regex::Regex::new(&(filter_key.to_string()+r"\.?")).unwrap();
 let re2 = regex::Regex::new(r"^.*\.").unwrap();
 let mut  temp:HashMap<String, serde_json::Value> = HashMap::new();
@@ -154,10 +155,18 @@ for (key, val) in OPTION_LIST.iter() {
    } else if !filter_key.is_empty() && key.starts_with(filter_key) && key.replacen(filter_key,"",1).starts_with("<name>"){
     // postMessage({type:'filterDict-repl',value:dict[key]})
     
-    println!("{:?}",OPTION_LIST[key].clone());
-    window.emit("filterDict",&Resp2{Type:"filterDict-repl".to_string(),Value:OPTION_LIST[key].clone()});
+    let mut  filter_key = filter_key.to_string();
+    filter_key.pop();
+   
+    let payload = format!("builtins.toJSON (builtins.attrNames config.{})",filter_key);
+    let temp:serde_json::Value = serde_json::from_str(&repl_command(payload)).unwrap();
+    let temp:&serde_json::Map<String, serde_json::Value> = temp.as_object().unwrap();
+    for (key, val) in temp.iter() {
+        println("{}",key);
+    };
+    // window.emit("filterDict",&Resp2{Type:"filterDict-repl".to_string(),Value:OPTION_LIST[key].clone()});
 
-    break
+    return
    }else if filter_key.is_empty(){
     temp.insert(key.to_string(), OPTION_LIST[key].clone());
    }
