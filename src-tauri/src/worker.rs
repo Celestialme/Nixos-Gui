@@ -56,6 +56,11 @@ keys = keys.into_iter().filter(|key| {
     key.contains(&value) || (!PKGS[key]["pname"].is_null() && PKGS[key]["pname"].as_str().unwrap().to_string().contains(&value) ) ||  ( !PKGS[key]["description"].is_null() && PKGS[key]["description"].as_str().unwrap().to_string().contains(&value))
 
 }).collect();
+}else{
+    keys = keys.into_iter().filter(|key| {
+        !key.is_empty()
+    
+    }).collect();
 };
 if *CURRENT_VALUE.lock().unwrap()!= value{
     return Vec::new();

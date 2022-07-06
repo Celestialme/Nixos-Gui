@@ -2,7 +2,7 @@
 
     <div class='container' >
         <button class:showInstalled={showInstalled} on:click={()=>{showInstalled=!showInstalled;filter()}}>SHOW INSTALLED</button>
-        <button class:showInstalled={showInstalled} on:click={runInvoke}>run invoke</button>
+        
         <!-- <input type="text" bind:value={inputValue} on:keyup={filter}> -->
         
         {#each filtered_pkgs as  pkg }
@@ -113,17 +113,12 @@ function filter(){
         
        console.log("filtering2")
         // worker.postMessage({type:'filterPackages',payload:{keys:_filteredKey,packages,value:inputValue}})
+       
         invoke("filter_packages",{value:inputValue,keys:[...$nixEnvPkgs,...$markedPkgs]})
 
     }
 }
 
-
-
-
-function runInvoke(){
-    invoke("exp",{pkgs:["1","2","3"]})
-}
 
 
 
