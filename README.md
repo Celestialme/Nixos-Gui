@@ -33,8 +33,7 @@ nix-shell
 npm run tauri dev
 ```
 
-# OR download release and install
-https://github.com/Celestialme/Nixos-Gui/releases
+# OR create default.nix from code below and run nix-build.
 
 nix-build --expr 'with import \<nixpkgs> {}; callPackage ./default.nix {}'
 
@@ -45,14 +44,18 @@ default.nix
 { stdenv, dpkg,  autoPatchelfHook,pkgs ? import <nixpkgs> {} }:
 let
   version = "0.1.0";
-  src = ./nixos-gui_0.1.0_amd64.deb;
+   src = pkgs.fetchFromGitHub {
+          owner = "celestialme";
+          repo = "Nixos-Gui";
+          rev = "1d570aa795c52cc5fcdb47b8a3401286964fe576";
+          sha256= "0h2nfldjcqsy7szcpp87jv2sdifyr654kzpl1swhsxz0fpsb18da";
+        };
 in stdenv.mkDerivation {
   name = "Nixos_Gui-${version}";
   system = "x86_64-linux";
   inherit src;
   nativeBuildInputs = [
     autoPatchelfHook
-    dpkg
   ];
   buildInputs = [
        pkgs.openssl
@@ -61,10 +64,8 @@ in stdenv.mkDerivation {
 
   unpackPhase = "true";
   installPhase = ''
-    mkdir -p $out
-    dpkg -x $src $out
-    mv $out/usr/* $out
-    rm -r $out/usr
+     mkdir -p $out
+    cp -r $src/usr/* $out
   '';
 }
 
