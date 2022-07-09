@@ -14,26 +14,7 @@ on the first run you have to let app create packages and options database as roo
 downloads and rebuild has progress bar indicator.
 
 
-# create local dev env
-``` 
-git clone https://github.com/Celestialme/Nixos-Gui.git 
-cd Nixos-Gui
-```
-### open 2 terminals here:
-
-terminal #1 run:
-```
-nix-shell
-npm install
-npm run dev
-```
-terminal #2 run:
-```
-nix-shell
-npm run tauri dev
-```
-
-# OR create default.nix from code below and run nix-build.
+# Installation create default.nix from code below and run nix-build.
 
 nix-build --expr 'with import \<nixpkgs> {}; callPackage ./default.nix {}'
 
@@ -70,6 +51,25 @@ in stdenv.mkDerivation {
 }
 
 ```
+#Tinkering: create local dev env
+``` 
+git clone https://github.com/Celestialme/Nixos-Gui.git 
+cd Nixos-Gui
+```
+### open 2 terminals here:
+
+terminal #1 run:
+```
+nix-shell
+npm install
+npm run dev
+```
+terminal #2 run:
+```
+nix-shell
+npm run tauri dev
+```
+
 # OR fork and build with actions yourself
 ![Alt text](screenshots/1.png?raw=true "Optional Title")
 ![Alt text](screenshots/3.png?raw=true "Optional Title")
