@@ -1,0 +1,7 @@
+[Desktop Entry]
+Categories=Development;
+Exec=nixos-gui
+Icon=nixos-gui
+Name=nixos-gui
+Terminal=false
+Type=Application
