@@ -20,6 +20,7 @@ lazy_static! {
  .arg("repl")
  .stdin(Stdio::piped())
  .stdout(Stdio::piped())
+ .stderr(Stdio::piped())
  .spawn()
  .expect("failed to execute child"));
  static   ref   STDIN:Mutex<ChildStdin> = Mutex::new( CHILD.lock().unwrap().stdin.take().unwrap());
@@ -104,7 +105,7 @@ fn repl_command(payload:String) -> String  {
 fn start_repl(){
  
   let mut out = BufReader::new(CHILD.lock().unwrap().stdout.take().unwrap());
-
+  let mut err = BufReader::new(CHILD.lock().unwrap().stderr.take().unwrap());
   let response = Arc::clone(&RESPONSE);
   std::thread::spawn(move ||{
     out.lines().for_each(|line|{
@@ -117,6 +118,20 @@ fn start_repl(){
   );
   
   });
+
+
+let response = Arc::clone(&RESPONSE);
+std::thread::spawn(move ||{
+  err.lines().for_each(|line|{
+    if line.as_ref().unwrap()=="" || line.as_ref().unwrap().starts_with("warning: Nix") || line.as_ref().unwrap().contains("Inappropriate ioctl for device"){return}
+     (*response.lock().unwrap()).value =line.as_ref().unwrap().to_string();
+     (*response.lock().unwrap()).status = "ERROR".to_string();
+     println!("{}",line.as_ref().unwrap());
+    
+  }
+);
+
+});
 
 }
 
