@@ -14,7 +14,7 @@ on the first run you have to let app create packages and options database as roo
 downloads and rebuild has progress bar indicator.
 
 
-# Installation create default.nix from code below and run nix-build.
+# Installation: create default.nix from code below and run nix-build.
 
 nix-build --expr 'with import \<nixpkgs> {}; callPackage ./default.nix {}'
 
@@ -51,7 +51,7 @@ in stdenv.mkDerivation {
 }
 
 ```
-#Tinkering: create local dev env
+# Tinkering: create local dev env
 ``` 
 git clone https://github.com/Celestialme/Nixos-Gui.git 
 cd Nixos-Gui
