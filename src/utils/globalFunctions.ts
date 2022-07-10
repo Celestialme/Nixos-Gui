@@ -19,29 +19,32 @@ return this[this.length-1]
  
 
 export function findNode(node,key,text?,found={value:false}):any {
-node = node=='self'?this:node //is it chained or passed
+    node = node=='self'?this:node //is it chained or passed
 
 
-if(node.kind==key){
-    if(text){
-        if(Ast2Text(node) !=text)return
+    if(node.kind==key){
+        if(text){
+            if(Ast2Text(node) !=text)return
+            found.value =node
+            found.value.findNode = findNode
+            return
+        }
         found.value =node
-        return
+        found.value.findNode = findNode
+        return 
     }
-    found.value =node
-    return 
-}
-if(!node.children){
-    return 
-}
-
-for(let child of node.children){
-    findNode(child,key,text,found)
-}
-if(found.value){
-found.value.findNode = findNode
-}
-return found.value
+    
+    
+    
+    
+    if(found.value ){
+    found.value.findNode = findNode
+    }else if(node.children){
+        for(let child of node.children){
+        findNode(child,key,text,found)
+    }
+    }
+    return found.value
 }
 
 
@@ -144,13 +147,12 @@ let endOfSection = findLastIndex( node.children,child => child.kind=='TOKEN_COMM
        
     }else{
         let lastIndex =findLastIndex( node.children,child => child.kind=='NODE_KEY_VALUE')
-       node.children.splice(lastIndex+3,0,{kind: 'TOKEN_WHITESPACE',text:"\n\n\n\n\n\n\n\n"})
-        node.children.splice(lastIndex+3,0,{kind: 'TOKEN_COMMENT',text:"#END OF NIX_GUI SECTION"})
-         node.children.splice(lastIndex+3,0,{kind: 'TOKEN_WHITESPACE',text:"\n"})
-        node.children.splice(lastIndex+3,0,{kind: 'NODE_KEY_VALUE',children:[{kind:'NODE_VALUE', text:key +' = '+value+'; ⇐ADD' }]})
-         
-        node.children.splice(lastIndex+3,0,{kind: 'TOKEN_COMMENT',text:"#START OF NIX_GUI SECTION\n\n\n"})
-        node.children.splice(lastIndex+3,0,{kind: 'TOKEN_WHITESPACE',text:"\n\n\n\n\n\n\n\n"})
+        
+        node.children.splice( lastIndex+2  ,0,{kind: 'TOKEN_COMMENT',text:"\n\n\n#START OF NIX_GUI SECTION\n\n\n"})
+        node.children.splice( lastIndex+3 ,0,{kind: 'NODE_KEY_VALUE',children:[{kind:'NODE_VALUE', text:key +' = '+value+'; ⇐ADD' }]})
+         node.children.splice( lastIndex+4  ,0,{kind: 'TOKEN_WHITESPACE',text:"\n"})
+         node.children.splice( lastIndex+5  ,0,{kind: 'TOKEN_COMMENT',text:"#END OF NIX_GUI SECTION"})
+         node.children.splice( lastIndex+6  ,0,{kind: 'TOKEN_WHITESPACE',text:"\n\n\n\n\n\n\n\n"})
         
     }
 

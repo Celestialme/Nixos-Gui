@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { ast, markedPkgs } from "@src/store/store";
 
 import { Ast2Text, config, getPkgs } from "@src/utils/globalFunctions";
@@ -9,24 +9,28 @@ export let compare;
 let access=undefined;
 let task ="Save configuration"
 let conf = Ast2Text($ast).split(/\n/)
+let content:HTMLElement;
 async  function save(){
     //TODO write to config file 
-    let configuration = conf.join('\n').replace(/⇐change|⇐ADD/g,'')
+    let configuration = content.innerText.replace(/⇐change|⇐ADD/g,'')
+    console.log(content.innerText)
     // let data = JSON.stringify(configuration)
     await invoke("save_config",{payload:configuration}).then(data=>access = data!="denied")
-    await invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$markedPkgs=getPkgs($ast))
+    await invoke("get_config").then((data:string)=>$ast = JSON.parse(data)).then(()=>$markedPkgs=getPkgs($ast))
     access && (compare = false);
 }
 function cancel(){
-    invoke("get_config").then(data=>$ast = JSON.parse(data)).then(()=>$markedPkgs=getPkgs($ast))
+    invoke("get_config").then((data:string)=>$ast = JSON.parse(data)).then(()=>$markedPkgs=getPkgs($ast))
 compare = false;
 }
+
+
 </script>
 {#if access==false}
 <Denied {task} bind:access/>
 {/if}
 
-<div class='container'>
+<div class='container'   >
     <div class='title'>
 
         <p>DOES IT LOOK GOOD?!</p>
@@ -34,13 +38,13 @@ compare = false;
         <button class='cancel' on:click={cancel}>Cancel</button>
     </div>
 
-<div class='content'>
+<div class='content' contenteditable bind:this={content}>
 
     {#each conf as line }
     <p 
     class:change={line.includes('⇐change')}
     class:add={line.includes('⇐ADD')}
-    >{line}</p>
+    >{line || " "}</p>
     {/each}
     
 </div>
@@ -67,6 +71,9 @@ compare = false;
     .content{
         height: calc(98vh - 78px);
         overflow: auto;
+    }
+    p span{
+        font-size:25px !important
     }
     p{ margin: 6px 0;min-height: 20px; white-space: pre;}
     .add{
