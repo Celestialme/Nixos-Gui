@@ -161,12 +161,14 @@ let endOfSection = findLastIndex( node.children,child => child.kind=='TOKEN_COMM
 }
 
 export function addPkg(pkg,ast){
+    pkg = pkg.replace(/^nixos\./,"")
 let pkgsNode = find_key_value(ast,'environment.systemPackages','node' ).findNode('self','NODE_WITH').findNode('self','NODE_LIST')
 pkgsNode.children.splice(-2,0,{kind:'WHITE_SPACE',text:'\n     '})
 pkgsNode.children.splice(-2,0,{kind:'NODE_IDENT',text:pkg+' ⇐ADD'})
 
 }
 export function removePkg(pkg,ast){
+    pkg = pkg.replace(/^nixos\./,"")
     let pkgsNode = find_key_value(ast,'environment.systemPackages','node' ).findNode('self','NODE_WITH').findNode('self','NODE_LIST')
    let index =  findLastIndex(pkgsNode.children,(child)=>{
        debugger

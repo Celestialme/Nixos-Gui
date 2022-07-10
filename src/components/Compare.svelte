@@ -72,9 +72,6 @@ compare = false;
         height: calc(98vh - 78px);
         overflow: auto;
     }
-    p span{
-        font-size:25px !important
-    }
     p{ margin: 6px 0;min-height: 20px; white-space: pre;}
     .add{
         background-color:#35ae21;
