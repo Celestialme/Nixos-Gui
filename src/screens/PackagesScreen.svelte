@@ -5,7 +5,7 @@
         
         <!-- <input type="text" bind:value={inputValue} on:keyup={filter}> -->
         
-        {#each filtered_pkgs as  pkg }
+        {#each [{key:"nixos.google-chrome",description:"Google chrome browser",version:"1.0.0"}] as  pkg }
          
         <Package name={pkg.key} description={pkg.description} version={pkg.version}/>
         

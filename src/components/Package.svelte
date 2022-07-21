@@ -1,11 +1,8 @@
 <div class="container">
-    <div class='left-panel'>
-        {#key name}
-            <CheckIcon {name}/>
-            <DownloadIcon  {marked} on:click={()=>startDownload(name)}/>
-        {/key}
+    <div class="icon-panel">
+        <img src="https://cdn-icons-png.flaticon.com/512/220/220218.png" alt="">
     </div>
-    <div class='right-panel'>
+    <div class='content-panel'>
         <p class='name'>{@html getKeyName(name.replace(/\./g,".<wbr>"))}</p>
         <p class='description'>{description}</p>
         <p class='version'>version: {version}</p>
@@ -15,7 +12,12 @@
         {/if}
         {/key}
     </div>
-
+    <div class='right-panel'>
+        {#key name}
+            <CheckIcon {name}/>
+            <DownloadIcon  {marked} on:click={()=>startDownload(name)}/>
+        {/key}
+    </div>
 </div>
 
 
@@ -81,7 +83,7 @@ onDestroy(()=>{
 </script>
 
 <style>
-    .left-panel{
+    .right-panel{
         display:flex;
         flex-direction: column;
         justify-content: space-around;
@@ -89,13 +91,20 @@ onDestroy(()=>{
         width:60px;
         background: rgba(0, 0, 0, 0.07);
     }
-    .right-panel{
+    .content-panel{
         display:flex;
         padding: 20px 30px;
         min-height:150px;
         flex-direction: column;
         justify-content: space-around;
         flex-grow: 1;
+    }
+    .icon-panel{
+        width:100px
+    }
+    .icon-panel img{
+        width:100px;
+       margin-top:20px;
     }
     .container{
     display: flex;
