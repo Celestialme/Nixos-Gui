@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   viewBox="0 0 128 128"
+   style="display:inline;enable-background:new"
+   version="1.0"
+   id="svg11300"
+   height="128"
+   width="128">
+  <title
+     id="title4162">Adwaita Icon Template</title>
+  <defs
+     id="defs3" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>GNOME Design Team</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:source />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:title>Adwaita Icon Template</dc:title>
+        <dc:subject>
+          <rdf:Bag />
+        </dc:subject>
+        <dc:date />
+        <dc:rights>
+          <cc:Agent>
+            <dc:title />
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title />
+          </cc:Agent>
+        </dc:publisher>
+        <dc:identifier />
+        <dc:relation />
+        <dc:language />
+        <dc:coverage />
+        <dc:description />
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title />
+          </cc:Agent>
+        </dc:contributor>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-172)"
+     style="display:inline"
+     id="layer1">
+    <g
+       style="display:inline"
+       id="layer9">
+      <g
+         transform="translate(-8.5,-20.000002)"
+         id="g211">
+        <g
+           transform="translate(376.5,19.999882)"
+           id="g2147"
+           style="display:inline;enable-background:new">
+          <rect
+             style="display:inline;opacity:1;vector-effect:none;fill:#ef2975;fill-opacity:1;stroke:none;stroke-width:0.24999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal;enable-background:new"
+             id="rect2145"
+             width="104"
+             height="104.00024"
+             x="-356"
+             y="184"
+             rx="7.9999986"
+             ry="8" />
+        </g>
+        <path
+           style="display:inline;fill:#ffffff;stroke-width:1;enable-background:new"
+           d="m 92.100159,230.55017 -1.75001,8.45003 c -0.2,0.90001 -1.05001,1.70001 -2.10001,1.70001 h -15.20006 c -1.70001,0 -3.10002,1.40001 -3.10002,3.10002 v 1.85 c 0,1.70001 1.40001,3.10002 3.10002,3.10002 h 12.85005 c 1.20001,0 2.20001,1.15 1.95001,2.40001 -0.25,1.3 -1.60001,7.90003 -1.75001,8.60003 -0.1,0.75001 -0.9,1.70001 -2.10001,1.70001 h -10.50004 c -2.20001,0.05 -2.65001,0.1 -3.95002,1.70001 -1.3,1.6 -12.80005,16.00006 -12.80005,16.00006 -0.1,0.15001 -0.2,0.1 -0.2,-0.05 v -48.9502 c 0,-1.15001 0.95,-2.10001 2.10001,-2.10001 h 31.55013 c 1.1,0 2.20001,1.1 1.90001,2.50001 m 2.30001,-10.55005 c 0,0 -33.55015,0 -38.95017,0 -5.35002,0 -6.95003,4.05002 -6.95003,6.60003 v 61.90026 c 0,3.05002 1.55001,3.95002 2.40001,4.30002 0.85001,0.35 3.10002,0.6 4.70002,-1 0,0 18.50008,-21.55009 18.80008,-21.90009 0.3,-0.35001 0.45,-0.35001 0.65,-0.35001 0.20001,0 7.85004,0 11.70005,0 5.00003,0 5.95003,-3.45001 6.50003,-5.55002 0.45,-1.75001 5.600031,-26.75011 7.200031,-34.65015 1.20001,-6.10002 -0.35,-9.35004 -6.050021,-9.35004"
+           id="path22" />
+      </g>
+    </g>
+  </g>
+</svg>

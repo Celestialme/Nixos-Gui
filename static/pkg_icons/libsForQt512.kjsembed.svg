@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Karbon14, part of koffice: http://www.koffice.org/karbon -->
+<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px">
+<defs>
+<radialGradient id="defitem0" gradientUnits="userSpaceOnUse" cx="38.3893" cy="67.1812" fx="38.3893" fy="67.1812" r="52.9031" >
+<stop stop-color="#ff0000" offset="0" stop-opacity="1" />
+<stop stop-color="#ffff00" offset="1" stop-opacity="1" />
+</radialGradient>
+<radialGradient id="defitem1" gradientUnits="userSpaceOnUse" cx="38.3893" cy="67.1812" fx="38.3893" fy="67.1812" r="52.9031" >
+<stop stop-color="#ff0000" offset="0" stop-opacity="1" />
+<stop stop-color="#ffff00" offset="1" stop-opacity="1" />
+</radialGradient>
+</defs>
+<g transform="scale(1, -1) translate(0, -100)">
+<g id="Layer">
+<path fill="none" stroke="#000000" d="M92.0565 40.6968C92.1246 41.046 70.3787 47.6449 70.3787 47.6449C70.3787 47.6449 82.4698 71.7391 82.2317 71.9301C81.9937 72.121 70.3787 47.6449 70.3787 47.6449C70.3787 47.6449 56.2417 69.8333 56.0264 69.6021C55.8112 69.3709 70.3787 47.6449 70.3787 47.6449C70.3787 47.6449 49.5505 37.2639 49.6555 36.93C49.7605 36.5961 70.3787 47.6449 70.3787 47.6449C70.3787 47.6449 71.6432 19.0406 71.9233 19.0655C72.2034 19.0904 70.3787 47.6449 70.3787 47.6449C70.3787 47.6449 91.9884 40.3475 92.0565 40.6968Z"  fill-rule="evenodd" />
+<g>
+<path id="path9" fill="url(#defitem0)" stroke="#000000" stroke-width="0.841696" d="M94.5202 70.4746L75.1558 91.7504L46.4876 98.0159L19.4661 86.877L4.41228 62.5894L7.07545 34.4305L26.4399 13.1547L55.1081 6.8892L82.1296 18.0281L97.1843 42.3157L94.5202 70.4746Z"  fill-rule="evenodd" />
+<path id="path11" fill="url(#defitem1)" stroke="#000000" stroke-width="0.841696" d="M53.921 52.4525L57.3639 63.2884L53.5267 74.0003L43.8758 80.4977L32.0978 80.2985L22.6906 73.4789L19.2485 62.643L23.0849 51.931L32.7358 45.4329L44.5137 45.6329L53.921 52.4525Z"  fill-rule="evenodd" />
+</g>
+</g>
+</g>
+</svg>

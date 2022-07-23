@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg3003"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="uSpeech-en-GB.svg">
+  <defs
+     id="defs3005">
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3239">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="6.9230635"
+         id="feGaussianBlur3241" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8"
+     inkscape:cx="41.9375"
+     inkscape:cy="30.191406"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="937"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3008">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1004.3622)">
+    <g
+       id="g2998"
+       transform="matrix(0.15349855,0,0,0.15349855,-0.70335162,983.29866)">
+      <path
+         transform="matrix(0.5932936,0,0,0.5932936,-1.953804,152.84538)"
+         style="font-size:12px;fill:#000000;fill-opacity:0.49803922;fill-rule:evenodd;stroke-width:2.5;stroke-linecap:round;filter:url(#filter3239)"
+         d="M 257.44008,30.840615 C 148.26068,32.594977 51.959695,93.437371 31.514119,179.74687 8.1572899,278.34599 92.595869,373.02219 220.01919,391.15312 c 0.0268,0.15189 -0.0183,0.37662 -0.0305,0.59375 l -0.73076,0.0312 -99.29172,92.34375 204.00323,-95.84375 -2.00958,0.0625 1.30927,-1 2.92303,-0.0937 -2.22272,1.03125 2.80124,-0.0937 0,-0.96875 0.0304,0 C 415.07407,367.77053 476.9617,315.08459 493.50531,245.24687 516.87169,146.60745 432.32807,51.885091 304.81755,33.809365 288.87873,31.549899 273.03714,30.589992 257.44008,30.840615 z"
+         id="path780"
+         inkscape:connector-curvature="0" />
+      <path
+         style="font-size:12px;fill:#ffffff;fill-rule:evenodd;stroke:#3399ff;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 167.42983,150.34281 c -64.77544,1.04085 -121.910197,37.13825 -134.040425,88.34512 -13.857456,58.49822 36.239413,114.66901 111.838855,125.42597 0.0159,0.0901 -0.0109,0.22346 -0.0181,0.35227 l -0.43355,0.0185 -58.909142,54.78695 121.033802,-56.86348 -1.19227,0.0371 0.77679,-0.59329 1.73421,-0.0556 -1.31873,0.61183 1.66196,-0.0556 0,-0.57476 0.0181,0 c 52.37174,-11.53664 89.08927,-42.79487 98.90449,-84.22914 13.86312,-58.52214 -36.29606,-114.7203 -111.94723,-125.44452 -9.45639,-1.34052 -18.85512,-1.91002 -28.10875,-1.76133 z"
+         id="path779"
+         inkscape:connector-curvature="0" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold"
+       x="9.5"
+       y="1031.1122"
+       id="text2987"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2989"
+         x="9.5"
+         y="1031.1122">US</tspan></text>
+  </g>
+</svg>

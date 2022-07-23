@@ -1,6 +1,7 @@
 <div class="container">
     <div class="icon-panel">
-        <img src="https://cdn-icons-png.flaticon.com/512/220/220218.png" alt="">
+        <img src={img_src} on:error={try_url} alt="">
+        
     </div>
     <div class='content-panel'>
         <p class='name'>{@html getKeyName(name.replace(/\./g,".<wbr>"))}</p>
@@ -77,8 +78,19 @@ onDestroy(()=>{
   unlisten && unlisten()
 })
 
-
-
+let try_count=0
+let img_src ="static/pkg_icons/"+getKeyName(name)+".png"
+function try_url(){
+    try_count++;
+    switch (try_count){
+        case 1: 
+         img_src ="static/pkg_icons/"+getKeyName(name)+".svg"
+        break
+        case 2: 
+         img_src ="static/pkg_icons/"+getKeyName(name)+".gif"
+        break
+    }
+}
 
 </script>
 
@@ -102,7 +114,7 @@ onDestroy(()=>{
     .icon-panel{
         width:100px
     }
-    .icon-panel img{
+    .icon-panel img, picture{
         width:100px;
        margin-top:20px;
     }

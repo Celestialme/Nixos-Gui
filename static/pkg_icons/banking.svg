@@ -1,0 +1,26 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M112 40H16C11.5817 40 8 43.5817 8 48V108C8 112.418 11.5817 116 16 116H112C116.418 116 120 112.418 120 108V48C120 43.5817 116.418 40 112 40Z" fill="url(#paint0_linear_1_377)"/>
+<path d="M112 28H16C11.5817 28 8 31.5817 8 36V104C8 108.418 11.5817 112 16 112H112C116.418 112 120 108.418 120 104V36C120 31.5817 116.418 28 112 28Z" fill="#62A0EA"/>
+<rect x="20" y="52" width="18" height="14" rx="2" fill="#FFA348"/>
+<rect x="20" y="74" width="80" height="10" rx="5" fill="#1A5FB4"/>
+<rect x="20" y="88" width="18" height="8" rx="4" fill="#1A5FB4"/>
+<rect x="44" y="88" width="18" height="8" rx="4" fill="#1A5FB4"/>
+<rect x="100" y="36" width="8" height="8" rx="4" fill="#1C71D8"/>
+<rect x="90" y="36" width="8" height="8" rx="4" fill="#1C71D8"/>
+<rect x="80" y="36" width="8" height="8" rx="4" fill="#1C71D8"/>
+<rect x="20" y="36" width="32" height="8" rx="4" fill="#1C71D8"/>
+<rect x="68" y="88" width="18" height="8" rx="4" fill="#1A5FB4"/>
+<rect x="100" y="100" width="11.3137" height="11.3137" rx="2" transform="rotate(-45 100 100)" fill="#E5A50A"/>
+<rect x="100" y="92" width="11.3137" height="11.3137" rx="2" transform="rotate(45 100 92)" fill="#E01B24"/>
+<path d="M104 96L106.586 98.5858C107.367 99.3668 107.367 100.633 106.586 101.414L104 104L101.414 101.414C100.633 100.633 100.633 99.3668 101.414 98.5858L104 96Z" fill="#E66100"/>
+<defs>
+<linearGradient id="paint0_linear_1_377" x1="8.00001" y1="116" x2="120" y2="116" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3584E4"/>
+<stop offset="0.0357143" stop-color="#1C71D8"/>
+<stop offset="0.0713653" stop-color="#3584E4"/>
+<stop offset="0.928571" stop-color="#3584E4"/>
+<stop offset="0.964286" stop-color="#1C71D8"/>
+<stop offset="1" stop-color="#3584E4"/>
+</linearGradient>
+</defs>
+</svg>
