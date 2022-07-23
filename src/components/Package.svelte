@@ -79,15 +79,15 @@ onDestroy(()=>{
 })
 
 let try_count=0
-let img_src ="static/pkg_icons/"+getKeyName(name)+".png"
+let img_src ="pkg_icons/"+getKeyName(name)+".png"
 function try_url(){
     try_count++;
     switch (try_count){
         case 1: 
-         img_src ="static/pkg_icons/"+getKeyName(name)+".svg"
+         img_src ="pkg_icons/"+getKeyName(name)+".svg"
         break
         case 2: 
-         img_src ="static/pkg_icons/"+getKeyName(name)+".gif"
+         img_src ="pkg_icons/"+getKeyName(name)+".gif"
         break
     }
 }
