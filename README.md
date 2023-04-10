@@ -41,14 +41,18 @@ in pkgs.stdenv.mkDerivation {
        pkgs.webkitgtk
   ];
 
-  unpackPhase = "true";
+  unpackPhase = "
+  tar -xvf $src
+  ";
   installPhase = ''
      mkdir -p $out
-     ls $src
+     echo "current dir"
+     ls -a
      
-    cp -r * $out
+    cp -r ./Nixos-*/usr/* $out
   '';
 }
+
 
 
 ```
