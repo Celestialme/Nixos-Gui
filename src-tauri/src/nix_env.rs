@@ -195,15 +195,17 @@ let re_end = regex::Regex::new("\\}\"$").unwrap();
 for pkg in pkgs{
   i+=1;
  println!("{}/{}",i,length);
+ let v: Vec<String> = pkg.split('.').map(|x| format!("\"{}\"",x)).collect();
+  let pkg_path = format!("[{}]", v.join(" "));
  let out =  repl_command(Arc::clone(&RESPONSE),&format!("let \
   try = builtins.tryEval; \
-  pkg = pkgs.{}; \
+  pkg = pkgs.lib.attrsets.getAttrFromPath {} pkgs; \
   in builtins.toJSON (pkgs.lib.attrsets.setAttrByPath [\"nixos.{}\"] \
   {{ description=(try pkg.description or pkg.meta.description or \"\").value; \
   version=(try pkg.version or pkg.meta.version or \"\").value; \
   name=(try pkg.name or pkg.meta.name or \"\").value;\
   pname=(try pkg.pname or pkg.name or pkg.meta.name or \"\").value;\
-  homepage = (try pkg.meta.homepage or \"\").value; }})",pkg,pkg),&stdin);
+  homepage = (try pkg.meta.homepage or \"\").value; }})",pkg_path,pkg),&stdin);
   let temp;
    if i==1{
     let mut tmp_string = out.replace(r"\\\\","").replace(r"\\\","¢").replace(r"\","").replace("¢",r"\");
