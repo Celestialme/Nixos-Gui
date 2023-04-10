@@ -22,21 +22,19 @@ default.nix
   
   🠋🠋🠋
 ```
-{ stdenv, dpkg,  autoPatchelfHook,pkgs ? import <nixpkgs> {} }:
+{    pkgs ? import <nixpkgs> {} }:
 let
   version = "0.1.0";
-   src = pkgs.fetchFromGitHub {
-          owner = "celestialme";
-          repo = "Nixos-Gui";
-          rev = "1d570aa795c52cc5fcdb47b8a3401286964fe576";
-          sha256= "0h2nfldjcqsy7szcpp87jv2sdifyr654kzpl1swhsxz0fpsb18da";
-        };
-in stdenv.mkDerivation {
+  
+in pkgs.stdenv.mkDerivation {
   name = "Nixos_Gui-${version}";
   system = "x86_64-linux";
-  inherit src;
+  src = pkgs.fetchurl {
+        url = "https://github.com/celestialme/Nixos-Gui/archive/47ee6b29713ba04e4a088b31778fd1e0e358f087.tar.gz";
+        sha256= "sha256-x4ld1SIg7q8qBYifgY89mXY3vl2S0JX5nsKsaEzUo6Y=";
+      };
   nativeBuildInputs = [
-    autoPatchelfHook
+    pkgs.autoPatchelfHook
   ];
   buildInputs = [
        pkgs.openssl
@@ -46,9 +44,12 @@ in stdenv.mkDerivation {
   unpackPhase = "true";
   installPhase = ''
      mkdir -p $out
-    cp -r $src/usr/* $out
+     ls $src
+     
+    cp -r * $out
   '';
 }
+
 
 ```
 # Tinkering: create local dev env
